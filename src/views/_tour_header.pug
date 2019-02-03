@@ -1,10 +1,9 @@
 header
   .site-header.grid-container.grid-y
     nav.top-bar.scrollhide-nav.cell
-      .top-bar-left.menu
-        a.logo(href="/") Logo
-        
-      ul.top-bar-right.menu
+      ul.menu.top-bar-left
+        li
+          a(href="/" class="logo") Logo
         li
           a(href="/about") 關於我們
         li
@@ -13,8 +12,11 @@ header
           a(href="/faq") 常見問題
         li
           a(href="/contact") 顧客留言
+      label.menu.search-bar.top-bar-right
+        i.material-icons search
+        input(type="search" placeholder="Search")
     nav.top-bar.tour-menu.cell
       ul.menu
         each tour in tour_menu
           li
-            a(href=`/${tour.permalink}`)= tour.name
+            a(href=`${tour.permalink}`)= tour.name

@@ -1,7 +1,10 @@
 extends _layout.pug
 
 block content
-  main.site-content
-    h2 Your Pug site is live!
-    p.
-      This is a boilerplat for your pug. Now open up src/views/index.pug to start building!
+  main.grid-container.site-content
+    .swiper-container
+        .swiper-wrapper
+          each large, i in data.large
+            .swiper-slide
+              a(href="#")
+                img(src=`/images/${large.large_image}`, alt="photos")

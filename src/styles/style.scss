@@ -1,9 +1,7 @@
-/*** VARIABLES ***/
 $black: #000000;
 $white: #FFFFFF;
 $whiteShadoew: #EBEBEB;
 
-/* Experiement here and change the hex codes for the variables $accentPrimary and $accentSecondary, and see changes throughtout the page where the variables are used in the CSS */
 $accentPrimary: #05a6df;
 $accentSecondary: #008AB3;
 
@@ -26,28 +24,58 @@ body {
   }
 	i {
 		user-select: none;
-	}
-  .site-content {
-    margin: 24px auto 80px auto;
-    max-width: 1360px;
   }
+  .separator {
+    border-bottom: 1px solid #EBEBEB;
+    &.thick {
+      margin: 80px 0;
+    }
+    &.thin {
+      margin: 40px 0; 
+    }
+  }
+  .grid-container.site-content {
+    margin-top: 24px;
+    margin-bottom: 80px;
+    .trip-day {
+      padding: 0 24px;
+    }
+  }
+  header {
+    box-shadow: 0 1px 0 0 $whiteShadoew;
+  }
+}
+
+.grid-container {
+  max-width: 1360px;
+}
+
+.site-header {
+  margin: auto;
+  padding: 0;
 }
 
 .top-bar {
 	width: 100%;
-	height: 80px;
+	height: 65px;
 	padding: 10px 20px;
 	background-color: $white;
-	box-shadow: 0 1px 0 0 $whiteShadoew;
 	font-size: 14px;
-	font-weight: 600;
+  font-weight: 600;
+  &.detail-menu {
+    height: 60px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
+    top: 10px;
+    position: sticky;
+    position: -webkit-sticky;
+  }
   .menu {
     background-color: unset;
     color: inherit;
 		a {
 			color: inherit;
 		}
-    a:active {
+    a:active, .is-active {
       color: $themeColor;
     }
     &.search-bar {
@@ -84,47 +112,55 @@ body {
   }
 }
 
+.swiper-container {
+  max-width: 1080px;
+}
+
+.swiper-slide {
+  img {
+    width: 100%;
+  }
+}
+
+.card {
+  color: inherit;
+  border: 1px solid $whiteShadoew;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px;
+  transition: box-shadow 0.2s ease-in;
+  font-size: 17px;
+  line-height: 1.48;
+}
+.card:hover {
+  color: inherit;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px 0px, rgba(26, 26, 29, 0.0784314) 0px 4px 12px 0px;
+}
+.card:active, .card:focus {
+  color: $themeColor;
+}
+
+.available-dates {
+  margin-bottom: 80px;
+}
+
+//will need to fix depending on the real output
+#trip-details {
+  >img {
+    padding: 40px;
+  }
+  .trip-day-title, .trip-day-discription, .trip-day-photos, .trip-day-hotel {
+    padding: 20px;
+  }
+}
+.logo {
+  color: red;
+}
 .site-footer {
 	width: 100%;
   // position: sticky;
   // bottom: 0;
 	padding-left: 80px;
-  background: #484848;
-	color: white;
+  background: $fontColor;
+	color: $white;
 	font-size: 16px;
-}
-
-/* BACKGROUND COLORS */
-.accentPrimary-background {
-  // set background color of any element with this class
-  background-color: $accentPrimary;
-  // sets text inside of this class to white
-  color: $white;
-}
-
-.accentSecondary-background {
-  background-color: $accentSecondary;
-  color: $white;
-}
-
-.caution-background {
-  background-color: $caution;
-  color: $white;
-}
-
-/* selects direct child .panel-heading elements under parent .panel-default */
-.panel-default>.panel-heading {
-  background-color: $accentPrimary;
-  color: $white;
-}
-
-/* DIV BLOCKS */
-.color-block {
-  width: 100%;
-  height: 100px;
-}
-
-/*** Typography ***/
-h1.page-header {
-  color: $accentPrimary;
 }

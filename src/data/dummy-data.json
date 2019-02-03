@@ -1,0 +1,175 @@
+{
+  "highlight_tours":
+  {
+    "large": [
+      {
+        "name": "",
+        "large_image": "sliders-01.jpg",
+        "image": "sliders-01.jpg",
+        "highlight": "",
+        "short_description": "",
+        "full_description": ""
+      },
+      {
+        "name": "",
+        "large_image": "sliders-02.jpg",
+        "image": "sliders-02.jpg",
+        "highlight": "",
+        "short_description": "",
+        "full_description": ""
+      },
+      {
+        "name": "",
+        "large_image": "sliders-03.jpg",
+        "image": "sliders-03.jpg",
+        "highlight": "",
+        "short_description": "",
+        "full_description": ""
+      }
+    ],
+    "regular": [
+      {
+        "name": "純玩.北疆喀納斯湖、魔鬼城8日遊 Xinjiang 8 days no shopping tour",
+        "tour_id": "CCXJ08",
+        "images": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+        "highlight": "",
+        "starting_price": "$199起/人",
+        "duration": "8天",
+        "short_description": "",
+        "full_description": "★ 世界級地質公園“可哥托海”—獨特的阿爾泰山花崗岩地貌！★ 國家5A級自然保護區—喀納斯，感受阿爾泰山脈原始自然風光！★ 最完整的圖瓦人村落—禾木，體驗大山深處古老的圖瓦族民俗風情！★ 李安《臥虎藏龍》拍攝地—烏爾禾魔鬼城！★ 品嘗西域特色美食：大盤雞、額河冷水魚、正宗新疆羊肉串、清真風味<br>Specialty: Kegetuohai, Kanas Lke, Hemu Village, Uhemu Demon City and traditional cuisine",
+        "start_date": "",
+        "end_date": ""
+      },
+      {
+        "name": "純玩.北疆喀納斯湖、魔鬼城8日遊 Xinjiang 8 days no shopping tour",
+        "tour_id": "CCXJ08",
+        "images": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+        "highlight": "",
+        "starting_price": "$199起/人",
+        "duration": "8天",
+        "short_description": "",
+        "full_description": "★ 世界級地質公園“可哥托海”—獨特的阿爾泰山花崗岩地貌！★ 國家5A級自然保護區—喀納斯，感受阿爾泰山脈原始自然風光！★ 最完整的圖瓦人村落—禾木，體驗大山深處古老的圖瓦族民俗風情！★ 李安《臥虎藏龍》拍攝地—烏爾禾魔鬼城！★ 品嘗西域特色美食：大盤雞、額河冷水魚、正宗新疆羊肉串、清真風味<br>Specialty: Kegetuohai, Kanas Lke, Hemu Village, Uhemu Demon City and traditional cuisine",
+        "start_date": "",
+        "end_date": ""
+      },
+      {
+        "name": "純玩.北疆喀納斯湖、魔鬼城8日遊 Xinjiang 8 days no shopping tour",
+        "tour_id": "CCXJ08",
+        "images": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+        "highlight": "",
+        "starting_price": "$199起/人",
+        "duration": "8天",
+        "short_description": "",
+        "full_description": "★ 世界級地質公園“可哥托海”—獨特的阿爾泰山花崗岩地貌！★ 國家5A級自然保護區—喀納斯，感受阿爾泰山脈原始自然風光！★ 最完整的圖瓦人村落—禾木，體驗大山深處古老的圖瓦族民俗風情！★ 李安《臥虎藏龍》拍攝地—烏爾禾魔鬼城！★ 品嘗西域特色美食：大盤雞、額河冷水魚、正宗新疆羊肉串、清真風味<br>Specialty: Kegetuohai, Kanas Lke, Hemu Village, Uhemu Demon City and traditional cuisine",
+        "start_date": "",
+        "end_date": ""
+      }
+    ]
+  },
+  "regular_tours":
+  {
+    "no-shopping": 
+    {
+      "CCXJ08": {
+        "name": "純玩.北疆喀納斯湖、魔鬼城8日遊 Xinjiang 8 days no shopping tour",
+        "tour_id": "CCXJ08",
+        "images": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+        "highlight": "",
+        "starting_price": "$199起/人",
+        "duration": "8天",
+        "short_description": "★ 世界級地質公園“可哥托海”—獨特的阿爾泰山花崗岩地貌！★ 李安《臥虎藏龍》拍攝地—烏爾禾魔鬼城！★ 品嘗西域特色美食：大盤雞、額河冷水魚、正宗新疆羊肉串、清真風味",
+        "full_description": "★ 世界級地質公園“可哥托海”—獨特的阿爾泰山花崗岩地貌！★ 國家5A級自然保護區—喀納斯，感受阿爾泰山脈原始自然風光！★ 最完整的圖瓦人村落—禾木，體驗大山深處古老的圖瓦族民俗風情！★ 李安《臥虎藏龍》拍攝地—烏爾禾魔鬼城！★ 品嘗西域特色美食：大盤雞、額河冷水魚、正宗新疆羊肉串、清真風味<br>Specialty: Kegetuohai, Kanas Lke, Hemu Village, Uhemu Demon City and traditional cuisine",
+        "tour_plan": [
+          {
+            "title":"抵達烏魯木齊 Arrive Urumqi",
+            "description": "抵達烏魯木齊機場，接機並送往酒店休息。（免費接機時間1200 /1500 /1800三趟 ）<br>Arrive Urumqi, pick up and transfer to the hotel, check in.",
+            "sights": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+            "stay": "尊茂銀都酒店或同級Luxemon Xinjiang Yindu Hotel or similar"
+          },
+          {
+            "title":"烏魯木齊/富蘊 Urumqi_Fuwen（B/L/D）",
+            "description": "早餐後，前往遠觀壯麗罕見的【火燒山】，在這裡史前生物化石隨處可覓，古森林化石迤儷百里，連綿的山丘呈現赭紅為主夾雜著黃白黑綠等多種色彩。後車驅可哥托海，途中外觀【卡拉麥裏有蹄類自然保護區】，以保護和發展普氏野馬、賽加羚羊、蒙古野驢和鵝喉羚等有蹄類野生珍貴動物及其棲息生境為主的野生動物類型自然保護區。途觀【古爾班通古特沙漠】是位於准噶爾盆地中央，是中國第二大沙漠，也是最大的固定、半固定沙漠、面積有大約4.8萬平方公里，沙丘上生長著梭梭，紅柳和胡楊，沙漠下蘊含著豐富的石油資源.<br>Huoshaoshan, Caramri hoofed nature reserve area.",
+            "sights": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+            "stay": "天悅大酒店或山河酒店或同級 Tianyue Hotel or similar"
+          },
+          {
+            "title":"抵達烏魯木齊 Arrive Urumqi",
+            "description": "抵達烏魯木齊機場，接機並送往酒店休息。（免費接機時間1200 /1500 /1800三趟 ）Arrive Urumqi, pick up and transfer to the hotel, check in.",
+            "sights": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+            "stay": "尊茂銀都酒店或同級Luxemon Xinjiang Yindu Hotel or similar"
+          },
+          {
+            "title":"抵達烏魯木齊 Arrive Urumqi",
+            "description": "抵達烏魯木齊機場，接機並送往酒店休息。（免費接機時間1200 /1500 /1800三趟 ）Arrive Urumqi, pick up and transfer to the hotel, check in.",
+            "sights": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+            "stay": "尊茂銀都酒店或同級Luxemon Xinjiang Yindu Hotel or similar"
+          },
+          {
+            "title":"抵達烏魯木齊 Arrive Urumqi",
+            "description": "抵達烏魯木齊機場，接機並送往酒店休息。（免費接機時間1200 /1500 /1800三趟 ）Arrive Urumqi, pick up and transfer to the hotel, check in.",
+            "sights": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+            "stay": "尊茂銀都酒店或同級Luxemon Xinjiang Yindu Hotel or similar"
+          },
+          {
+            "title":"抵達烏魯木齊 Arrive Urumqi",
+            "description": "抵達烏魯木齊機場，接機並送往酒店休息。（免費接機時間1200 /1500 /1800三趟 ）Arrive Urumqi, pick up and transfer to the hotel, check in.",
+            "sights": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+            "stay": "尊茂銀都酒店或同級Luxemon Xinjiang Yindu Hotel or similar"
+          },
+          {
+            "title":"抵達烏魯木齊 Arrive Urumqi",
+            "description": "抵達烏魯木齊機場，接機並送往酒店休息。（免費接機時間1200 /1500 /1800三趟 ）Arrive Urumqi, pick up and transfer to the hotel, check in.",
+            "sights": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+            "stay": "尊茂銀都酒店或同級Luxemon Xinjiang Yindu Hotel or similar"
+          },
+          {
+            "title":"抵達烏魯木齊 Arrive Urumqi",
+            "description": "抵達烏魯木齊機場，接機並送往酒店休息。（免費接機時間1200 /1500 /1800三趟 ）Arrive Urumqi, pick up and transfer to the hotel, check in.",
+            "sights": ["Shengyanggugong.jpg", "songjiangzhonglu.png", "ccdb08-changbaishan-Small.jpg"],
+            "stay": "尊茂銀都酒店或同級Luxemon Xinjiang Yindu Hotel or similar"
+          }
+        ],
+        "travel_info": "免費接機時間 pick up service：16:00-23:00<br>免費送機時間 drop off service：10:00/16:00 二趟",
+        "price_breakdown": "自費專案(需保證參加）：USD 300/人，可哥托海國家地質公園（含區間車）+禾木村景區（含區間車）+喀納斯湖景區（含遊船及區間車）+烏爾禾魔鬼城（含小火車）。<br>Optional tour(compulsory, children will be the same): USD300/PAX Kegetuohai National Geological Park (incluing the the battery cart)+ Hemu Village (including the battery cart）+ Kanas Lake scenic area (including the boat ride & the battery cart)+ Uerhe Demon City (including the little train）<br>推薦自費（自願參加）：USD 120/人，五彩灘景區+喀納斯觀魚臺+三號礦坑/地質陳列館+西域歌舞秀自助晚餐<br>Recommended tour(not compulsory, children will be the same):USD120/PAX, rainbow beach scenic area+ Kanas Lake watching fish terrace + No.3 Pit+ the Geological Museum+ Buffet dinner with the singing and dancing show",
+        "start_date": "",
+        "end_date": ""
+      }
+    },
+    "china-tours": [],
+    "asia-tours": [],
+    "aus-nz": [],
+    "central-south-america-tours": [],
+    "us": [],
+    "72-hour-visa-free-tours": []
+  },
+  "tour_menu": [
+    {
+      "name": "純玩線路",
+      "permalink": "no-shopping"
+    },
+    {
+      "name": "中國線路",
+      "permalink": "china-tours"
+    },
+    {
+      "name": "亞洲線路",
+      "permalink": "asia-tours"
+    },
+    {
+      "name": "澳新專線",
+      "permalink": "aus-nz"
+    },
+    {
+      "name": "拉美線路",
+      "permalink": "central-south-america-tours"
+    },
+    {
+      "name": "美加系列 (北極光)",
+      "permalink": "us"
+    },
+    {
+      "name": "免簽線路",
+      "permalink": "72-hour-visa-free-tours"
+    }
+  ]
+}

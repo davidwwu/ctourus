@@ -1,0 +1,127 @@
+extends _layout.pug
+
+block content
+  main.grid-container.site-content
+    .highlight-container.grid-x.grid-margin-x
+      .swiper-container.cell.medium-5
+        .swiper-wrapper
+          each image, i in data.images
+            .swiper-slide
+              img(src=`/images/${image}`, alt="photos")
+      .trip-highlight-container.cell.medium-7
+        h3= data.name
+        div= `線路編號：${data.tour_id}`
+        div= `行程天數：${data.duration}`
+        div= `旅遊團費：${data.starting_price}`
+
+        .separator.thin
+
+        p.highlight!= data.full_description
+
+    .separator.thick
+ 
+    .available-dates
+      img(src="/images/schedule-table.png")
+    .top-bar.detail-menu(data-smooth-scroll data-animation-duration="800" data-animation-easing="swing" data-offset="60" data-magellan)
+      ul.top-bar-left.menu
+        li
+          a(href="#trip-details") 行程介紹
+        li
+          a(href="#travel-info") 交通信息
+        li
+          a(href="#pricing-details") 費用明細
+        li
+          a() 訂購須知
+    section#trip-details(data-magellan-target="trip-details")
+      img(src="/images/tour-plan.png")
+      each day, i in data.tour_plan
+        .trip-day
+          .trip-day-title(style="display: flex; align-items: baseline;")
+            .date-title-icon(style="width: 50px; height: 50px; padding: 8px 11px; background-color: #B7322A; color: white; border-radius: 25px; margin-right: 15px; font-size: 24px;")
+              = 'D' + (i+1)
+            h4!= day.title
+          .trip-day-discription(style="display: flex; align-items: center;")
+            i.other-icon.material-icons(style="width: 40px; height: 40px; padding: 8px; background-color: #484848; color: white; border-radius: 20px; margin-right: 20px;") location_on
+            span!= day.description
+          .trip-day-photos(style="display: flex; align-items: center;")
+            i.other-icon.material-icons(style="width: 40px; height: 40px; padding: 8px; background-color: #484848; color: white; border-radius: 20px; margin-right: 20px;") camera_alt
+            .thumbnails(style="display:flex; justify-content: flex-start;")
+              span 途徑景點：
+              each sight in day.sights
+                img(src=`/images/${sight}` style=" width: auto; height: 80px; margin: 0 15px;")
+          .trip-day-hotel(style="display: flex; align-items: center;")
+            i.other-icon.material-icons(style="width: 40px; height: 40px; padding: 8px; background-color: #484848; color: white; border-radius: 20px; margin-right: 20px;") hotel
+            span!= day.stay
+          if(i < data.tour_plan.length - 1)
+            .separator.thin
+      .separator.thick
+    
+    section#travel-info(data-magellan-target="travel-info")
+      .section-title(style="width: 195px; height: 50px; border: 2px solid #B7322A; border-radius: 25px; display: flex; align-items: center; margin-bottom: 36px;")
+        i.material-icons(style="width: 50px; height: 50px; padding: 13px; background-color: #B7322A; color: white; border-radius: 25px; margin-right: 15px;") directions_bus
+        span(style="font-size: 26px;") 交通信息
+      p!= data.travel_info
+
+    .separator.thick
+    
+    section#pricing-details(data-magellan-target="pricing-details")
+      .section-title(style="width: 195px; height: 50px; border: 2px solid #B7322A; border-radius: 25px; display: flex; align-items: center; margin-bottom: 36px;")
+        i.material-icons(style="width: 50px; height: 50px; padding: 13px; background-color: #B7322A; color: white; border-radius: 25px; margin-right: 15px;") attach_money
+        span(style="font-size: 26px;") 費用明細
+      p
+        strong 標準價格：
+        img(src="/images/price-breakdown.png")
+        br
+        br
+        strong 自費專案(保證參加、大小同價)： USD 300/人
+        | ，長白山風景區+美人松公園+伏爾加莊園+偽滿皇宮+瀋陽故宮。
+        br
+        strong Optional tour(compulsory, children will be the same): USD300/PAX
+        | , Changbai Mountain scenic area+ Beauty Pine Park 
+        | + the Volga Garden + the Imperial Palace of Manchukuo+ Shenyang Palace。
+        br
+        strong 當地推薦項目費用(自願參加,大小同價)：USD120/人
+        | ，俄羅斯歌舞表演+俄式大餐+中藥按腳+東北二人轉博物館或東北民俗博物館+巴蜀映巷；
+        strong Recommended Tour (not compulsory, children will be the same)： USD120/PAX
+        | . Russian Singing & Dancing Show+ Russian banquet + Northeast Errenzhuan Museum or Northeast Folklore Museum + Bashuying Lane + foot Massage.
+        br
+        br
+        strong 費用包含：
+        br
+        | 1、行程所列豪華酒店、景點、餐膳；
+        br
+        | 2、豪華空調旅遊巴士；
+        br
+        | 3、專業中英文雙語導遊；
+        br
+        | 4、中國境內意外保險；
+        br
+        br
+        strong 費用不含：
+        br
+        | 1、國際/國內機票及其稅項；
+        br
+        | 2、簽證費用、小費及自費專案；
+        br
+        | 3、個人旅遊、醫療保險；
+        br
+        | 4、一切純屬私人性質的消費；
+        br
+        | 5、因私人原因及航班延誤等其他不可抗拒的因素引起的額外費用
+        br
+        br
+        strong 特價團特殊條款：
+        br
+        | 1、歡迎美加澳籍華人或持有永久身份的華人及其它國籍非華語客人參加；
+        br
+        | 2、12歲以下不占床兒童早餐費用請自行諮詢酒店前臺；
+        br
+        | 3、客人若中途離團需所有費用不再退回；
+        br
+        | 4、全程無購物，除了必須參加自費門票、小費外，個別線路如當地有推薦，以客人自願選擇參加，絕不強迫；
+        br
+        | 5、團費不包括不可預見或無法避免的情況所產生的額外費用。包括私人需求、航班晚點/取消、戰爭/潛在的戰爭威脅、暴亂、內亂、恐怖主義活動/實際的恐怖主義活動的威脅、自然災害、惡劣的環境天氣等等；
+        br
+        | 6、訂位一經預訂恕不能取消及退款，如因國家政策法規等因素無法成行將扣除手續費後退回預付的自費專案，但團款外一切損失請自行承擔；
+        br
+        | 7、組團社保留根據實際情況適當調整行程及酒店的權利，圖片資料僅作參考，以實際行程景點為准；最終解釋權由組團社所有。

@@ -1,0 +1,15 @@
+extends _layout.pug
+
+block content
+  main.grid-container.site-content
+    each tour in data
+      a.card(href=`/${tour_list}/${tour.tour_id}`)
+        .card-section.grid-x.grid-margin-x
+          .card-image.cell.medium-4
+            img(src=`/images/${tour.images[0]}`, alt="photos")
+          .cell.medium-8.grid-y
+            h4.cell.large-4= tour.name
+            span.cell.large-1= tour.tour_id
+            p.cell.large-4!= tour.short_description
+            span.cell.large-3= tour.starting_price
+            
