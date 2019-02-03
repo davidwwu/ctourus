@@ -5,8 +5,10 @@ const http = require('http');
 const path = require('path');
 
 // npm
-if(process.env.NODE_ENV == 'development')
-  const morgan = require('morgan');
+require('dotenv').config();
+if(process.env.NODE_ENV === 'development')
+  var morgan = require('morgan');
+
 const express = require('express');
 const favicon = require('serve-favicon');
 const sassMiddleware = require('node-sass-middleware');
@@ -43,8 +45,9 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use('/api', api);
 app.use(express.static('public'));
 
-if(process.env.NODE_ENV == 'development')
+if(process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
+}
 
 // load default data
 app.use(
