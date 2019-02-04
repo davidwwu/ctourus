@@ -4,7 +4,7 @@ block content
   main.grid-container.site-content
     .swiper-container
         .swiper-wrapper
-          each large, i in data.large
+          each slide, i in tour_slides
             .swiper-slide
               a(href="#")
-                img(src=`/images/${large.large_image}`, alt="photos")
+                img(src=`/images/${slide.image}`, alt="photos")

@@ -6,8 +6,9 @@ const path = require('path');
 
 // npm
 require('dotenv').config();
-if(process.env.NODE_ENV === 'development')
+if(process.env.NODE_ENV === 'development') {
   var morgan = require('morgan');
+}
 
 const express = require('express');
 const favicon = require('serve-favicon');
@@ -52,14 +53,14 @@ if(process.env.NODE_ENV === 'development') {
 // load default data
 app.use(
   (req, res, next) => {
-    res.locals.title = 'CTOURUS 盛事假期'
+    res.locals.title = 'CTOURUS 盛事假期';
+
     next();
   },
   (req, res, next) => {
     axios.get(`${serverUrl}/api/tours/tour-menu`)
       .then(({ data }) => {
-        
-        res.locals.tour_menu = data
+        res.locals.tour_menu = data;
 
         next();
       })
@@ -71,7 +72,8 @@ app.get("/", (req, res) => {
     .then(({ data }) => {
       res.render('index', {
         page_type: 'home',
-        data
+        tour_slides: data.tour_slides,
+        highlight_tours: data.tours
       });
     })
     .catch((error) => {
@@ -97,7 +99,7 @@ app.get("/contact", (req, res) => {
 
 app.get('/:tourList/:tourId?', function (req, res) {
   if(!req.params.tourId) {
-    axios.get(`${serverUrl}/api/tours/regular-tours/${req.params.tourList}`)
+    axios.get(`${serverUrl}/api/tours/${req.params.tourList}`)
       .then(({ data }) => {
         res.render('tour-list', {
           page_type: 'tour',
@@ -109,7 +111,7 @@ app.get('/:tourList/:tourId?', function (req, res) {
         console.log(error);
       });
   } else {
-    axios.get(`${serverUrl}/api/tours/regular-tours/${req.params.tourList}/${req.params.tourId}`)
+    axios.get(`${serverUrl}/api/tours/${req.params.tourList}/${req.params.tourId}`)
       .then(({ data }) => {
         res.render('tour-details', {
           page_type: 'tour',
