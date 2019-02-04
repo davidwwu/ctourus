@@ -51,7 +51,7 @@ router.get('/tours/highlight-tours', function (req, res) {
 router.get('/tours/:tourList/:tourId?', function (req, res) {
   if(!req.params.tourId){
     mdb.collection('tours')
-      .find({tour_type: "no-shopping"})
+      .find({tour_type: req.params.tourList})
       .toArray((err, data) => {
         res.send(data);
       });
