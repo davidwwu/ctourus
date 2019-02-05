@@ -12,12 +12,12 @@ $caution: #EEAA10;
 $success: #22AA55;
 $error: #f65327;
 
-$tableBorder: 1px solid #c5c5c5;
+$tableBorder: 1px solid #EBEBEB;
 
 /*** STYLING ***/
 
 body {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto','Microsoft Ya Hei', 'Hiragino Sans GB', 'Hei Ti', sans-serif;
 	font-size: 18px;
   background-color: $white;
 	color: $fontColor;
@@ -60,7 +60,7 @@ body {
 }
 
 .grid-container {
-  max-width: 1360px;
+  // max-width: 1360px;
 }
 
 .site-header {
@@ -165,8 +165,11 @@ body {
     transform: scale(1.1);
   }
 }
-.card:active, .card:focus {
+.card:active {
   color: $themeColor;
+}
+.card:focus {
+  outline: none;
 }
 
 .available-dates {
@@ -184,13 +187,12 @@ body {
       padding: 0 15px;
     }
     .thumbnails {
-      display:flex;
-      align-items: flex-start;
-
+      overflow: auto;
+      white-space: nowrap;
       img {
         width: auto;
         height: 80px;
-        margin: 0 15px;
+        margin: 10px 30px 0 0;
       }
     }
 
