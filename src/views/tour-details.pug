@@ -21,7 +21,7 @@ block content
     .separator.thick
  
     .available-dates
-      img(src="/images/schedule-table.png")
+      != data.schedule_table
     .top-bar.detail-menu(data-smooth-scroll data-animation-duration="800" data-animation-easing="swing" data-offset="60" data-magellan)
       ul.top-bar-left.menu
         li
@@ -36,22 +36,25 @@ block content
       img(src="/images/tour-plan.png")
       each day, i in data.tour_plan
         .trip-day
-          .trip-day-title(style="display: flex; align-items: baseline;")
-            .date-title-icon(style="width: 50px; height: 50px; padding: 8px 11px; background-color: #B7322A; color: white; border-radius: 25px; margin-right: 15px; font-size: 24px;")
+          .trip-day-title
+            .date-title-icon(style={padding: (i+1 >= 10) ? "8px 5px" : "8px 11px"})
               = 'D' + (i+1)
             h4!= day.title
-          .trip-day-discription(style="display: flex; align-items: center;")
-            i.other-icon.material-icons(style="width: 40px; height: 40px; padding: 8px; background-color: #484848; color: white; border-radius: 20px; margin-right: 20px;") location_on
-            span!= day.description
-          .trip-day-photos(style="display: flex; align-items: center;")
-            i.other-icon.material-icons(style="width: 40px; height: 40px; padding: 8px; background-color: #484848; color: white; border-radius: 20px; margin-right: 20px;") camera_alt
-            .thumbnails(style="display:flex; justify-content: flex-start;")
-              span 途徑景點：
-              each sight in day.sights
-                img(src=`/images/${sight}` style=" width: auto; height: 80px; margin: 0 15px;")
-          .trip-day-hotel(style="display: flex; align-items: center;")
-            i.other-icon.material-icons(style="width: 40px; height: 40px; padding: 8px; background-color: #484848; color: white; border-radius: 20px; margin-right: 20px;") hotel
-            span!= day.stay
+          .trip-content-container
+            .trip-day-discription
+              i.other-icon.material-icons location_on
+              span!= day.description
+            if day.sights && day.sights.length != 0
+              .trip-day-photos
+                i.other-icon.material-icons camera_alt
+                .thumbnails
+                  span 途徑景點：
+                  each sight in day.sights
+                    img(src=`/images/${sight}`)
+            if day.stay && day.stay != ""
+              .trip-day-hotel
+                i.other-icon.material-icons hotel
+                span!= day.stay
           if(i < data.tour_plan.length - 1)
             .separator.thin
       .separator.thick
@@ -69,21 +72,7 @@ block content
         i.material-icons(style="width: 50px; height: 50px; padding: 13px; background-color: #B7322A; color: white; border-radius: 25px; margin-right: 15px;") attach_money
         span(style="font-size: 26px;") 費用明細
       p
-        strong 標準價格：
-        img(src="/images/price-breakdown.png")
-        br
-        br
-        strong 自費專案(保證參加、大小同價)： USD 300/人
-        | ，長白山風景區+美人松公園+伏爾加莊園+偽滿皇宮+瀋陽故宮。
-        br
-        strong Optional tour(compulsory, children will be the same): USD300/PAX
-        | , Changbai Mountain scenic area+ Beauty Pine Park 
-        | + the Volga Garden + the Imperial Palace of Manchukuo+ Shenyang Palace。
-        br
-        strong 當地推薦項目費用(自願參加,大小同價)：USD120/人
-        | ，俄羅斯歌舞表演+俄式大餐+中藥按腳+東北二人轉博物館或東北民俗博物館+巴蜀映巷；
-        strong Recommended Tour (not compulsory, children will be the same)： USD120/PAX
-        | . Russian Singing & Dancing Show+ Russian banquet + Northeast Errenzhuan Museum or Northeast Folklore Museum + Bashuying Lane + foot Massage.
+        != data.price_breakdown
         br
         br
         strong 費用包含：

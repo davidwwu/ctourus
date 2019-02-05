@@ -29,22 +29,40 @@ router.get('/tours', function (req, res) {
   // res.json(data);
 });
 
-router.get('/tours/highlight-tours', function (req, res) {
-  let highlightTours;
+router.get('/tours/highlight-tours', async function (req, res) {
+  let highlightTours,
+      highlightSlides;
+  try {
+    highlightTours = await mdb.collection('tours')
+      .find(
+        {'is_highlight': true }
+      )
+      .project({ 
+        name: true,
+        images: true,
+        starting_price: true,
+        tour_id: true,
+        tour_type: true,
+        duration: true
+      })
+      .toArray();
 
-  mdb.collection('tours')
-    .find({"highlight": true })
-    .toArray((err, data) => {
-      highlightTours = data;
-    });
-  mdb.collection('highlight_slides')
-    .find({})
-    .toArray((err, data) => {
-      res.send({ 
-        tours: highlightTours,
-        tour_slides: data 
-      });
-    });
+  } catch(err) {
+    console.error(err);
+  }
+  
+  try {
+    highlightSlides = await mdb.collection('highlight_slides')
+      .find({})
+      .toArray();
+  } catch(err) {
+    console.error(err);
+  }
+
+  res.send({ 
+    tours: highlightTours,
+    tour_slides: highlightSlides 
+  });
   // res.json(data['highlight_tours']);
 });
 

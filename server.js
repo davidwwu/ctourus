@@ -6,7 +6,7 @@ const path = require('path');
 
 // npm
 require('dotenv').config();
-if(process.env.NODE_ENV === 'development') {
+if(process.env.NODE_ENV === 'dev') {
   var morgan = require('morgan');
 }
 
@@ -46,7 +46,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use('/api', api);
 app.use(express.static('public'));
 
-if(process.env.NODE_ENV === 'development') {
+if(process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
 

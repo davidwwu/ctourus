@@ -12,6 +12,8 @@ $caution: #EEAA10;
 $success: #22AA55;
 $error: #f65327;
 
+$tableBorder: 1px solid #c5c5c5;
+
 /*** STYLING ***/
 
 body {
@@ -43,6 +45,17 @@ body {
   }
   header {
     box-shadow: 0 1px 0 0 $whiteShadoew;
+  }
+  table {
+    tbody{
+      border: $tableBorder;
+    }
+    tr + tr {
+      border-top: $tableBorder;
+    }
+    td + td {
+      border-left: $tableBorder;
+    }
   }
 }
 
@@ -114,6 +127,7 @@ body {
 
 .swiper-container {
   max-width: 1080px;
+  margin-bottom: 45px;
 }
 
 .swiper-slide {
@@ -126,14 +140,30 @@ body {
   color: inherit;
   border: 1px solid $whiteShadoew;
   border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px;
-  transition: box-shadow 0.2s ease-in;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px 0px, rgba(26, 26, 29, 0.0784314) 0px 4px 12px 0px;
+  transition: all 0.2s ease-in;
   font-size: 17px;
   line-height: 1.48;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  .card-image {
+    overflow: hidden;
+    max-height: 240px;
+    img {
+      transition: all 0.2s ease-in;
+    }
+  }
 }
 .card:hover {
   color: inherit;
-  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px 0px, rgba(26, 26, 29, 0.0784314) 0px 4px 12px 0px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 2px 4px;
+  background-color: #f3f3f3;
+  img {
+    transform: scale(1.1);
+  }
 }
 .card:active, .card:focus {
   color: $themeColor;
@@ -143,18 +173,71 @@ body {
   margin-bottom: 80px;
 }
 
-//will need to fix depending on the real output
 #trip-details {
+  //will need to fix depending on the real output
   >img {
     padding: 40px;
   }
-  .trip-day-title, .trip-day-discription, .trip-day-photos, .trip-day-hotel {
-    padding: 20px;
+
+  .trip-day {
+    .trip-content-container {
+      padding: 0 15px;
+    }
+    .thumbnails {
+      display:flex;
+      align-items: flex-start;
+
+      img {
+        width: auto;
+        height: 80px;
+        margin: 0 15px;
+      }
+    }
+
+    .trip-day-title, .trip-day-discription, .trip-day-photos, .trip-day-hotel {
+      padding: 20px;
+      display: flex;
+    }
+
+    .trip-day-hotel {
+      align-items: center;
+    }
+
+    .trip-day-title {
+      display: flex;
+      align-items: baseline;
+
+      .date-title-icon {
+        width: 50px;
+        height: 50px;
+        background-color: #B7322A;
+        color: white;
+        border-radius: 25px;
+        margin-right: 15px;
+        font-size: 24px;
+      }
+    }
+
+    .other-icon {
+      width: 30px;
+      height: 30px;
+      padding: 5px;
+      background-color: #484848;
+      color: white;
+      border-radius: 20px;
+      margin-right: 20px;
+
+      &.material-icons {
+        font-size: 20px;
+      }
+    }
   }
 }
+
 .logo {
   color: red;
 }
+
 .site-footer {
 	width: 100%;
   // position: sticky;
