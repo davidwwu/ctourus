@@ -8,12 +8,12 @@ block content
             .swiper-slide
               a(href="#")
                 img(src=`/images/${slide.image}`, alt="photos")
-    .grid-x.grid-padding-x.small-up-1.medium-up-2.large-up-3
+    .grid-x.grid-padding-x.medium-up-3.large-up-4
       each tour in highlight_tours
         .cell
           a.card(href=`/${tour.tour_type}/${tour.tour_id}`)
             .card-image
               img(src=`/images/${tour.images[0]}`, alt="")
             .card-section
-              h4= tour.name
-              h5= tour.starting_price
+              p= tour.name
+              h5.price-highlight= tour.starting_price
