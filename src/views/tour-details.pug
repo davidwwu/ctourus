@@ -47,10 +47,11 @@ block content
             if day.sights && day.sights.length != 0
               .trip-day-photos
                 i.other-icon.material-icons camera_alt
-                .thumbnails
+                .sight-container
                   span 途徑景點：
-                  each sight in day.sights
-                    img(src=`/images/${sight}`)
+                  .thumbnails
+                    each sight in day.sights
+                      img(src=`/images/${sight}`)
             if day.stay && day.stay != ""
               .trip-day-hotel
                 i.other-icon.material-icons hotel
@@ -71,10 +72,12 @@ block content
       .section-title(style="width: 195px; height: 50px; border: 2px solid #B7322A; border-radius: 25px; display: flex; align-items: center; margin-bottom: 36px;")
         i.material-icons(style="width: 50px; height: 50px; padding: 13px; background-color: #B7322A; color: white; border-radius: 25px; margin-right: 15px;") attach_money
         span(style="font-size: 26px;") 費用明細
-      p
+      strong 標準價格：
+      .table-scroll
         != data.price_breakdown
-        br
-        br
+      br
+      br
+      p
         strong 費用包含：
         br
         | 1、行程所列豪華酒店、景點、餐膳；
