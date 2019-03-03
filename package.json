@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davidwu220/my-simple-site-template.git"
+    "url": "git+https://github.com/davidwu220/ctourus.git"
   },
   "author": "davidwu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/davidwu220/my-simple-site-template/issues"
+    "url": "https://github.com/davidwu220/ctourus/issues"
   },
-  "homepage": "https://github.com/davidwu220/my-simple-site-template#readme",
+  "homepage": "https://github.com/davidwu220/ctourus#readme",
   "dependencies": {
     "axios": "0.18.0",
     "connect-flash": "0.1.1",
