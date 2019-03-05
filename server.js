@@ -143,6 +143,7 @@ app.get('/tours/:tourList/:tourId', function (req, res) {
     .then(({ data }) => {
       res.render('tour-details', {
         page_type: 'tour',
+        tour_list: req.params.tourList,
         data
       });
     })
