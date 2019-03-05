@@ -3,17 +3,17 @@ extends _layout.pug
 block content
   main.grid-container.site-content
     .swiper-container
-        .swiper-wrapper
-          each slide, i in tour_slides
-            .swiper-slide
-              a(href="#")
-                img(src=`/images/${slide.image}`, alt="photos")
+      .swiper-wrapper
+        each slide, i in tour_slides
+          .swiper-slide
+            a(href="#")
+              img(src=`/images/${slide.image}`, alt="photos")
     .grid-x.grid-padding-x.medium-up-3.large-up-4
       each tour in highlight_tours
         .cell
-          a.card(href=`/${tour.tour_type}/${tour.tour_id}`)
+          a.card(href=`/tours/${tour.tour_type}/${tour.tour_id}`)
             .card-image
               img(src=`/images/${tour.images[0]}`, alt="")
             .card-section
               p= tour.name
-              h5.price-highlight= tour.starting_price
+              h4.price-highlight= `$${tour.starting_price}`

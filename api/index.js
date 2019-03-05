@@ -19,14 +19,12 @@ router.get('/tours/tour-menu', function (req, res) {
     .toArray((err, data) => {
       res.send(data);
     });
-  // res.json(data['tour_menu']);
 });
 
 router.get('/tours', function (req, res) {
   mdb.collection('tours').findOne({}, (err, data) => {
     res.send(data);
   });
-  // res.json(data);
 });
 
 router.get('/tours/highlight-tours', async function (req, res) {
@@ -63,29 +61,61 @@ router.get('/tours/highlight-tours', async function (req, res) {
     tours: highlightTours,
     tour_slides: highlightSlides 
   });
-  // res.json(data['highlight_tours']);
 });
 
-router.get('/tours/:tourList/:tourId?', function (req, res) {
-  if(!req.params.tourId){
+router.get('/tours/:tourList', function (req, res) {
+  if(Object.keys(req.query).length === 0) {
     mdb.collection('tours')
       .find({tour_type: req.params.tourList})
+      .project({ 
+        name: true,
+        images: true,
+        starting_price: true,
+        tour_id: true,
+        tour_type: true,
+        duration: true,
+        start_city: true
+      })
       .toArray((err, data) => {
         res.send(data);
       });
   } else {
+    // Build and query condition
+    let andCondition = [];
+    for (let [key, value] of Object.entries(req.query)) {
+      andCondition.push({[key]: value});
+    }
+
     mdb.collection('tours')
+      .find({
+        $and: andCondition
+      })
+      .project({ 
+        name: true,
+        images: true,
+        starting_price: true,
+        tour_id: true,
+        tour_type: true,
+        duration: true,
+        start_city: true
+      })
+      .toArray((err, data) => {
+        res.send(data);
+      });
+  }
+});
+
+router.get('/tours/:tourList/:tourId', function (req, res) {
+  mdb.collection('tours')
     .findOne({
       $and: [
-        {tour_type: req.params.tourList},
-        {tour_id: req.params.tourId}
+        { tour_type: req.params.tourList },
+        { tour_id: req.params.tourId }
       ]
     },
     (err, data) => {
       res.send(data);
     });
-  }
-  // res.json(data['regular_tours'][req.params.tourList]);
 });
 
 module.exports = router;

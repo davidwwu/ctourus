@@ -19,4 +19,4 @@ header
       ul.menu
         each tour in tour_menu
           li
-            a(href=`/${tour.permalink}`)= tour.name
+            a(href=`/tours/${tour.permalink}` class={'is-active': tour_list && tour_list == tour.permalink})= tour.name

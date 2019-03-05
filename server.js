@@ -3,6 +3,7 @@
 // core
 const http = require('http');
 const path = require('path');
+const querystring = require('querystring');
 
 // npm
 require('dotenv').config();
@@ -25,6 +26,23 @@ const production = {
   about: true,
   'tour-details': true
 };
+
+// Filter an obj based on provided query.
+// Returns true if all queries are met, else return false
+let filterObjByQuery = (obj, query) => {
+  let flag = true;
+  for(let [key, value] of Object.entries(query)) {
+    if(obj[key] != value) flag = false;
+  }
+
+  return flag;
+}
+
+let removeObjArrDuplicate = (objArr, targetKey) => {
+  let uniqueArr = Array.from(new Set(objArr.map(obj => obj[targetKey])));
+  
+  return uniqueArr;
+}
 
 // ----------------------------------------------------------------------------
 // application
@@ -97,33 +115,43 @@ app.get("/contact", (req, res) => {
   res.render('contact');
 });
 
-app.get('/:tourList/:tourId?', function (req, res) {
-  if(!req.params.tourId) {
-    axios.get(`${serverUrl}/api/tours/${req.params.tourList}`)
-      .then(({ data }) => {
-        res.render('tour-list', {
-          page_type: 'tour',
-          tour_list: req.params.tourList,
-          data
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+app.get('/tours/:tourList', function (req, res) {
+  axios.get(`${serverUrl}/api/tours/${req.params.tourList}`)
+    .then(({ data }) => {
+      let filteredData = data;
+      if(Object.keys(req.query).length != 0) {
+        filteredData = data.filter(trip => filterObjByQuery(trip, req.query));
+      }
+      
+      res.render('tour-list', {
+        page_type: 'tour',
+        tour_list: req.params.tourList,
+        filter: req.query,
+        query_str: querystring.stringify(req.query),
+        start_cities: removeObjArrDuplicate(data, 'start_city'),
+        durations: removeObjArrDuplicate(data, 'duration'),
+        data: filteredData
       });
-  } else {
-    axios.get(`${serverUrl}/api/tours/${req.params.tourList}/${req.params.tourId}`)
-      .then(({ data }) => {
-        res.render('tour-details', {
-          page_type: 'tour',
-          data
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
+app.get('/tours/:tourList/:tourId', function (req, res) {
+  axios.get(`${serverUrl}/api/tours/${req.params.tourList}/${req.params.tourId}`)
+    .then(({ data }) => {
+      res.render('tour-details', {
+        page_type: 'tour',
+        data
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+// TODO: fix 404 catching
 app.use('*', (req, res) => {
   res.set('Content-Type', 'text/plain')
   res.status(404).send('404 - Not Found\n')    
