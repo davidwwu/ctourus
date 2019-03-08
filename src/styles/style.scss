@@ -104,6 +104,19 @@ body {
   .menu {
     background-color: unset;
     color: inherit;
+    li:after {
+      content: '';
+      display: block;
+      margin: auto;
+      height: 3px;
+      width: 0px;
+      background: transparent;
+      transition: width .5s ease, background-color .5s ease;
+    }
+    li:hover:after {
+      width: unquote("calc(100% - 2rem)");
+      background: $theme-color;
+    }
 		a {
       display: flex;
       align-items: center;
@@ -115,7 +128,7 @@ body {
         font-size: 36px;
       }
 		}
-    a:active, .is-active {
+    a.is-active {
       color: $theme-color;
     }
     &.search-bar {
