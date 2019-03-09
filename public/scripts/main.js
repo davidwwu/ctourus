@@ -1,6 +1,4 @@
-// $(document).foundation();
 var mySwiper = new Swiper ('.swiper-container', {
-  // Optional parameters
   loop: true,
   spaceBetween: 25,
   centeredSlides: true,
@@ -9,13 +7,16 @@ var mySwiper = new Swiper ('.swiper-container', {
   },
 });
 
+// build query string based on filter and then redirect page to the url
 $('.filter input').on('click', function() {
   var query = {};
-  var title = document.documentElement.dataset.tourList;
+  var tourList = document.documentElement.dataset.tourList;
   $('.filter input:checked').each(function(e) {
     if($(this).val() != 'all')
       query[$(this).attr('name')] = $(this).val();
   });
   var queryString = $.param(query);
-  window.location.href = '/tours/'+title+'?'+queryString;
+  if(queryString.length != 0)
+    queryString = '?'+queryString;
+  window.location.href = '/tours/'+tourList+queryString;
 });

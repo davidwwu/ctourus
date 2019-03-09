@@ -116,6 +116,8 @@ app.get("/contact", (req, res) => {
 });
 
 app.get('/tours/:tourList', function (req, res) {
+  // GET list without filter query
+  // GET list with filter query
   axios.get(`${serverUrl}/api/tours/${req.params.tourList}`)
     .then(({ data }) => {
       let filteredData = data;
