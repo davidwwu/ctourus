@@ -14,10 +14,17 @@ npm i
 
 ## Run
 
+NOTE: remember to change values in .env file
+
+```console
+NODE_ENV = [development | production]
+MONGODB_URI = mongodb://<your mongodb address>
+```
+
 To run under development mode with live reload:
 
 ```console
-npm run start-dev
+npm run dev-start
 ```
 
 To serve app normally:
