@@ -80,7 +80,7 @@ router.get('/tours/:tourList', function (req, res) {
         res.send(data);
       });
   } else {
-    // Build and query condition
+    // Build AND query condition
     let andCondition = [];
     for (let [key, value] of Object.entries(req.query)) {
       andCondition.push({[key]: value});

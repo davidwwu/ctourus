@@ -30,20 +30,20 @@ block content
               label(for=dur)= `${dur}天`
         .filter-section 價格範圍：
           span.filter
-            input#price-all(type="radio" name="start_price" value="all" checked=(filter.start_price ? false : true))
+            input#price-all(type="radio" name="starting_price" value="all" checked=(filter.starting_price ? false : true))
             label(for="price-all") 全部
           span.filter
-            input#price-gte200-lte499(type="radio" name="start_price" value="gte200,lte499")
+            input#price-gte200-lte499(type="radio" name="starting_price" value="gte-200,lte-499" checked=(filter.starting_price && filter.starting_price == "gte-200,lte-499" ? true : false))
             label(for="price-gte200-lte499") $200-$499
           span.filter
-            input#price-gte500-lte999(type="radio" name="start_price" value="gte500,lte999")
+            input#price-gte500-lte999(type="radio" name="starting_price" value="gte-500,lte-999" checked=(filter.starting_price && filter.starting_price == "gte-500,lte-999" ? true : false))
             label(for="price-gte500-lte999") $500-$999
           span.filter
-            input#price-gte1000-lte1999(type="radio" name="start_price" value="gte1000,lte1999")
+            input#price-gte1000-lte1999(type="radio" name="starting_price" value="gte-1000,lte-1999" checked=(filter.starting_price && filter.starting_price == "gte-1000,lte-1999" ? true : false))
             label(for="price-gte1000-lte1999") $1000-$1999
           span.filter
-            input#price-gte2000(type="radio" name="start_price" value="gte2000" disabled)
-            label(for="price-gte2000") $2000以上
+            input#price-gte2000(type="radio" name="starting_price" value="gte-2000" disabled)
+            label(for="price-gte2000" checked=(filter.starting_price && filter.starting_price == "gte-2000" ? true : false)) $2000以上
 
     .grid-x.grid-padding-x.medium-up-3.large-up-4
       each tour in data

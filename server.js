@@ -32,7 +32,21 @@ const production = {
 let filterObjByQuery = (obj, query) => {
   let flag = true;
   for(let [key, value] of Object.entries(query)) {
-    if(obj[key] != value) flag = false;
+    // special case for price filter
+    if(key == 'starting_price') {
+      value.forEach((q) => {
+        let qArr = q.split('-');
+        let opr = qArr[0],
+            num = qArr[1];
+        
+        if(opr == 'gte' && obj[key] < num)
+          flag = false;
+        else if(opr == 'lte' && obj[key] > num)
+          flag = false;
+      });
+    } else {
+      if(obj[key] != value) flag = false;
+    }
   }
 
   return flag;
@@ -116,8 +130,15 @@ app.get("/contact", (req, res) => {
 });
 
 app.get('/tours/:tourList', function (req, res) {
-  // GET list without filter query
-  // GET list with filter query
+  // Always request full data from the list catagory
+  // and do filtering here, reason being that we want
+  // to show the full filter for the list catagory,
+  // otherwise we could move the filtering logic to
+  // the api.
+  // In the future, perhaps we could make api's to
+  // extract filter options from the db or even create
+  // a new collection/document to hold all filters,
+  // but that's for another time.
   axios.get(`${serverUrl}/api/tours/${req.params.tourList}`)
     .then(({ data }) => {
       let filteredData = data;
