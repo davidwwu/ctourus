@@ -62,3 +62,6 @@ typings/
 
 # editor configs
 .vscode/launch.json
+
+# style.css because we transpile scss to css at runtime
+public/styles/style.css
