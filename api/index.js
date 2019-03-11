@@ -76,6 +76,9 @@ router.get('/tours/:tourList', function (req, res) {
         duration: true,
         start_city: true
       })
+      .sort({
+        tour_id: 1
+      })
       .toArray((err, data) => {
         res.send(data);
       });
