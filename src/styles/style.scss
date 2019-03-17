@@ -102,7 +102,7 @@ body {
     position: -webkit-sticky;
   }
   .menu {
-    background-color: unset;
+    background-color: transparent;
     color: inherit;
     li:after {
       content: '';
@@ -142,7 +142,7 @@ body {
       transition: box-shadow 0.2s ease;
       input {
         flex: 1;
-        max-width: unset;
+        max-width: unset; // will not work in IE
         border: none;
         box-shadow: none;
         transition: none;
@@ -201,8 +201,8 @@ body {
         text-decoration: line-through;
         &:hover {
           color: $font-color-light;
-          background-color: unset;
-          box-shadow: unset;
+          background-color: transparent;
+          box-shadow: none;
         }
       }
     }
@@ -307,7 +307,7 @@ a.card:focus {
     }
 
     .other-icon {
-      width: 30px;
+      width: auto;
       height: 30px;
       padding: 5px;
       background-color: $font-color;

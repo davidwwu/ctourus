@@ -16,6 +16,9 @@ var router = express.Router();
 router.get('/tours/tour-menu', function (req, res) {
   mdb.collection('tour_menu')
     .find({})
+    .sort({
+      order: 1
+    })
     .toArray((err, data) => {
       res.send(data);
     });
@@ -32,9 +35,9 @@ router.get('/tours/highlight-tours', async function (req, res) {
       highlightSlides;
   try {
     highlightTours = await mdb.collection('tours')
-      .find(
-        {'is_highlight': true }
-      )
+      .find({
+        'is_highlight': true
+      })
       .project({ 
         name: true,
         images: true,
@@ -52,6 +55,9 @@ router.get('/tours/highlight-tours', async function (req, res) {
   try {
     highlightSlides = await mdb.collection('highlight_slides')
       .find({})
+      .sort({
+        order: 1
+      })
       .toArray();
   } catch(err) {
     console.error(err);
