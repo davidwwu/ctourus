@@ -129,7 +129,7 @@ app.get("/contact", (req, res) => {
   res.render('contact');
 });
 
-app.get('/tours/:tourList', function (req, res) {
+app.get('/tours/:tourList', (req, res) => {
   // Always request full data from the list catagory
   // and do filtering here, reason being that we want
   // to show the full filter for the list catagory,
@@ -161,13 +161,28 @@ app.get('/tours/:tourList', function (req, res) {
     });
 });
 
-app.get('/tours/:tourList/:tourId', function (req, res) {
+app.get('/tours/:tourList/:tourId', (req, res) => {
   axios.get(`${serverUrl}/api/tours/${req.params.tourList}/${req.params.tourId}`)
     .then(({ data }) => {
       res.render('tour-details', {
         page_type: 'tour',
         tour_list: req.params.tourList,
         data
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.get('/admin/:tourId/edit', (req, res) => {
+  axios.get(`${serverUrl}/api/tours/all/${req.params.tourId}`)
+    .then(({ data }) => {
+      res.render('edit-tour-details', {
+        page_type: 'tour',
+        tour_list: req.params.tourList,
+        data,
+        tiny_api: process.env.TINYMCE_API
       });
     })
     .catch((error) => {

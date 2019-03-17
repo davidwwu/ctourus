@@ -9,19 +9,19 @@ block content
             .swiper-slide
               img(src=`/images/${image}`, alt="photos")
       .trip-highlight-container.cell.medium-7
-        h3= data.name
+        h3.editable= data.name
         div= `線路編號：${data.tour_id}`
         div= `行程天數：${data.duration}天`
         div= `旅遊團費：$${data.starting_price}`
 
         .separator.thin
 
-        .highlight!= data.full_description
+        .highlight.editable!= data.full_description
 
     .separator.thick
  
     .available-dates
-      != data.schedule_table
+      .editable!= data.schedule_table
     .top-bar.detail-menu(data-smooth-scroll data-animation-duration="800" data-animation-easing="swing" data-offset="60" data-magellan)
       ul.top-bar-left.menu
         li
@@ -39,11 +39,11 @@ block content
           .trip-day-title
             .date-title-icon(style={padding: (i+1 >= 10) ? "8px 4px" : "8px 11px"})
               = 'D' + (i+1)
-            h4!= day.title
+            h4.editable!= day.title
           .trip-content-container
             .trip-day-discription
               i.other-icon.material-icons location_on
-              != day.description
+              .editable!= day.description
             if day.sights && day.sights.length != 0
               .trip-day-photos
                 i.other-icon.material-icons camera_alt
@@ -55,7 +55,7 @@ block content
             if day.stay && day.stay != ""
               .trip-day-hotel
                 i.other-icon.material-icons hotel
-                != day.stay
+                .editable!= day.stay
           if(i < data.tour_plan.length - 1)
             .separator.thin
       .separator.thick
@@ -64,7 +64,7 @@ block content
       .section-title
         i.material-icons directions_bus
         span 交通信息
-      != data.pickup_service
+      .editable!= data.pickup_service
 
     .separator.thick
     
@@ -72,7 +72,7 @@ block content
       .section-title
         i.material-icons attach_money
         span 費用明細
-      != data.price_breakdown
+      .editable!= data.price_breakdown
 
     .separator.thick
 
@@ -80,4 +80,4 @@ block content
       .section-title
         i.material-icons priority_high
         span 訂購須知
-      != data.notice
+      .editable!= data.notice

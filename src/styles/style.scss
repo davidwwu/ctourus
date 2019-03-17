@@ -111,6 +111,7 @@ body {
     height: 60px;
     box-shadow: $box-shadow-darkest;
     top: 10px;
+    z-index: 10;
     position: sticky;
     position: -webkit-sticky;
   }
@@ -302,6 +303,7 @@ a.card:focus {
 }
 
 #trip-details {
+  // TODO: will eventrually replace this with a real modual
   >img {
     padding: 40px;
   }
@@ -328,10 +330,6 @@ a.card:focus {
     .trip-day-hotel {
       padding: 20px;
       display: flex;
-    }
-
-    .trip-day-hotel {
-      align-items: center;
     }
 
     .trip-day-title {
@@ -390,6 +388,30 @@ main {
         font-size: 26px;
       }
     }
+  }
+
+  .editable {
+    // transition: box-shadow 0.2s ease;
+    // transition: padding 0.2s ease;
+    transition-property: padding, box-shadow;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+    transition-delay: 0.15s;
+  }
+
+  .editable:hover {
+    cursor: pointer;
+    box-shadow: $box-shadow-darker;
+    border-radius: 3px;
+    padding: 10px 20px;
+  }
+
+  .editable:focus {
+    outline: none;
+    cursor: auto;
+    box-shadow: $box-shadow-darker;
+    border-radius: 3px;
+    padding: 10px 20px;
   }
 }
 

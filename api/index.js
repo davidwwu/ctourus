@@ -115,7 +115,8 @@ router.get('/tours/:tourList', function (req, res) {
 });
 
 router.get('/tours/:tourList/:tourId', function (req, res) {
-  mdb.collection('tours')
+  if(req.params.tourList != 'all') {
+    mdb.collection('tours')
     .findOne({
       $and: [
         { tour_type: req.params.tourList },
@@ -125,6 +126,15 @@ router.get('/tours/:tourList/:tourId', function (req, res) {
     (err, data) => {
       res.send(data);
     });
+  } else {
+    mdb.collection('tours')
+    .findOne({
+      tour_id: req.params.tourId
+    },
+    (err, data) => {
+      res.send(data);
+    });
+  }
 });
 
 module.exports = router;
