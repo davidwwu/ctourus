@@ -1,3 +1,7 @@
+$(function() {
+  $('section#pricing-details table').addClass('scroll');
+})
+
 var mySwiper = new Swiper ('.swiper-container', {
   loop: true,
   spaceBetween: 25,
