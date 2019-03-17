@@ -34,45 +34,57 @@ $box-shadow-darkest: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 body {
-	font-family: 'Roboto','Microsoft YaHei UI Light', 'Hiragino Sans GB', 'Hei Ti', sans-serif;
-	font-size: 18px;
+  font-family: 'Roboto', 'Microsoft YaHei UI Light', 'Hiragino Sans GB', 'Hei Ti', sans-serif;
+  font-size: 18px;
   background-color: $white;
   color: $font-color;
   letter-spacing: 1px;
   word-spacing: 1px;
-  a:active, a.active {
+
+  a:active,
+  a.active {
     color: $theme-color;
   }
-	i {
-		user-select: none;
+
+  i {
+    user-select: none;
   }
+
   .separator {
     border-bottom: $seperator-border;
+
     &.thick {
       margin: 80px 0;
     }
+
     &.thin {
-      margin: 40px 0; 
+      margin: 40px 0;
     }
   }
+
   .site-content {
     margin-top: 24px;
     margin-bottom: 80px;
+
     .trip-day {
       padding: 0 24px;
     }
   }
+
   header {
     box-shadow: 0 1px 0 0 $white-shadow;
   }
+
   table {
-    tbody{
+    tbody {
       border: $table-border;
     }
-    tr + tr {
+
+    tr+tr {
       border-top: $table-border;
     }
-    td + td {
+
+    td+td {
       border-left: $table-border;
     }
   }
@@ -88,12 +100,13 @@ body {
 }
 
 .top-bar {
-	width: 100%;
-	height: 65px;
-	padding: 10px 20px;
-	background-color: $white;
-	font-size: 14px;
+  width: 100%;
+  height: 65px;
+  padding: 10px 20px;
+  background-color: $white;
+  font-size: 14px;
   font-weight: 600;
+
   &.detail-menu {
     height: 60px;
     box-shadow: $box-shadow-darkest;
@@ -101,9 +114,11 @@ body {
     position: sticky;
     position: -webkit-sticky;
   }
+
   .menu {
     background-color: transparent;
     color: inherit;
+
     li:after {
       content: '';
       display: block;
@@ -113,24 +128,30 @@ body {
       background: transparent;
       transition: width .5s ease, background-color .5s ease;
     }
+
     li:hover:after {
       width: unquote("calc(100% - 2rem)");
       background: $theme-color;
     }
-		a {
+
+    a {
       display: flex;
       align-items: center;
       color: inherit;
+
       img {
         width: 60px;
       }
+
       span {
         font-size: 36px;
       }
-		}
+    }
+
     a.is-active {
       color: $theme-color;
     }
+
     &.search-bar {
       display: flex;
       width: 460px;
@@ -140,6 +161,7 @@ body {
       border-radius: 4px;
       box-shadow: $box-shadow-lighter;
       transition: box-shadow 0.2s ease;
+
       input {
         flex: 1;
         max-width: unset; // will not work in IE
@@ -151,14 +173,17 @@ body {
         line-height: 1.48;
         color: inherit;
       }
+
       input:focus {
         box-shadow: none;
       }
+
       i {
         font-weight: 600;
         padding: 0 4px 0 12px;
       }
     }
+
     &.search-bar:hover {
       box-shadow: $box-shadow-darker;
     }
@@ -185,20 +210,24 @@ body {
     padding: 2px 5px;
     margin: 3px 5px;
   }
+
   input {
     display: none;
+
     &:checked {
-      + label {
+      +label {
         background-color: $theme-color;
         color: $white;
         box-shadow: $box-shadow-darkest;
       }
     }
+
     &[disabled] {
-      + label {
+      +label {
         cursor: not-allowed;
         color: $font-color-light;
         text-decoration: line-through;
+
         &:hover {
           color: $font-color-light;
           background-color: transparent;
@@ -207,6 +236,7 @@ body {
       }
     }
   }
+
   label {
     color: inherit;
     font-size: 0.93em;
@@ -214,6 +244,7 @@ body {
     padding: 5px 8px;
     margin: 0px 5px;
     border-radius: 3px;
+
     &:hover {
       background-color: $theme-color;
       color: $white;
@@ -229,9 +260,11 @@ body {
   font-size: 17px;
   line-height: 1.48;
   @include user-select(none);
+
   .card-image {
     overflow: hidden;
     height: 164px;
+
     img {
       position: relative;
       top: 50%;
@@ -239,22 +272,27 @@ body {
       transition: transform 0.2s ease;
     }
   }
+
   .price-highlight {
     font-weight: 300;
     color: $highlight;
   }
 }
+
 a.card:hover {
   color: inherit;
   box-shadow: $box-shadow-lighter;
   background-color: $light-gray;
+
   img {
     transform: perspective(1px) translateY(-50%) scale(1.1);
   }
 }
+
 a.card:active {
   color: $theme-color;
 }
+
 a.card:focus {
   outline: none;
 }
@@ -272,9 +310,11 @@ a.card:focus {
     .trip-content-container {
       padding: 0 15px;
     }
+
     .thumbnails {
       overflow: auto;
       white-space: nowrap;
+
       img {
         width: auto;
         height: 80px;
@@ -282,7 +322,10 @@ a.card:focus {
       }
     }
 
-    .trip-day-title, .trip-day-discription, .trip-day-photos, .trip-day-hotel {
+    .trip-day-title,
+    .trip-day-discription,
+    .trip-day-photos,
+    .trip-day-hotel {
       padding: 20px;
       display: flex;
     }
@@ -322,10 +365,38 @@ a.card:focus {
   }
 }
 
+main {
+  section {
+    .section-title {
+      width: 195px;
+      height: 50px;
+      border: 2px solid $theme-color;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 36px;
+
+      i {
+        width: 50px;
+        height: 50px;
+        padding: 13px;
+        background-color: $theme-color;
+        color: $white;
+        border-radius: 25px;
+        margin-right: 15px;
+      }
+
+      span {
+        font-size: 26px;
+      }
+    }
+  }
+}
+
 .site-footer {
-	width: 100%;
-	padding-left: 80px;
+  width: 100%;
+  padding-left: 80px;
   background: $font-color;
-	color: $white;
-	font-size: 16px;
+  color: $white;
+  font-size: 16px;
 }

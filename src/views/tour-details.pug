@@ -16,7 +16,7 @@ block content
 
         .separator.thin
 
-        p.highlight!= data.full_description
+        .highlight!= data.full_description
 
     .separator.thick
  
@@ -31,7 +31,7 @@ block content
         li
           a(href="#pricing-details") 費用明細
         li
-          a() 訂購須知
+          a(href="#notice") 訂購須知
     section#trip-details(data-magellan-target="trip-details")
       img(src="/images/tour-plan.png")
       each day, i in data.tour_plan
@@ -61,59 +61,25 @@ block content
       .separator.thick
     
     section#travel-info(data-magellan-target="travel-info")
-      .section-title(style="width: 195px; height: 50px; border: 2px solid #B7322A; border-radius: 25px; display: flex; align-items: center; margin-bottom: 36px;")
-        i.material-icons(style="width: 50px; height: 50px; padding: 13px; background-color: #B7322A; color: white; border-radius: 25px; margin-right: 15px;") directions_bus
-        span(style="font-size: 26px;") 交通信息
-      p!= data.travel_info
+      .section-title
+        i.material-icons directions_bus
+        span 交通信息
+      != data.pickup_service
 
     .separator.thick
     
     section#pricing-details(data-magellan-target="pricing-details")
-      .section-title(style="width: 195px; height: 50px; border: 2px solid #B7322A; border-radius: 25px; display: flex; align-items: center; margin-bottom: 36px;")
-        i.material-icons(style="width: 50px; height: 50px; padding: 13px; background-color: #B7322A; color: white; border-radius: 25px; margin-right: 15px;") attach_money
-        span(style="font-size: 26px;") 費用明細
+      .section-title
+        i.material-icons attach_money
+        span 費用明細
       strong 標準價格：
       .table-scroll
         != data.price_breakdown
-      br
-      br
-      p
-        strong 費用包含：
-        br
-        | 1、行程所列豪華酒店、景點、餐膳；
-        br
-        | 2、豪華空調旅遊巴士；
-        br
-        | 3、專業中英文雙語導遊；
-        br
-        | 4、中國境內意外保險；
-        br
-        br
-        strong 費用不含：
-        br
-        | 1、國際/國內機票及其稅項；
-        br
-        | 2、簽證費用、小費及自費專案；
-        br
-        | 3、個人旅遊、醫療保險；
-        br
-        | 4、一切純屬私人性質的消費；
-        br
-        | 5、因私人原因及航班延誤等其他不可抗拒的因素引起的額外費用
-        br
-        br
-        strong 特價團特殊條款：
-        br
-        | 1、歡迎美加澳籍華人或持有永久身份的華人及其它國籍非華語客人參加；
-        br
-        | 2、12歲以下不占床兒童早餐費用請自行諮詢酒店前臺；
-        br
-        | 3、客人若中途離團需所有費用不再退回；
-        br
-        | 4、全程無購物，除了必須參加自費門票、小費外，個別線路如當地有推薦，以客人自願選擇參加，絕不強迫；
-        br
-        | 5、團費不包括不可預見或無法避免的情況所產生的額外費用。包括私人需求、航班晚點/取消、戰爭/潛在的戰爭威脅、暴亂、內亂、恐怖主義活動/實際的恐怖主義活動的威脅、自然災害、惡劣的環境天氣等等；
-        br
-        | 6、訂位一經預訂恕不能取消及退款，如因國家政策法規等因素無法成行將扣除手續費後退回預付的自費專案，但團款外一切損失請自行承擔；
-        br
-        | 7、組團社保留根據實際情況適當調整行程及酒店的權利，圖片資料僅作參考，以實際行程景點為准；最終解釋權由組團社所有。
+
+    .separator.thick
+
+    section#notice(data-magellan-target="pricing-details")
+      .section-title
+        i.material-icons priority_high
+        span 訂購須知
+      != data.notice
