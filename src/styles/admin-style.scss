@@ -1,0 +1,63 @@
+/*** COLORS ***/
+$black: #000000;
+$white: #FFFFFF;
+$white-shadow: #EBEBEB;
+$light-gray: #F3F3F3;
+$highlight: #FE692A;
+$caution: #EEAA10;
+$success: #22AA55;
+$error: #f65327;
+
+$font-color: #484848;
+$font-color-light: #8b8b8b;
+$theme-color: #B7322A;
+
+$table-border: 1px solid #b1b1b1;
+$seperator-border: 1px solid #EBEBEB;
+
+$mdc-theme-primary: #B7322A;
+$mdc-theme-secondary: #424242;
+$mdc-theme-on-primary: #442b2d;
+$mdc-theme-on-secondary: #442b2d;
+
+@import "material-components-web/material-components-web";
+
+body {
+  font-family: 'Roboto', 'Microsoft YaHei UI Light', 'Hiragino Sans GB', 'Hei Ti', sans-serif;
+  font-size: 16px;
+  background-color: $white;
+  color: $font-color;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+}
+
+.mdc-button {
+  outline: none !important;
+
+  &.no-min-width {
+    min-width: 0;
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+}
+.mdc-dialog {
+  @include mdc-dialog-min-width(480px);
+
+  .mdc-dialog__surface {
+    .mdc-dialog__title+.mdc-dialog__content {
+      padding-top: 10px;
+    
+      .mdc-text-field {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+.site-content {
+  margin-top: 24px;
+  margin-bottom: 80px;
+}

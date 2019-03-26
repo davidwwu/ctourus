@@ -1,17 +1,24 @@
 var express = require('express');
+const bodyParser = require('body-parser');
 
 // output dummy data for now
 var data = require('../src/data/dummy-data.json');
 
 // mongo here
-const connectMongo_async = require('../src/controllers/dbController.mjs');
+const connectMongo_async = require('../src/controllers/dbController');
 let mdb;
+let ObjectId;
 connectMongo_async().then((data) => {
-  mdb = data;
+  mdb = data.db;
+  ObjectId = data.ObjectId;
 });
 
 var router = express.Router();
 
+// create application/json parser
+var jsonParser = bodyParser.json();
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get('/tours/tour-menu', function (req, res) {
   mdb.collection('tour_menu')
@@ -25,9 +32,31 @@ router.get('/tours/tour-menu', function (req, res) {
 });
 
 router.get('/tours', function (req, res) {
-  mdb.collection('tours').findOne({}, (err, data) => {
-    res.send(data);
-  });
+  mdb.collection('tours')
+    .find({}, (err, data) => {
+      res.send(data);
+    });
+});
+
+router.get('/tours/admin-dash', function (req, res) {
+  mdb.collection('tours')
+    .find({})
+    .project({ 
+      name: true,
+      starting_price: true,
+      tour_id: true,
+      tour_type: true,
+      duration: true,
+      start_city: true
+    })
+    .sort({
+      tour_type: 1,
+      tour_id: 1
+    })
+    .toArray((err, data) => {
+      console.log(data);
+      res.send(data);
+    });
 });
 
 router.get('/tours/highlight-tours', async function (req, res) {
@@ -83,7 +112,9 @@ router.get('/tours/:tourList', function (req, res) {
         start_city: true
       })
       .sort({
-        tour_id: 1
+        tour_id: 1,
+        start_city: 1,
+        duration: 1
       })
       .toArray((err, data) => {
         res.send(data);
@@ -117,24 +148,56 @@ router.get('/tours/:tourList', function (req, res) {
 router.get('/tours/:tourList/:tourId', function (req, res) {
   if(req.params.tourList != 'all') {
     mdb.collection('tours')
-    .findOne({
-      $and: [
-        { tour_type: req.params.tourList },
-        { tour_id: req.params.tourId }
-      ]
-    },
-    (err, data) => {
-      res.send(data);
-    });
+      .findOne({
+        $and: [
+          { tour_type: req.params.tourList },
+          { tour_id: req.params.tourId }
+        ]
+      },
+      (err, data) => {
+        res.send(data);
+      });
   } else {
     mdb.collection('tours')
+      .findOne({
+        tour_id: req.params.tourId
+      },
+      (err, data) => {
+        res.send(data);
+      });
+  }
+});
+
+router.get('/admin/:tourId', jsonParser, (req, res) => {
+  mdb.collection('tours')
     .findOne({
-      tour_id: req.params.tourId
+      'tour_id': req.params.tourId
     },
     (err, data) => {
       res.send(data);
     });
-  }
+});
+
+router.post('/admin/:tourId/edit', jsonParser, (req, res) => {
+  mdb.collection('tours')
+    .updateOne(
+      { 'tour_id': req.body.tour_id },
+      { $set: req.body },
+      { upsert: true },
+      (err, msg) => {
+        res.send(msg);
+      }
+    );
+});
+
+router.post('/admin/:tourId/delete', jsonParser, (req, res) => {
+  mdb.collection('tours')
+    .deleteOne(
+      { 'tour_id': req.body.tour_id },
+      (err, msg) => {
+        res.send(msg);
+      }
+    );
 });
 
 module.exports = router;

@@ -1,0 +1,102 @@
+extends _edit_layout.pug
+
+block content
+  form(method='POST' action='' enctype='application/x-www-form-urlencoded')
+    main.grid-container.site-content(style="margin-top: 100px; margin-bottom: 120px;")
+      .highlight-container.grid-x.grid-margin-x
+        .swiper-container.cell.medium-5
+          .swiper-wrapper
+            each image, i in data.images
+              .swiper-slide
+                img(src=`/images/${image}`, alt="photos")
+        .trip-highlight-container.cell.medium-7
+          h3#name.editable-header= data.name
+          div
+            | 線路編號：
+            input(value=data.tour_id name="tour_id" style="text-transform: uppercase;")
+          div
+            | 行程天數：
+            input(value=data.duration name="duration" style="width: 30px;")
+            | 
+            | 天
+          div
+            | 旅遊團費：$
+            input(value=data.starting_price name="starting_price" style="width: 50px;")
+
+          .separator.thin
+
+          .highlight#full_description.editable-block!= data.full_description
+
+      .separator.thick
+  
+      .available-dates
+        #schedule_table.editable-block!= data.schedule_table
+      .top-bar.detail-menu(data-smooth-scroll data-animation-duration="800" data-animation-easing="swing" data-offset="60" data-magellan)
+        ul.top-bar-left.menu
+          li
+            a(href="#trip-details") 行程介紹
+          li
+            a(href="#travel-info") 交通信息
+          li
+            a(href="#pricing-details") 費用明細
+          li
+            a(href="#notice") 訂購須知
+      section#trip-details(data-magellan-target="trip-details")
+        img(src="/images/tour-plan.png")
+        each day, i in data.tour_plan
+          .trip-day
+            .button-hover-reveal-wrapper.option-btn-group
+              label Options
+              button.button-hover-reveal(onclick='#') Add a day before
+              button.button-hover-reveal(onclick='#') Add a day after 
+              button.button-hover-reveal(onclick='#') Remove day 
+            .trip-day-title
+              .date-title-icon
+                = 'D#'
+              h4.editable-header(id=`d${i}_title`)!= day.title
+            .trip-content-container
+              .trip-day-discription
+                i.other-icon.material-icons location_on
+                .editable-block(id=`d${i}_description`)!= day.description
+              if day.sights && day.sights.length != 0
+                .trip-day-photos
+                  i.other-icon.material-icons camera_alt
+                  .sight-container
+                    span 途徑景點：
+                    .thumbnails
+                      each sight in day.sights
+                        img(src=`/images/${sight}`)
+              if day.stay && day.stay != ""
+                .trip-day-hotel
+                  i.other-icon.material-icons hotel
+                  .editable-block(id=`d${i}_stay`)!= day.stay
+            if(i < data.tour_plan.length - 1)
+              .separator.thin
+            
+        .separator.thick
+      
+      section#travel-info(data-magellan-target="travel-info")
+        .section-title
+          i.material-icons directions_bus
+          span 交通信息
+        #pickup_service.editable-block!= data.pickup_service
+
+      .separator.thick
+      
+      section#pricing-details(data-magellan-target="pricing-details")
+        .section-title
+          i.material-icons attach_money
+          span 費用明細
+        #price_breakdown.editable-block!= data.price_breakdown
+
+      .separator.thick
+
+      section#notice(data-magellan-target="pricing-details")
+        .section-title
+          i.material-icons priority_high
+          span 訂購須知
+        #notice.editable-block!= data.notice
+
+    footer.admin-edit
+      input.clear.button.primary(value="RESET" type="reset")
+      input.button.primary(value="SAVE" type="submit")

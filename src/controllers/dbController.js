@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 const DATABASE_NAME = '',
     URL = `${process.env.MONGODB_URI}`
@@ -16,5 +17,5 @@ module.exports = async function() {
         console.log(err.stack)
     }
 
-    return db
+    return { db, ObjectId }
 }

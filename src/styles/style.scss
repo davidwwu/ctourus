@@ -67,6 +67,7 @@ body {
     margin-bottom: 80px;
 
     .trip-day {
+      position: relative;
       padding: 0 24px;
     }
   }
@@ -337,13 +338,16 @@ a.card:focus {
       align-items: baseline;
 
       .date-title-icon {
+        flex-shrink: 0;
         width: 50px;
         height: 50px;
+        padding-top: 8px;
         background-color: $theme-color;
         color: $white;
         border-radius: 25px;
         margin-right: 15px;
         font-size: 24px;
+        text-align: center;
       }
     }
 
@@ -390,28 +394,26 @@ main {
     }
   }
 
-  .editable {
-    // transition: box-shadow 0.2s ease;
-    // transition: padding 0.2s ease;
-    transition-property: padding, box-shadow;
+  .editable-header,
+  .editable-block {
+    min-width: 50px;
+    transition-property: box-shadow;
     transition-duration: 0.2s;
     transition-timing-function: ease;
     transition-delay: 0.15s;
-  }
 
-  .editable:hover {
-    cursor: pointer;
-    box-shadow: $box-shadow-darker;
-    border-radius: 3px;
-    padding: 10px 20px;
-  }
-
-  .editable:focus {
-    outline: none;
-    cursor: auto;
-    box-shadow: $box-shadow-darker;
-    border-radius: 3px;
-    padding: 10px 20px;
+    &:hover {
+      cursor: pointer;
+      box-shadow: $box-shadow-darker;
+      border-radius: 3px;
+    }
+  
+    &:focus {
+      outline: none;
+      cursor: auto;
+      box-shadow: $box-shadow-darker;
+      border-radius: 3px;
+    }
   }
 }
 
@@ -421,4 +423,20 @@ main {
   background: $font-color;
   color: $white;
   font-size: 16px;
+}
+
+footer.admin-edit {
+  width: 100%;
+  padding-right: 30px;
+  position: fixed;
+  bottom: 0;
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  .button {
+    margin-bottom: 0;
+  }
 }

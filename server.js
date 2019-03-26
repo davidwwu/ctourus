@@ -12,6 +12,7 @@ if(process.env.NODE_ENV === 'dev') {
 }
 
 const express = require('express');
+const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const sassMiddleware = require('node-sass-middleware');
 const axios = require('axios');
@@ -20,12 +21,8 @@ const axios = require('axios');
 // ----------------------------------------------------------------------------
 // setup
 const api = require('./api');
-
-const production = {
-  contact: true,
-  about: true,
-  'tour-details': true
-};
+const adminController = require('./src/controllers/adminController');
+const authController = require('./src/controllers/authController');
 
 // Filter an obj based on provided query.
 // Returns true if all queries are met, else return false
@@ -68,8 +65,14 @@ app.enable('strict routing');
 app.enable('case sensitive routing');
 app.disable('x-powered-by');
 
+// create application/json parser
+var jsonParser = bodyParser.json();
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 app.use(sassMiddleware({
   src: path.join(__dirname, 'src/styles'),
+  includePaths: ['./node_modules/'],
   dest: path.join(__dirname, 'public/styles'),
   outputStyle: 'compressed',
   prefix: '/styles'
@@ -175,10 +178,23 @@ app.get('/tours/:tourList/:tourId', (req, res) => {
     });
 });
 
+app.get('/admin', (req, res) => {
+  axios.get(`${serverUrl}/api/tours/admin-dash`)
+    .then(({ data }) => {
+      res.render('admin_dashboard', {
+        page_type: 'tour',
+        data,
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+})
+
 app.get('/admin/:tourId/edit', (req, res) => {
   axios.get(`${serverUrl}/api/tours/all/${req.params.tourId}`)
     .then(({ data }) => {
-      res.render('edit-tour-details', {
+      res.render('edit_tour_details', {
         page_type: 'tour',
         tour_list: req.params.tourList,
         data,
@@ -189,6 +205,10 @@ app.get('/admin/:tourId/edit', (req, res) => {
       console.log(error);
     });
 });
+
+app.post('/admin/:tourId/edit', [urlencodedParser], adminController.post_edit_tour);
+app.post('/admin/:tourId/duplicate', [urlencodedParser], adminController.post_duplicate_tour);
+app.post('/admin/:tourId/delete', [urlencodedParser], adminController.post_delete_tour);
 
 // TODO: fix 404 catching
 app.use('*', (req, res) => {
