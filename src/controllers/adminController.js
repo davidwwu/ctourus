@@ -15,7 +15,7 @@ exports.post_edit_tour = (req, res) => {
     let data = {
         name: req.body.name,
         tour_id: req.body.tour_id.toUpperCase(),
-        tour_type: "",
+        tour_type: req.body.tour_type,
         is_highlight: true,
         schedule_table: req.body.schedule_table,
         images: [],
@@ -27,10 +27,10 @@ exports.post_edit_tour = (req, res) => {
         pickup_service: req.body.pickup_service,
         price_breakdown: req.body.price_breakdown,
         notice: req.body.notice,
-        start_date: "",
-        end_date: "",
-        start_city: "",
-        end_city: ""
+        start_date: req.body.start_date,
+        end_date: req.body.end_date,
+        start_city: req.body.start_city,
+        end_city: req.body.end_city
     }
     for(let i = 0; i < data.duration; i++) {
         data.tour_plan.push({

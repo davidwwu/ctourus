@@ -3,6 +3,19 @@ extends _edit_layout.pug
 block content
   form(method='POST' action='' enctype='application/x-www-form-urlencoded')
     main.grid-container.site-content(style="margin-top: 100px; margin-bottom: 120px;")
+      .grid-x.grid-padding-x
+        label.cell.small-1(for="modal-tour-type") 線路分類:
+        input#modal-tour-type.cell.small-4(type='text' name='tour_type' value=data.tour_type required)
+      .grid-x.grid-padding-x
+        label.cell.small-1(for="modal-start-city") 出發日期:
+        input#modal-start-city.cell.small-4(type='text' name='start_city' value=data.start_date)
+        label.cell.small-1(for="modal-start-city") 結束日期:
+        input#modal-start-city.cell.small-4(type='text' name='start_city' value=data.end_date)
+      .grid-x.grid-padding-x
+        label.cell.small-1(for="modal-start-city") 出發城市:
+        input#modal-start-city.cell.small-4(type='text' name='start_city' value=data.start_city)
+        label.cell.small-1(for="modal-start-city") 結束城市:
+        input#modal-start-city.cell.small-4(type='text' name='start_city' value=data.end_city)
       .highlight-container.grid-x.grid-margin-x
         .swiper-container.cell.medium-5
           .swiper-wrapper

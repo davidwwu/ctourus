@@ -91,7 +91,7 @@ block content
                 button.copy-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)))
                   i.material-icons file_copy
               td(style="text-align: center;")
-                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)))
+                a.edit-btn.mdc-button.mdc-button--dense.no-min-width(href=`admin/${row.tour_id}/edit`)
                   i.material-icons edit
               td(style="text-align: center;")
                 button.delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)))
