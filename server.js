@@ -178,33 +178,9 @@ app.get('/tours/:tourList/:tourId', (req, res) => {
     });
 });
 
-app.get('/admin', (req, res) => {
-  axios.get(`${serverUrl}/api/tours/admin-dash`)
-    .then(({ data }) => {
-      res.render('admin_dashboard', {
-        page_type: 'tour',
-        data,
-      })
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-})
+app.get('/admin', adminController.get_tours_list);
 
-app.get('/admin/:tourId/edit', (req, res) => {
-  axios.get(`${serverUrl}/api/tours/all/${req.params.tourId}`)
-    .then(({ data }) => {
-      res.render('edit_tour_details', {
-        page_type: 'tour',
-        tour_list: req.params.tourList,
-        data,
-        tiny_api: process.env.TINYMCE_API
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
+app.get('/admin/:tourId/edit', adminController.get_edit_tour);
 
 app.post('/admin/:tourId/edit', [urlencodedParser], adminController.post_edit_tour);
 app.post('/admin/:tourId/duplicate', [urlencodedParser], adminController.post_duplicate_tour);

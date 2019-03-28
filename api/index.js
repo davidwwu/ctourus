@@ -54,7 +54,6 @@ router.get('/tours/admin-dash', function (req, res) {
       tour_id: 1
     })
     .toArray((err, data) => {
-      console.log(data);
       res.send(data);
     });
 });
@@ -194,6 +193,16 @@ router.post('/admin/:tourId/delete', jsonParser, (req, res) => {
   mdb.collection('tours')
     .deleteOne(
       { 'tour_id': req.body.tour_id },
+      (err, msg) => {
+        res.send(msg);
+      }
+    );
+});
+
+router.post('/admin/add-menu', jsonParser, (req, res) => {
+  mdb.collection('tour_menu')
+    .insertOne(
+      { $set: req.body },
       (err, msg) => {
         res.send(msg);
       }

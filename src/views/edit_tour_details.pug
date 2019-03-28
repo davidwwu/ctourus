@@ -3,19 +3,22 @@ extends _edit_layout.pug
 block content
   form(method='POST' action='' enctype='application/x-www-form-urlencoded')
     main.grid-container.site-content(style="margin-top: 100px; margin-bottom: 120px;")
-      .grid-x.grid-padding-x
-        label.cell.small-1(for="modal-tour-type") 線路分類:
-        input#modal-tour-type.cell.small-4(type='text' name='tour_type' value=data.tour_type required)
-      .grid-x.grid-padding-x
-        label.cell.small-1(for="modal-start-city") 出發日期:
-        input#modal-start-city.cell.small-4(type='text' name='start_city' value=data.start_date)
-        label.cell.small-1(for="modal-start-city") 結束日期:
-        input#modal-start-city.cell.small-4(type='text' name='start_city' value=data.end_date)
-      .grid-x.grid-padding-x
-        label.cell.small-1(for="modal-start-city") 出發城市:
-        input#modal-start-city.cell.small-4(type='text' name='start_city' value=data.start_city)
-        label.cell.small-1(for="modal-start-city") 結束城市:
-        input#modal-start-city.cell.small-4(type='text' name='start_city' value=data.end_city)
+      div(style="margin-bottom: 60px;")
+        .grid-x.grid-padding-x
+          label.cell.small-1.text-right.middle(for="tour-type-select") 線路分類:
+          select#tour-type-select.cell.small-2(name="tour_type")
+            each t in menu
+              option(value=(t.permalink) selected=(data.tour_type === t.permalink))= t.name
+        .grid-x.grid-padding-x
+          label.cell.small-1.text-right.middle(for="start-date") 出發日期:
+          input#start-date.cell.small-4(type='date' name='start_date' value=data.start_date)
+          label.cell.small-1.text-right.middle(for="end-date") 結束日期:
+          input#end-date.cell.small-4(type='date' name='end_date' value=data.end_date)
+        .grid-x.grid-padding-x
+          label.cell.small-1.text-right.middle(for="start-city") 出發城市:
+          input#start-city.cell.small-4(type='text' name='start_city' value=data.start_city)
+          label.cell.small-1.text-right.middle(for="end-city") 結束城市:
+          input#end-city.cell.small-4(type='text' name='end_city' value=data.end_city)
       .highlight-container.grid-x.grid-margin-x
         .swiper-container.cell.medium-5
           .swiper-wrapper
@@ -26,10 +29,10 @@ block content
           h3#name.editable-header= data.name
           div
             | 線路編號：
-            input(value=data.tour_id name="tour_id" style="text-transform: uppercase;")
+            input(value=data.tour_id name="tour_id" pattern="[a-zA-Z0-9-_]+" style="text-transform: uppercase;")
           div
             | 行程天數：
-            input(value=data.duration name="duration" style="width: 30px;")
+            input#duration(value=data.duration name="duration" title="將根據行程動態調整" style="width: 30px;" readonly)
             | 
             | 天
           div
@@ -58,31 +61,27 @@ block content
         img(src="/images/tour-plan.png")
         each day, i in data.tour_plan
           .trip-day
-            .button-hover-reveal-wrapper.option-btn-group
+            .option-btn-group
               label Options
-              button.button-hover-reveal(onclick='#') Add a day before
-              button.button-hover-reveal(onclick='#') Add a day after 
-              button.button-hover-reveal(onclick='#') Remove day 
+              button.button.addNewDay(type="button") 增加行程
+              button.button.removeDay(type="button") 移除行程
             .trip-day-title
-              .date-title-icon
-                = 'D#'
+              .date-title-icon= `D${i+1}`
               h4.editable-header(id=`d${i}_title`)!= day.title
             .trip-content-container
-              .trip-day-discription
+              .trip-day-description
                 i.other-icon.material-icons location_on
                 .editable-block(id=`d${i}_description`)!= day.description
-              if day.sights && day.sights.length != 0
-                .trip-day-photos
-                  i.other-icon.material-icons camera_alt
-                  .sight-container
-                    span 途徑景點：
-                    .thumbnails
-                      each sight in day.sights
-                        img(src=`/images/${sight}`)
-              if day.stay && day.stay != ""
-                .trip-day-hotel
-                  i.other-icon.material-icons hotel
-                  .editable-block(id=`d${i}_stay`)!= day.stay
+              .trip-day-photos
+                i.other-icon.material-icons camera_alt
+                .sight-container
+                  span 途徑景點：
+                  .thumbnails
+                    each sight in day.sights
+                      img(src=`/images/${sight}`)
+              .trip-day-hotel
+                i.other-icon.material-icons hotel
+                .editable-block(id=`d${i}_stay`)!= day.stay
             if(i < data.tour_plan.length - 1)
               .separator.thin
             

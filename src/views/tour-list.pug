@@ -3,6 +3,7 @@ extends _layout.pug
 block content
   main.site-content.grid-container
     -
+      // TODO - handle dublicate durations
       let listTitle = '';
       tour_menu.forEach(item => {
         if(item.permalink == tour_list) {

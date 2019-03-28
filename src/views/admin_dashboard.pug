@@ -21,16 +21,18 @@ block content
           .mdc-dialog__content#-modal-content
             .form-group
               label.col-form-label(for="modal-tour-id") 線路編號:
-              input#modal-tour-id.form-control(type='text' name='tour_id')
+              input#modal-tour-id.form-control(type='text' name='tour_id' pattern="[a-zA-Z0-9-_]+")
             .form-group
               label.col-form-label(for="modal-tour-type") 線路分類:
-              input#modal-tour-type.form-control(type='text' name='tour_type')
+              select#modal-tour-type.form-control(name="tour_type")
+                each t in menu
+                  option(value=(t.permalink))= t.name
             .form-group
               label.col-form-label(for="modal-title") 線路標題:
               input#modal-title.form-control(type='text' name='name')
             .form-group
               label.col-form-label(for="modal-duration") 線路天數:
-              input#modal-duration.form-control(type='text' name='duration')
+              input#modal-duration.form-control(type='text' name='duration' readonly)
             .form-group
               label.col-form-label(for="modal-starting-price") 旅遊團費:
               input#modal-starting-price.form-control(type='text' name='starting_price')
@@ -82,19 +84,25 @@ block content
           each row in data
             tr
               td= row.tour_id
-              td= row.tour_type
+                -
+                  let type
+                  menu.forEach(m => {
+                    if(row.tour_type === m.permalink) type = m.name
+                    return
+                  })
+              td= type
               td= row.name
               td(style="text-align: right;")= row.duration
               td(style="text-align: right;")= row.starting_price
               td= row.start_city
               td(style="text-align: center;")
-                button.copy-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)))
+                button.copy-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
                   i.material-icons file_copy
               td(style="text-align: center;")
-                a.edit-btn.mdc-button.mdc-button--dense.no-min-width(href=`admin/${row.tour_id}/edit`)
+                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href = 'admin/${row.tour_id}/edit';`)
                   i.material-icons edit
               td(style="text-align: center;")
-                button.delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)))
+                button.delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
                   i.material-icons delete_forever  
     .row.justify-content-center.mt-5
       - var n = 0;

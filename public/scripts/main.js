@@ -1,3 +1,5 @@
+'use strict'
+
 $(function() {
   $('section#pricing-details table').addClass('scroll');
 });

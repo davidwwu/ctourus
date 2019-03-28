@@ -326,7 +326,7 @@ a.card:focus {
     }
 
     .trip-day-title,
-    .trip-day-discription,
+    .trip-day-description,
     .trip-day-photos,
     .trip-day-hotel {
       padding: 20px;
@@ -397,6 +397,7 @@ main {
   .editable-header,
   .editable-block {
     min-width: 50px;
+    border: 0.5px dashed $font-color;
     transition-property: box-shadow;
     transition-duration: 0.2s;
     transition-timing-function: ease;
