@@ -29,6 +29,18 @@ body {
   color: $font-color;
   letter-spacing: 1px;
   word-spacing: 1px;
+
+  input[type="checkbox"] {
+    margin-left: 0;
+
+    + label {
+      margin-left: 25px;
+    }
+  }
+
+  [readonly], [readonly] + label {
+    pointer-events: none !important;
+  }
 }
 
 .mdc-button {

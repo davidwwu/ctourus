@@ -182,7 +182,8 @@ app.get('/admin', adminController.get_tours_list);
 
 app.get('/admin/:tourId/edit', adminController.get_edit_tour);
 
-app.post('/admin/:tourId/edit', [urlencodedParser], adminController.post_edit_tour);
+app.post('/admin/:tourId/save-and-quit', [urlencodedParser], adminController.post_edit_tour_save_and_quit);
+app.post('/admin/:tourId/save', [urlencodedParser], adminController.post_edit_tour_save);
 app.post('/admin/:tourId/duplicate', [urlencodedParser], adminController.post_duplicate_tour);
 app.post('/admin/:tourId/delete', [urlencodedParser], adminController.post_delete_tour);
 

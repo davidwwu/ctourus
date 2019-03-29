@@ -5,6 +5,9 @@ block content
     main.grid-container.site-content(style="margin-top: 100px; margin-bottom: 120px;")
       div(style="margin-bottom: 60px;")
         .grid-x.grid-padding-x
+          fieldset.cell.small-2
+            input#is-highlight(type="checkbox" name="is_highlight" checked=(data.is_highlight))
+            label.text-right.middle(for="is-highlight" style="margin-left: 15px;") Highlight
           label.cell.small-1.text-right.middle(for="tour-type-select") 線路分類:
           select#tour-type-select.cell.small-2(name="tour_type")
             each t in menu
@@ -77,8 +80,9 @@ block content
                 .sight-container
                   span 途徑景點：
                   .thumbnails
-                    each sight in day.sights
-                      img(src=`/images/${sight}`)
+                    if day.sights
+                      each sight in day.sights
+                        img(src=`/images/${sight}`)
               .trip-day-hotel
                 i.other-icon.material-icons hotel
                 .editable-block(id=`d${i}_stay`)!= day.stay
@@ -110,5 +114,7 @@ block content
         #notice.editable-block!= data.notice
 
     footer.admin-edit
-      input.clear.button.primary(value="RESET" type="reset")
-      input.button.primary(value="SAVE" type="submit")
+      input.clear.button.primary(value="Back" type="button" onclick=`window.location.href='/admin';`)
+      input.clear.button.primary(value="Reset" type="reset")
+      input.clear.button.primary(value="Save" formaction=`/admin/${data.tour_id}/save` type="submit")
+      input.button.primary(value="Save & Quit" formaction=`/admin/${data.tour_id}/save-and-quit` type="submit")

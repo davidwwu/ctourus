@@ -29,7 +29,8 @@ html(lang="zh-Hant" data-tour-list=tour_list ? tour_list : null)
         inline: true,
         browser_spellcheck: true,
         contextmenu: true,
-        toolbar: 'undo redo | bold italic underline',
+        plugins: "powerpaste",
+        toolbar: 'undo redo | formatselect fontsizeselect | bold italic underline',
       });
       tinymce.init({
         selector: '.editable-block',

@@ -20,6 +20,9 @@ block content
           // will set action by data-* attribute
           .mdc-dialog__content#-modal-content
             .form-group
+              input#modal-is-highlight.form-check-input(type="checkbox" name="is_highlight")
+              label.form-check-label(for="modal-is-highlight") Highlight
+            .form-group
               label.col-form-label(for="modal-tour-id") 線路編號:
               input#modal-tour-id.form-control(type='text' name='tour_id' pattern="[a-zA-Z0-9-_]+")
             .form-group
@@ -32,13 +35,16 @@ block content
               input#modal-title.form-control(type='text' name='name')
             .form-group
               label.col-form-label(for="modal-duration") 線路天數:
-              input#modal-duration.form-control(type='text' name='duration' readonly)
+              input#modal-duration.form-control(type='text' name='duration')
             .form-group
               label.col-form-label(for="modal-starting-price") 旅遊團費:
               input#modal-starting-price.form-control(type='text' name='starting_price')
             .form-group
               label.col-form-label(for="modal-start-city") 出發城市:
               input#modal-start-city.form-control(type='text' name='start_city')
+            .form-group
+              label.col-form-label(for="modal-end-city") 結束城市:
+              input#modal-end-city.form-control(type='text' name='end_city')
           footer.mdc-dialog__actions
             button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close')
               span.mdc-button__label Cancel
@@ -50,6 +56,8 @@ block content
       table.maint-list-table.table.table-bordered.table-hover.table-responsive-md
         thead
           tr.maint-list-title
+            th(scope="col")
+              .d-flex.justify-content-between Highlight
             th(scope="col")
               a(href="?sortBy=customer_id").d-flex.justify-content-between 線路編號
                 if sortBy == "customer_id"
@@ -75,6 +83,10 @@ block content
                 if sortBy == "end_date"
                   i.fas.fa-caret-down
             th(scope="col")
+              a(href="?sortBy=end_date").d-flex.justify-content-between 結束城市
+                if sortBy == "end_date"
+                  i.fas.fa-caret-down
+            th(scope="col")
               .d-flex.justify-content-between 複製
             th(scope="col")
               .d-flex.justify-content-between 編輯
@@ -83,23 +95,28 @@ block content
         tbody
           each row in data
             tr
-              td= row.tour_id
-                -
-                  let type
-                  menu.forEach(m => {
-                    if(row.tour_type === m.permalink) type = m.name
-                    return
-                  })
-              td= type
+              -
+                let type
+                menu.forEach(m => {
+                  if(row.tour_type === m.permalink) type = m.name
+                  return
+                })
+              td(style="text-align: center;")
+                input.position-static.form-check-input(type="checkbox" checked=(row.is_highlight) readonly)
+              td
+                a(href=`/tours/${row.tour_type}/${row.tour_id}`)= row.tour_id
+              td
+                a(href=`/tours/${row.tour_type}`)= type
               td= row.name
-              td(style="text-align: right;")= row.duration
-              td(style="text-align: right;")= row.starting_price
+              td(style="text-align: right;")= `${row.duration}天`
+              td(style="text-align: right;")= `$${row.starting_price}`
               td= row.start_city
+              td= row.end_city
               td(style="text-align: center;")
                 button.copy-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
                   i.material-icons file_copy
               td(style="text-align: center;")
-                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href = 'admin/${row.tour_id}/edit';`)
+                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href='/admin/${row.tour_id}/edit';`)
                   i.material-icons edit
               td(style="text-align: center;")
                 button.delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))

@@ -42,12 +42,14 @@ router.get('/tours/admin-dash', function (req, res) {
   mdb.collection('tours')
     .find({})
     .project({ 
+      is_highlight: true,
       name: true,
       starting_price: true,
       tour_id: true,
       tour_type: true,
       duration: true,
-      start_city: true
+      start_city: true,
+      end_city: true
     })
     .sort({
       tour_type: 1,
