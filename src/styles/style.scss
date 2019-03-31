@@ -275,6 +275,11 @@ body {
     }
   }
 
+  .card-section p {
+    height: 81px;
+    overflow: hidden;
+  }
+
   .price-highlight {
     font-weight: 300;
     color: $highlight;
