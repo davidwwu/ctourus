@@ -400,10 +400,11 @@ main {
   }
 
   .editable-header,
-  .editable-block {
+  .editable-block,
+  .editable-thumbnails {
     min-width: 50px;
     border: 0.5px dashed $font-color;
-    transition-property: box-shadow;
+    transition-property: padding, box-shadow;
     transition-duration: 0.2s;
     transition-timing-function: ease;
     transition-delay: 0.15s;
@@ -412,6 +413,7 @@ main {
       cursor: pointer;
       box-shadow: $box-shadow-darker;
       border-radius: 3px;
+      padding: 10px 20px;
     }
   
     &:focus {
@@ -419,6 +421,8 @@ main {
       cursor: auto;
       box-shadow: $box-shadow-darker;
       border-radius: 3px;
+      padding: 10px 20px;
+  
     }
   }
 }

@@ -84,6 +84,6 @@ $('#trip-details').on('click', '.removeDay', function(e) {
     $(this).children('.trip-day-title').children('.date-title-icon').html('D'+(index+1));
     $(this).children('.trip-day-title').children('h4').attr('id', 'd'+index+'_title');
   });
-  
+
   window.setTimeout(reInitTinymce(), 1000);
 })

@@ -79,7 +79,7 @@ block content
                 i.other-icon.material-icons camera_alt
                 .sight-container
                   span 途徑景點：
-                  .thumbnails
+                  .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)
                     if day.sights
                       each sight in day.sights
                         img(src=`/images/${sight}`)

@@ -42,4 +42,14 @@ html(lang="zh-Hant" data-tour-list=tour_list ? tour_list : null)
         table_appearance_options: false,
         toolbar: "undo redo | formatselect fontsizeselect | cut copy paste pastetext removeformat | bold italic underline strikethrough | alignleft aligncenter alignright | forecolor backcolor | bullist numlist | outdent indent | table"
       });
+      tinymce.init({
+        selector: '.editable-thumbnails',
+        menubar: false,
+        inline: true,
+        contextmenu: true,
+        plugins: "image",
+        images_upload_url: '/admin/image/upload',
+        file_picker_types: 'image',
+        toolbar: "image"
+      });
     script(src="/scripts/admin-main.js")

@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const sassMiddleware = require('node-sass-middleware');
 const axios = require('axios');
+const multer = require('multer');
 
 
 // ----------------------------------------------------------------------------
@@ -84,6 +85,18 @@ app.use(express.static('public'));
 if(process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
+
+var storage = multer.diskStorage({
+  destination: './public/images/userUpload/',
+  filename: function (req, file, cb) {
+    console.log(req);
+    console.log(file);
+    let filename = file.originalname.slice(0,file.originalname.indexOf('.')) + '-' + Date.now() + path.extname(file.originalname);
+    cb(null, filename);
+  }
+})
+ 
+var upload = multer({ storage: storage })
 
 // load default data
 app.use(
@@ -186,6 +199,9 @@ app.post('/admin/:tourId/save-and-quit', [urlencodedParser], adminController.pos
 app.post('/admin/:tourId/save', [urlencodedParser], adminController.post_edit_tour_save);
 app.post('/admin/:tourId/duplicate', [urlencodedParser], adminController.post_duplicate_tour);
 app.post('/admin/:tourId/delete', [urlencodedParser], adminController.post_delete_tour);
+app.post('/admin/image/upload', upload.single("file"), (req, res) => {
+  res.send({ location : `/images/userUpload/${req.file.filename}` });
+})
 
 // TODO: fix 404 catching
 app.use('*', (req, res) => {
