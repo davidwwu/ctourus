@@ -91,7 +91,7 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     console.log(req);
     console.log(file);
-    let filename = file.originalname.slice(0,file.originalname.indexOf('.')) + '-' + Date.now() + path.extname(file.originalname);
+    let filename = file.originalname;
     cb(null, filename);
   }
 })

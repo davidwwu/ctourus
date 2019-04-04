@@ -402,6 +402,10 @@ main {
   .editable-header,
   .editable-block,
   .editable-thumbnails {
+    .mce-resizehandle {
+      z-index: 1000 !important;
+    }
+
     min-width: 50px;
     border: 0.5px dashed $font-color;
     transition-property: padding, box-shadow;
