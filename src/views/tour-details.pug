@@ -7,7 +7,7 @@ block content
         .swiper-wrapper
           each image, i in data.images
             .swiper-slide
-              img(src=`/images/${image}`, alt="photos")
+              img(src=`/images/userUpload/${image}`, alt="photos")
       .trip-highlight-container.cell.medium-7
         h3= data.name
         div= `線路編號：${data.tour_id}`
