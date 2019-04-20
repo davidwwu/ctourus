@@ -1,9 +1,13 @@
 'use strict'
 
-$('#duration').val($('.trip-day').length);
+var tinymce;
+$(function() {
+  $('#duration').val($('.trip-day').length);
+  initTinymce();
+});
 
-var reInitTinymce = function() {
-  tinymce.remove();
+var initTinymce = function() {
+  if(tinymce) tinymce.remove();
 
   tinymce.init({
     selector: '.editable-header',
@@ -11,8 +15,10 @@ var reInitTinymce = function() {
     inline: true,
     browser_spellcheck: true,
     contextmenu: true,
-    toolbar: 'undo redo | bold italic underline',
+    plugins: "powerpaste",
+    toolbar: 'undo redo | formatselect fontsizeselect | bold italic underline',
   });
+
   tinymce.init({
     selector: '.editable-block',
     menubar: false,
@@ -21,7 +27,19 @@ var reInitTinymce = function() {
     contextmenu: true,
     plugins: "table powerpaste lists advlist insertdatetime",
     table_appearance_options: false,
-    toolbar: "undo redo | cut copy paste pastetext removeformat | bold italic underline strikethrough | alignleft aligncenter alignright | forecolor backcolor | bullist numlist | table"
+    toolbar: "undo redo | formatselect fontsizeselect | cut copy paste pastetext removeformat | bold italic underline strikethrough | alignleft aligncenter alignright | forecolor backcolor | bullist numlist | outdent indent | table"
+  });
+
+  tinymce.init({
+    selector: '.editable-thumbnails',
+    menubar: false,
+    inline: true,
+    contextmenu: true,
+    plugins: "image",
+    images_upload_url: '/admin/image/upload',
+    file_picker_types: 'image',
+    images_reuse_filename: true,
+    toolbar: "image"
   });
 }
 
@@ -73,7 +91,7 @@ $('#trip-details').on('click', '.addNewDay', function(e) {
         $(this).children('.trip-content-container').children('.trip-day-description').children('div').attr('id', 'd'+index+'_description');
         $(this).children('.trip-content-container').children('.trip-day-hotel').children('div').attr('id', 'd'+index+'_stay');
       })
-      reInitTinymce();
+      initTinymce();
     });
 });
 
@@ -85,5 +103,5 @@ $('#trip-details').on('click', '.removeDay', function(e) {
     $(this).children('.trip-day-title').children('h4').attr('id', 'd'+index+'_title');
   });
 
-  window.setTimeout(reInitTinymce(), 1000);
+  window.setTimeout(initTinymce(), 1000);
 })

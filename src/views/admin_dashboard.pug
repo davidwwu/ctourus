@@ -1,5 +1,22 @@
 extends _admin_layout.pug
 
+block menu
+  nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.sticky-top
+    a.navbar-brand(href="/admin") Admin
+    button.navbar-toggler(type="button" data-toggle="collapse" data-target="#adminNav")
+      span.navbar-toggler-icon
+    #adminNav.collapse.navbar-collapse
+      ul.navbar-nav.d-flex
+        li.nav-item(class="active")
+          a.nav-link(href="/admin") 線路列表
+        li.nav-item
+          a#new-tour.nav-link(href="javascript:;") 添加線路
+        li.nav-item
+          a.nav-link(href="/") 回到主頁
+      ul.navbar-nav.ml-sm-auto.d-flex
+        li.nav-item
+          a.nav-link(href="/admin_logout") 登出
+
 block content
   main.p-4.container-fluid
     //- if flash.error
@@ -19,15 +36,20 @@ block content
           h2.mdc-dialog__title#my-dialog-title
           // will set action by data-* attribute
           .mdc-dialog__content#-modal-content
+            .required-astrisk.note * Required
             .form-group
-              input#modal-is-highlight.form-check-input(type="checkbox" name="is_highlight")
-              label.form-check-label(for="modal-is-highlight") Highlight
+              .custom-control.custom-checkbox(style="padding-left: 0;")
+                input#modal-is-highlight.custom-control-input(type="checkbox" name="is_highlight")
+                label.custom-control-label(for="modal-is-highlight") Highlight
             .form-group
               label.col-form-label(for="modal-tour-id") 線路編號:
-              input#modal-tour-id.form-control(type='text' name='tour_id' pattern="[a-zA-Z0-9-_]+")
+              | 
+              span.required-astrisk *
+              input#modal-tour-id.form-control(type='text' name='tour_id' pattern="[a-zA-Z0-9-_]+" required)
+              small.form-text.text-muted 只可包含英文字母大小寫、數字、連結號 (-)、及下劃線 (_)
             .form-group
               label.col-form-label(for="modal-tour-type") 線路分類:
-              select#modal-tour-type.form-control(name="tour_type")
+              select#modal-tour-type.custom-select.form-control(name="tour_type")
                 each t in menu
                   option(value=(t.permalink))= t.name
             .form-group
@@ -35,10 +57,18 @@ block content
               input#modal-title.form-control(type='text' name='name')
             .form-group
               label.col-form-label(for="modal-duration") 線路天數:
-              input#modal-duration.form-control(type='text' name='duration')
+              | 
+              span.required-astrisk *
+              .input-group
+                input#modal-duration.form-control(type='text' name='duration' required)
+                .input-group-append
+                  span.input-group-text 天
             .form-group
               label.col-form-label(for="modal-starting-price") 旅遊團費:
-              input#modal-starting-price.form-control(type='text' name='starting_price')
+              .input-group
+                .input-group-prepend
+                  span.input-group-text $
+                input#modal-starting-price.form-control(type='text' name='starting_price')
             .form-group
               label.col-form-label(for="modal-start-city") 出發城市:
               input#modal-start-city.form-control(type='text' name='start_city')

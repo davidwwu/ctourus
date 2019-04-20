@@ -94,7 +94,7 @@ var storage = multer.diskStorage({
     let filename = file.originalname;
     cb(null, filename);
   }
-})
+});
  
 var upload = multer({ storage: storage })
 
@@ -111,7 +111,7 @@ app.use(
         res.locals.tour_menu = data;
 
         next();
-      })
+      });
   }
 );
 
@@ -197,11 +197,12 @@ app.get('/admin/:tourId/edit', adminController.get_edit_tour);
 
 app.post('/admin/:tourId/save-and-quit', [urlencodedParser], adminController.post_edit_tour_save_and_quit);
 app.post('/admin/:tourId/save', [urlencodedParser], adminController.post_edit_tour_save);
+app.post('/admin/create-tour', [urlencodedParser], adminController.post_create_tour);
 app.post('/admin/:tourId/duplicate', [urlencodedParser], adminController.post_duplicate_tour);
 app.post('/admin/:tourId/delete', [urlencodedParser], adminController.post_delete_tour);
 app.post('/admin/image/upload', upload.single("file"), (req, res) => {
   res.send({ location : `/images/userUpload/${req.file.filename}` });
-})
+});
 
 // TODO: fix 404 catching
 app.use('*', (req, res) => {

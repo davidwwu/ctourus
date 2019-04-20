@@ -179,6 +179,16 @@ router.get('/admin/:tourId', jsonParser, (req, res) => {
     });
 });
 
+router.post('/admin/:tourId/create', jsonParser, (req, res) => {
+  mdb.collection('tours')
+    .insertOne(
+      { ...req.body },
+      (err, msg) => {
+        res.send(msg);
+      }
+    );
+});
+
 router.post('/admin/:tourId/edit', jsonParser, (req, res) => {
   mdb.collection('tours')
     .updateOne(

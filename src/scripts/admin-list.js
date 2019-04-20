@@ -12,6 +12,24 @@ $(function() {
     console.log('opened');
   });
 
+  $('#new-tour').on('click', function(e) {
+    $('#my-dialog-title').text('新線路');
+    $('#modal-form').attr('action', `/admin/create-tour`);
+    $('#modal-is-highlight').prop('checked', false);
+    $('#modal-tour-id').val('');
+    $('#modal-tour-type').val('');
+    $('#modal-title').val('');
+    $('#modal-duration').val('');
+    $('#modal-starting-price').val('');
+    $('#modal-start-city').val('');
+    $('#modal-end-city').val('');
+
+    $('#modal-is-highlight, #modal-tour-id, #modal-title, #modal-duration, #modal-starting-price, #modal-start-city, #modal-end-city').prop('readonly', false);
+    $('#modal-tour-type option').attr('disabled',false);
+    
+    dialog.open();
+  });
+
   $('.copy-btn').on('click', function(e) {
     let { _id, is_highlight, tour_id, tour_type, name, duration, starting_price, start_city, end_city,  } = $(this).data('tour');
     let menu = $(this).data('menu');

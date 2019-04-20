@@ -7,6 +7,7 @@ $highlight: #FE692A;
 $caution: #EEAA10;
 $success: #22AA55;
 $error: #f65327;
+$required-astrisk: #d93025;
 
 $font-color: #484848;
 $font-color-light: #8b8b8b;
@@ -57,6 +58,7 @@ body {
 
 .mdc-dialog {
   @include mdc-dialog-min-width(480px);
+  z-index: 1050;
 
   .mdc-dialog__surface {
     .mdc-dialog__title+.mdc-dialog__content {
@@ -69,8 +71,12 @@ body {
   }
 }
 
+.required-astrisk {
+  color: $required-astrisk;
 
-.site-content {
-  margin-top: 24px;
-  margin-bottom: 80px;
+  &.note {
+    font-size: 80%;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
 }
