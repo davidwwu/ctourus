@@ -207,6 +207,7 @@ app.get('/tours/:tourList/:tourId', (req, res) => {
 app.get('/admin', adminController.get_tours_list);
 
 app.get('/admin/:tourId/edit', adminController.get_edit_tour);
+app.get('/admin/static-pages', adminController.get_static_page_list);
 app.get('/admin/static-pages/:page/edit', adminController.get_edit_static_page);
 
 app.post('/admin/:tourId/save-and-quit', [urlencodedParser], adminController.post_edit_tour_save_and_quit);
@@ -217,6 +218,8 @@ app.post('/admin/:tourId/delete', [urlencodedParser], adminController.post_delet
 app.post('/admin/image/upload', upload.single("file"), (req, res) => {
   res.send({ location : `/images/userUpload/${req.file.filename}` });
 });
+app.post('/admin/static-pages/:page/save', [urlencodedParser], adminController.post_edit_static_page_save);
+app.post('/admin/static-pages/:page/save-and-quit', [urlencodedParser], adminController.post_edit_static_page_save_and_quit);
 
 // TODO: fix 404 catching
 app.use('*', (req, res) => {

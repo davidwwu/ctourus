@@ -247,4 +247,26 @@ router.post('/admin/add-menu', jsonParser, (req, res) => {
     );
 });
 
+router.post('/admin/static-pages/:page/edit', jsonParser, (req, res) => {
+  mdb.collection('static_pages')
+    .updateOne(
+      { 'permalink': req.body.permalink },
+      { $set: req.body },
+      { upsert: true },
+      (err, msg) => {
+        res.send(msg);
+      }
+    );
+});
+
+router.post('/admin/static-pages/:permalink/delete', jsonParser, (req, res) => {
+  mdb.collection('static_pages')
+    .deleteOne(
+      { 'permalink': req.body.permalink },
+      (err, msg) => {
+        res.send(msg);
+      }
+    );
+});
+
 module.exports = router;

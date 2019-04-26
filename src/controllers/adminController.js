@@ -23,10 +23,8 @@ exports.get_static_page_list = async (req, res) => {
     try {
         let pageData = await axios.get(`${serverUrl}/api/static-pages/page-menu`);
 
-        res.render('static_page_list', {
-            name: pageData.data.name,
-            order: pageData.data.order,
-            permalink: pageData.data.permalink
+        res.render('admin_static_page_list', {
+            data: pageData.data
         })
     } catch(error) {
         console.error(error);
@@ -40,6 +38,7 @@ exports.get_edit_static_page = async (req, res) => {
         res.render('static_page_edit', {
             name: pageData.data.name,
             content: pageData.data.content,
+            permalink: pageData.data.permalink,
             tiny_api: process.env.TINYMCE_API
         })
     } catch(error) {
@@ -62,6 +61,50 @@ exports.get_edit_tour = async (req, res) => {
     } catch(error) {
         console.error(error);
         res.redirect(`/admin/${req.params.tourId}/edit`);
+    }
+};
+
+exports.post_edit_static_page_save = async (req, res) => {
+    // TODO - image logic fix
+    // TODO - safe check id
+    console.log('posted data: ', req.body);
+    let data = {
+        name: req.body.name,
+        content: req.body.content,
+        permalink: req.params.page
+    }
+
+    console.log('serialized data:', data);
+    try {
+        let post = await axios.post(`${serverUrl}/api/admin/static-pages/${req.params.page}/edit`, data);
+        console.log('response:', post);
+        res.redirect(`/admin/static-pages/${req.params.page}/edit`);
+    } catch(error) {
+        // TODO - flash error
+        console.error(error);
+        res.redirect(`/admin/static-pages/${req.params.page}/edit`);
+    }
+};
+
+exports.post_edit_static_page_save_and_quit = async (req, res) => {
+    // TODO - image logic fix
+    // TODO - safe check id
+    console.log('posted data: ', req.body);
+    let data = {
+        name: req.body.name,
+        content: req.body.content,
+        permalink: req.params.page
+    }
+
+    console.log('serialized data:', data);
+    try {
+        let post = await axios.post(`${serverUrl}/api/admin/static-pages/${req.params.page}/edit`, data);
+        console.log('response:', post);
+        res.redirect(`/admin/static-pages`);
+    } catch(error) {
+        // TODO - flash error
+        console.error(error);
+        res.redirect(`/admin/static-pages/${req.params.page}/edit`);
     }
 };
 

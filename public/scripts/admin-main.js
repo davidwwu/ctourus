@@ -25,9 +25,9 @@ var initTinymce = function() {
     inline: true,
     browser_spellcheck: true,
     contextmenu: true,
-    plugins: "table powerpaste lists advlist insertdatetime",
+    plugins: "table powerpaste lists advlist insertdatetime code",
     table_appearance_options: false,
-    toolbar: "undo redo | formatselect fontsizeselect | cut copy paste pastetext removeformat | bold italic underline strikethrough | alignleft aligncenter alignright | forecolor backcolor | bullist numlist | outdent indent | table"
+    toolbar: "undo redo | formatselect fontsizeselect code | cut copy paste pastetext removeformat | bold italic underline strikethrough | alignleft aligncenter alignright | forecolor backcolor | bullist numlist | outdent indent | table"
   });
 
   tinymce.init({
@@ -35,7 +35,7 @@ var initTinymce = function() {
     menubar: false,
     inline: true,
     contextmenu: true,
-    plugins: "image",
+    plugins: "image tinydrive",
     images_upload_url: '/admin/image/upload',
     file_picker_types: 'image',
     images_reuse_filename: true,

@@ -3,5 +3,11 @@ extends _edit_layout.pug
 block content
   form(method='POST' action='' enctype='application/x-www-form-urlencoded')
     main.site-content.grid-container
-      h2.editable-header!= name
-      .static-content.editable-block!= content
+      h2#name.editable-header!= name
+      #content.static-content.editable-block!= content
+
+    footer.admin-edit
+      input.clear.button.primary(value="Back" type="button" onclick=`window.location.href='/admin/static-pages';`)
+      input.clear.button.primary(value="Reset" type="reset")
+      input.clear.button.primary(value="Save" formaction=`/admin/static-pages/${permalink}/save` type="submit")
+      input.button.primary(value="Save & Quit" formaction=`/admin/static-pages/${permalink}/save-and-quit` type="submit")
