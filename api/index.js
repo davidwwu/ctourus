@@ -20,6 +20,32 @@ var jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+router.get('/static-pages/page-menu', (req, res) => {
+  mdb.collection('static_pages')
+    .find({})
+    .project({ 
+      name: true,
+      order: true,
+      permalink: true
+    })
+    .sort({
+      order: 1
+    })
+    .toArray((err, data) => {
+      res.send(data);
+    });
+});
+
+router.get('/static-pages/:page', (req, res) => {
+  mdb.collection('static_pages')
+    .findOne({
+      permalink: req.params.page
+    },
+    (err, data) => {
+      res.send(data);
+    });
+});
+
 router.get('/tours/tour-menu', function (req, res) {
   mdb.collection('tour_menu')
     .find({})

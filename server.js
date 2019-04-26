@@ -106,6 +106,14 @@ app.use(
     next();
   },
   (req, res, next) => {
+    axios.get(`${serverUrl}/api/static-pages/page-menu`)
+      .then(({ data }) => {
+        res.locals.static_pages = data;
+
+        next();
+      });
+  },
+  (req, res, next) => {
     axios.get(`${serverUrl}/api/tours/tour-menu`)
       .then(({ data }) => {
         res.locals.tour_menu = data;
@@ -129,20 +137,25 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/about", (req, res) => {
-  res.render('about');
-});
-
-app.get("/tour-terms", (req, res) => {
-  res.render('tour-terms');
-});
-
-app.get("/faq", (req, res) => {
-  res.render('faq');
-});
-
-app.get("/contact", (req, res) => {
-  res.render('contact');
+app.get("/static-pages/:page" , (req, res) => {
+  axios.get(`${serverUrl}/api/static-pages/${req.params.page}`)
+    .then(({ data }) => {
+      // TODO - better 404 handling
+      if(!data) {
+        res.render('static_page', {
+          content: 'Sorry, no page found',
+          name: 'Oops...'
+        });
+      } else {
+        res.render('static_page', {
+          content: data.content,
+          name: data.name
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 app.get('/tours/:tourList', (req, res) => {
@@ -194,6 +207,7 @@ app.get('/tours/:tourList/:tourId', (req, res) => {
 app.get('/admin', adminController.get_tours_list);
 
 app.get('/admin/:tourId/edit', adminController.get_edit_tour);
+app.get('/admin/static-pages/:page/edit', adminController.get_edit_static_page);
 
 app.post('/admin/:tourId/save-and-quit', [urlencodedParser], adminController.post_edit_tour_save_and_quit);
 app.post('/admin/:tourId/save', [urlencodedParser], adminController.post_edit_tour_save);

@@ -7,14 +7,9 @@ header
           span 盛世假期
         
       ul.top-bar-right.menu
-        li
-          a(href="/about") 關於我們
-        li
-          a(href="/tour-terms") 旅遊條款
-        li
-          a(href="/faq") 常見問題
-        li
-          a(href="/contact") 顧客留言
+        each static in static_pages
+          li
+            a(href=`/static-pages/${static.permalink}`)= static.name
     nav.top-bar.tour-menu.cell
       ul.menu
         each tour in tour_menu

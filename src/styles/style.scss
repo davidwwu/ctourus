@@ -449,6 +449,7 @@ footer.admin-edit {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  z-index: 50;
 
   .button {
     margin-bottom: 0;

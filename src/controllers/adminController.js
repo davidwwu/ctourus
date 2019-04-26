@@ -19,12 +19,40 @@ exports.get_tours_list = async (req, res) => {
     }
 };
 
+exports.get_static_page_list = async (req, res) => {
+    try {
+        let pageData = await axios.get(`${serverUrl}/api/static-pages/page-menu`);
+
+        res.render('static_page_list', {
+            name: pageData.data.name,
+            order: pageData.data.order,
+            permalink: pageData.data.permalink
+        })
+    } catch(error) {
+        console.error(error);
+    }
+};
+
+exports.get_edit_static_page = async (req, res) => {
+    try {
+        let pageData = await axios.get(`${serverUrl}/api/static-pages/${req.params.page}`);
+
+        res.render('static_page_edit', {
+            name: pageData.data.name,
+            content: pageData.data.content,
+            tiny_api: process.env.TINYMCE_API
+        })
+    } catch(error) {
+        console.error(error);
+    }
+};
+
 exports.get_edit_tour = async (req, res) => {
     try {
         let tourData = await axios.get(`${serverUrl}/api/admin/${req.params.tourId}`);
         let menu = await axios.get(`${serverUrl}/api/tours/tour-menu`);
 
-        res.render('edit_tour_details', {
+        res.render('tour_details_edit', {
             page_type: 'tour',
             tour_list: req.params.tourList,
             data: tourData.data,

@@ -12,7 +12,21 @@ html(lang="zh-Hant" data-tour-list=tour_list ? tour_list : null)
     link(rel="stylesheet" href="/styles/admin-style.css")
     
   body
-    block menu
+    nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.sticky-top
+      a.navbar-brand(href="/admin") Admin
+      button.navbar-toggler(type="button" data-toggle="collapse" data-target="#adminNav")
+        span.navbar-toggler-icon
+      #adminNav.collapse.navbar-collapse
+        ul.navbar-nav.d-flex
+          li.nav-item(class="active")
+            a.nav-link(href="/admin") 線路列表
+          li.nav-item
+            a#new-tour.nav-link(href="javascript:;") 添加線路
+          li.nav-item
+            a.nav-link(href="/") 回到主頁
+        ul.navbar-nav.ml-sm-auto.d-flex
+          li.nav-item
+            a.nav-link(href="/admin_logout") 登出
 
     block content
     

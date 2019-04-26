@@ -1,0 +1,53 @@
+extends _admin_layout.pug
+
+block content
+  main.p-4.container
+    .row
+      table.maint-list-table.table.table-bordered.table-hover.table-responsive-md
+        thead
+          tr.maint-list-title
+            th(scope="col")
+              .d-flex.justify-content-between 順序
+                if sortBy == "order"
+                  i.fas.fa-caret-down
+            th(scope="col")
+              a(href="?sortBy=customer_id").d-flex.justify-content-between 標題
+                if sortBy == "customer_id"
+                  i.fas.fa-caret-down
+            th(scope="col")
+              a(href="?sortBy=customer_name").d-flex.justify-content-between Permalink
+                if sortBy == "customer_name"
+                  i.fas.fa-caret-down
+            th(scope="col")
+              .d-flex.justify-content-between 編輯
+            th(scope="col")
+              .d-flex.justify-content-between 刪除
+        tbody
+          each row in data
+            tr
+              -
+                let type
+                menu.forEach(m => {
+                  if(row.tour_type === m.permalink) type = m.name
+                  return
+                })
+              td(style="text-align: center;")
+                input.position-static.form-check-input(type="checkbox" checked=(row.is_highlight) readonly)
+              td
+                a(href=`/tours/${row.tour_type}/${row.tour_id}`)= row.tour_id
+              td
+                a(href=`/tours/${row.tour_type}`)= type
+              td= row.name
+              td(style="text-align: right;")= `${row.duration}天`
+              td(style="text-align: right;")= `$${row.starting_price}`
+              td= row.start_city
+              td= row.end_city
+              td(style="text-align: center;")
+                button.copy-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
+                  i.material-icons file_copy
+              td(style="text-align: center;")
+                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href='/admin/${row.tour_id}/edit';`)
+                  i.material-icons edit
+              td(style="text-align: center;")
+                button.delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
+                  i.material-icons delete_forever  

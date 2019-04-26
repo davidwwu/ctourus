@@ -1,0 +1,7 @@
+extends _edit_layout.pug
+
+block content
+  form(method='POST' action='' enctype='application/x-www-form-urlencoded')
+    main.site-content.grid-container
+      h2.editable-header!= name
+      .static-content.editable-block!= content
