@@ -7,7 +7,7 @@ const querystring = require('querystring');
 
 // npm
 require('dotenv').config();
-if(process.env.NODE_ENV === 'dev') {
+if(process.env.NODE_ENV === 'development') {
   var morgan = require('morgan');
 }
 
@@ -17,6 +17,8 @@ const favicon = require('serve-favicon');
 const sassMiddleware = require('node-sass-middleware');
 const axios = require('axios');
 const multer = require('multer');
+const jwt = require('jsonwebtoken');
+const privateKey = process.env.RSA_PRIVATE;
 
 
 // ----------------------------------------------------------------------------
@@ -82,7 +84,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use('/api', api);
 app.use(express.static('public'));
 
-if(process.env.NODE_ENV === 'dev') {
+if(process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
@@ -220,6 +222,34 @@ app.post('/admin/image/upload', upload.single("file"), (req, res) => {
 });
 app.post('/admin/static-pages/:page/save', [urlencodedParser], adminController.post_edit_static_page_save);
 app.post('/admin/static-pages/:page/save-and-quit', [urlencodedParser], adminController.post_edit_static_page_save_and_quit);
+
+app.post('/jwt', function (req, res) {
+  const payload = {
+    // Unique user id string
+    sub: '12345',
+
+    // Full name of user
+    name: 'John Doe',
+
+    // Optional custom user root path
+    // 'https://claims.tiny.cloud/drive/root': '/johndoe',
+
+    // 10 minutes expiration
+    exp: Math.floor(Date.now() / 1000) + (60 * 10)
+  };
+
+  try {
+    const token = jwt.sign(payload, privateKey, { algorithm: 'RS256'});
+    res.set('content-type', 'application/json');
+    res.status(200);
+    res.send(JSON.stringify({
+      token: token
+    }));
+  } catch (e) {
+    res.status(500);
+    res.send(e.message);
+  }
+});
 
 // TODO: fix 404 catching
 app.use('*', (req, res) => {

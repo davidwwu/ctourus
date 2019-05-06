@@ -9,38 +9,44 @@ $(function() {
 var initTinymce = function() {
   if(tinymce) tinymce.remove();
 
-  tinymce.init({
-    selector: '.editable-header',
-    menubar: false,
-    inline: true,
-    browser_spellcheck: true,
-    contextmenu: true,
-    plugins: "powerpaste",
-    toolbar: 'undo redo | formatselect fontsizeselect | bold italic underline',
-  });
+  if($('.editable-header').length > 0) {
+    tinymce.init({
+      selector: '.editable-header',
+      menubar: false,
+      inline: true,
+      browser_spellcheck: true,
+      contextmenu: true,
+      plugins: "powerpaste",
+      toolbar: 'undo redo | formatselect fontsizeselect | bold italic underline',
+    });
+  }
 
-  tinymce.init({
-    selector: '.editable-block',
-    menubar: false,
-    inline: true,
-    browser_spellcheck: true,
-    contextmenu: true,
-    plugins: "table powerpaste lists advlist insertdatetime code",
-    table_appearance_options: false,
-    toolbar: "undo redo | formatselect fontsizeselect code | cut copy paste pastetext removeformat | bold italic underline strikethrough | alignleft aligncenter alignright | forecolor backcolor | bullist numlist | outdent indent | table"
-  });
+  if($('.editable-block').length > 0) {
+    tinymce.init({
+      selector: '.editable-block',
+      menubar: false,
+      inline: true,
+      browser_spellcheck: true,
+      contextmenu: true,
+      plugins: "table powerpaste lists advlist insertdatetime code",
+      table_appearance_options: false,
+      toolbar: "undo redo | formatselect fontsizeselect code | cut copy paste pastetext removeformat | bold italic underline strikethrough | alignleft aligncenter alignright | forecolor backcolor | bullist numlist | outdent indent | table"
+    });
+  }
 
-  tinymce.init({
-    selector: '.editable-thumbnails',
-    menubar: false,
-    inline: true,
-    contextmenu: true,
-    plugins: "image tinydrive",
-    images_upload_url: '/admin/image/upload',
-    file_picker_types: 'image',
-    images_reuse_filename: true,
-    toolbar: "image"
-  });
+  if($('.editable-thumbnails').length > 0) {
+    tinymce.init({
+      selector: '.editable-thumbnails',
+      menubar: false,
+      inline: true,
+      contextmenu: true,
+      plugins: "image tinydrive",
+      tinydrive_token_provider: '/jwt',
+      file_picker_types: 'image',
+      images_reuse_filename: true,
+      toolbar: "image"
+    });
+  }
 }
 
 $('#trip-details').on('click', '.addNewDay', function(e) {
