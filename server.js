@@ -18,7 +18,12 @@ const sassMiddleware = require('node-sass-middleware');
 const axios = require('axios');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
-const privateKey = process.env.RSA_PRIVATE;
+const privateKey;
+if(process.env.NODE_ENV === 'production') {
+  privateKey = JSON.parse(process.env.RSA_PRIVATE);
+} else {
+  privateKey = process.env.RSA_PRIVATE;
+}
 
 
 // ----------------------------------------------------------------------------
