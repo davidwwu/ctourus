@@ -3,6 +3,10 @@ extends _edit_layout.pug
 block content
   form(method='POST' action='' enctype='application/x-www-form-urlencoded')
     main.grid-container.site-content(style="margin-top: 100px; margin-bottom: 120px;")
+      #modal
+        h2 Edit slideshow photos
+        h6.content-header The first photo will be used as the main photo.
+        #images.editable-thumbnails.content!= data.images
       div(style="margin-bottom: 60px;")
         .grid-x.grid-padding-x
           fieldset.cell.small-2
@@ -23,11 +27,13 @@ block content
           label.cell.small-1.text-right.middle(for="end-city") 結束城市:
           input#end-city.cell.small-4(type='text' name='end_city' value=data.end_city)
       .highlight-container.grid-x.grid-margin-x
-        .swiper-container.cell.medium-5
-          .swiper-wrapper
-            each image, i in data.images
-              .swiper-slide
-                img(src=`/images/${image}`, alt="photos")
+        a.cell.medium-5.swiper-overlay(data-fancybox, data-touch="false", data-keyboard="false", data-src='#modal', href='javascript:;')
+          .swiper-container
+            .swiper-wrapper!= data.images
+              //- will need .swiper-slide wrapper for each img which we will do through js
+              //- each image, i in data.images
+              //-   .swiper-slide
+              //-     img(src=`/images/${image}`, alt="photos")
         .trip-highlight-container.cell.medium-7
           h3#name.editable-header= data.name
           div
@@ -79,10 +85,10 @@ block content
                 i.other-icon.material-icons camera_alt
                 .sight-container
                   span 途徑景點：
-                  .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)
-                    if day.sights
-                      each sight in day.sights
-                        img(src=`/images/${sight}`)
+                  .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)!= day.sights
+                    //- if day.sights
+                    //-   each sight in day.sights
+                    //-     img(src=`/images/${sight}`)
               .trip-day-hotel
                 i.other-icon.material-icons hotel
                 .editable-block(id=`d${i}_stay`)!= day.stay

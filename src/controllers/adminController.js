@@ -118,7 +118,7 @@ exports.post_edit_tour_save = async (req, res) => {
         tour_type: req.body.tour_type,
         is_highlight: req.body.is_highlight !== undefined ? req.body.is_highlight : false,
         schedule_table: req.body.schedule_table,
-        images: ['Shengyanggugong.jpg', 'songjiangzhonglu.png', 'ccdb08-changbaishan-Small.jpg'],
+        images: req.body.images,
         duration: parseInt(req.body.duration),
         short_description: "",
         starting_price: parseInt(req.body.starting_price),
@@ -137,7 +137,7 @@ exports.post_edit_tour_save = async (req, res) => {
         data.tour_plan.push({
             title: req.body[`d${i}_title`],
             description: req.body[`d${i}_description`],
-            sights: i+1 !== data.duration ? ['Shengyanggugong.jpg', 'songjiangzhonglu.png', 'ccdb08-changbaishan-Small.jpg'] : [],
+            sights: req.body[`d${i}_thumbs`],
             stay: req.body[`d${i}_stay`]
         });
     }
@@ -164,7 +164,7 @@ exports.post_edit_tour_save_and_quit = async (req, res) => {
         tour_type: req.body.tour_type,
         is_highlight: req.body.is_highlight !== undefined ? req.body.is_highlight : false,
         schedule_table: req.body.schedule_table,
-        images: ['Shengyanggugong.jpg', 'songjiangzhonglu.png', 'ccdb08-changbaishan-Small.jpg'],
+        images: req.body.images,
         duration: parseInt(req.body.duration),
         short_description: "",
         starting_price: parseInt(req.body.starting_price),
@@ -183,7 +183,7 @@ exports.post_edit_tour_save_and_quit = async (req, res) => {
         data.tour_plan.push({
             title: req.body[`d${i}_title`],
             description: req.body[`d${i}_description`],
-            sights: i+1 !== data.duration ? ['Shengyanggugong.jpg', 'songjiangzhonglu.png', 'ccdb08-changbaishan-Small.jpg'] : [],
+            sights: req.body[`d${i}_thumbs`],
             stay: req.body[`d${i}_stay`]
         });
     }
@@ -209,12 +209,12 @@ exports.post_create_tour = async (req, res) => {
         tour_type: tour_type,
         is_highlight: is_highlight,
         schedule_table: '',
-        images: [],
+        images: '',
         duration: parseInt(duration),
         short_description: '',
         starting_price: parseInt(starting_price),
         full_description: '',
-        tour_plan: [],
+        tour_plan: '',
         pickup_service: '',
         price_breakdown: '',
         notice: '',
@@ -229,7 +229,7 @@ exports.post_create_tour = async (req, res) => {
         data.tour_plan.push({
             title: '',
             description: '',
-            sights: [],
+            sights: '',
             stay: ''
         });
     }

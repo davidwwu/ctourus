@@ -1,7 +1,22 @@
 'use strict'
 
-var tinymce;
+var tinymce,
+    mySwiper;
 $(function() {
+  // if no swiper-slide class is present inside highlight-container
+  // we wrap each image with a swiper-slide class div
+  if($('.highlight-container .swiper-slide').length === 0) {
+    $('.highlight-container .swiper-container .swiper-wrapper img').wrap('<div class="swiper-slide"></div>');
+  }
+  
+  mySwiper = new Swiper ('.swiper-container', {
+    loop: true,
+    spaceBetween: 25,
+    centeredSlides: true,
+    autoplay: {
+      delay: 5000,
+    },
+  });
   $('#duration').val($('.trip-day').length);
   initTinymce();
 });
@@ -40,6 +55,7 @@ var initTinymce = function() {
       menubar: false,
       inline: true,
       contextmenu: true,
+      forced_root_block: '',
       plugins: "image tinydrive",
       tinydrive_token_provider: '/jwt',
       file_picker_types: 'image',
