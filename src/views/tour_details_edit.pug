@@ -113,14 +113,14 @@ block content
 
       .separator.thick
 
-      section#notice(data-magellan-target="pricing-details")
+      section#notice-section(data-magellan-target="pricing-details")
         .section-title
           i.material-icons priority_high
           span 訂購須知
         #notice.editable-block!= data.notice
 
     footer.admin-edit
-      input.clear.button.primary(value="Back" type="button" onclick=`window.location.href='/admin';`)
-      input.clear.button.primary(value="Reset" type="reset")
+      input.clear.button.primary(value="Back" type="button" onclick=`window.location.href='/admin'`)
+      input.clear.button.primary(value="Reset" type="button" onclick=`window.location.reload()`)
       input.clear.button.primary(value="Save" formaction=`/admin/${data.tour_id}/save` type="submit")
       input.button.primary(value="Save & Quit" formaction=`/admin/${data.tour_id}/save-and-quit` type="submit")

@@ -65,7 +65,6 @@ exports.get_edit_tour = async (req, res) => {
 };
 
 exports.post_edit_static_page_save = async (req, res) => {
-    // TODO - image logic fix
     // TODO - safe check id
     console.log('posted data: ', req.body);
     let data = {
@@ -87,7 +86,6 @@ exports.post_edit_static_page_save = async (req, res) => {
 };
 
 exports.post_edit_static_page_save_and_quit = async (req, res) => {
-    // TODO - image logic fix
     // TODO - safe check id
     console.log('posted data: ', req.body);
     let data = {
@@ -109,7 +107,6 @@ exports.post_edit_static_page_save_and_quit = async (req, res) => {
 };
 
 exports.post_edit_tour_save = async (req, res) => {
-    // TODO - image logic fix
     // TODO - safe check id
     console.log('posted data: ', req.body);
     let data = {
@@ -126,14 +123,13 @@ exports.post_edit_tour_save = async (req, res) => {
         tour_plan: [],
         pickup_service: req.body.pickup_service,
         price_breakdown: req.body.price_breakdown,
-        notice: Array.isArray(req.body.notice) ? req.body.notice[0] : req.body.notice,
+        notice: req.body.notice,
         start_date: req.body.start_date,
         end_date: req.body.end_date,
         start_city: req.body.start_city,
         end_city: req.body.end_city
     }
     for(let i = 0; i < data.duration; i++) {
-        // TODO - also need to fix sights logic
         data.tour_plan.push({
             title: req.body[`d${i}_title`],
             description: req.body[`d${i}_description`],
@@ -155,7 +151,6 @@ exports.post_edit_tour_save = async (req, res) => {
 };
 
 exports.post_edit_tour_save_and_quit = async (req, res) => {
-    // TODO - image logic fix
     // TODO - safe check id
     console.log('posted data: ', req.body);
     let data = {
@@ -172,14 +167,13 @@ exports.post_edit_tour_save_and_quit = async (req, res) => {
         tour_plan: [],
         pickup_service: req.body.pickup_service,
         price_breakdown: req.body.price_breakdown,
-        notice: Array.isArray(req.body.notice) ? req.body.notice[0] : req.body.notice,
+        notice: req.body.notice,
         start_date: req.body.start_date,
         end_date: req.body.end_date,
         start_city: req.body.start_city,
         end_city: req.body.end_city
     }
     for(let i = 0; i < data.duration; i++) {
-        // TODO - also need to fix sights logic
         data.tour_plan.push({
             title: req.body[`d${i}_title`],
             description: req.body[`d${i}_description`],
@@ -225,7 +219,6 @@ exports.post_create_tour = async (req, res) => {
     }
 
     for(let i = 0; i < data.duration; i++) {
-        // TODO - also need to fix sights logic
         data.tour_plan.push({
             title: '',
             description: '',

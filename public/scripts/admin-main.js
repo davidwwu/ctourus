@@ -21,8 +21,8 @@ $(function() {
   initTinymce();
 });
 
-var initTinymce = function() {
-  if(tinymce) tinymce.remove();
+var initTinymce = function(reinit) {
+  if(reinit) tinymce.remove();
 
   if($('.editable-header').length > 0) {
     tinymce.init({
@@ -68,7 +68,8 @@ var initTinymce = function() {
 $('#trip-details').on('click', '.addNewDay', function(e) {
   $(this).closest(".trip-day").after(`
 <div id="new-day" class="trip-day">
-  <div class="option-btn-group"><label>Options</label>
+  <div class="option-btn-group">
+    <label>Options</label>
     <button class="button addNewDay" type="button">增加行程</button>
     <button class="button removeDay" type="button">移除行程</button>
   </div>
@@ -83,7 +84,7 @@ $('#trip-details').on('click', '.addNewDay', function(e) {
     </div>
     <div class="trip-day-photos"><i class="other-icon material-icons">camera_alt</i>
       <div class="sight-container"><span>途徑景點：</span>
-        <div class="thumbnails"></div>
+        <div class="thumbnails editable-thumbnails"></div>
       </div>
     </div>
     <div class="trip-day-hotel"><i class="other-icon material-icons">hotel</i>
@@ -106,14 +107,13 @@ $('#trip-details').on('click', '.addNewDay', function(e) {
     function() {
       $('#new-day').removeAttr('id');
       // reindex ids
-      // TODO - image fix
       $('.trip-day').each(function(index) {
         $(this).children('.trip-day-title').children('.date-title-icon').html('D'+(index+1));
         $(this).children('.trip-day-title').children('h4').attr('id', 'd'+index+'_title');
         $(this).children('.trip-content-container').children('.trip-day-description').children('div').attr('id', 'd'+index+'_description');
         $(this).children('.trip-content-container').children('.trip-day-hotel').children('div').attr('id', 'd'+index+'_stay');
       })
-      initTinymce();
+      initTinymce(true);
     });
 });
 
@@ -125,5 +125,5 @@ $('#trip-details').on('click', '.removeDay', function(e) {
     $(this).children('.trip-day-title').children('h4').attr('id', 'd'+index+'_title');
   });
 
-  window.setTimeout(initTinymce(), 1000);
+  initTinymce(true);
 })
