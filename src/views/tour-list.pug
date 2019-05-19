@@ -3,7 +3,6 @@ extends _layout.pug
 block content
   main.site-content.grid-container
     -
-      // TODO - handle dublicate durations
       let listTitle = '';
       tour_menu.forEach(item => {
         if(item.permalink == tour_list) {
@@ -53,7 +52,6 @@ block content
             .card-image
               //- img(src=`/images/${tour.images[0]}`, alt="photos")
               img(src=`/images/userUpload/thumbnails/${tour.tour_id}-thumb.jpg`, alt="photos")
-            // TODO: limit card height
             .card-section
               p= tour.name
               h4.price-highlight= `$${tour.starting_price}`

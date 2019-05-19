@@ -10,7 +10,7 @@ $(function() {
   if($('.highlight-container .swiper-slide').length === 0) {
     $('.highlight-container .swiper-container .swiper-wrapper img').wrap('<div class="swiper-slide"></div>');
   }
-  
+
   mySwiper = new Swiper ('.swiper-container', {
     loop: true,
     spaceBetween: 25,
@@ -36,5 +36,7 @@ $(function() {
       queryString = '?'+queryString;
     window.location.href = '/tours/'+tourList+queryString;
   });
+  
+  $("ul li .is-active").parent().addClass("hovered");
 });
 

@@ -111,6 +111,7 @@ body {
   &.detail-menu {
     height: 60px;
     box-shadow: $box-shadow-darkest;
+    border-radius: 3px;
     top: 10px;
     z-index: 10;
     position: sticky;
@@ -131,7 +132,7 @@ body {
       transition: width .5s ease, background-color .5s ease;
     }
 
-    li:hover:after {
+    li:hover:after, li.hovered:after {
       width: unquote("calc(100% - 2rem)");
       background: $theme-color;
     }
@@ -261,6 +262,7 @@ body {
   transition: box-shadow 0.2s ease, background-color 0.2s ease;
   font-size: 17px;
   line-height: 1.48;
+  border-radius: 3px;
   @include user-select(none);
 
   .card-image {
@@ -276,6 +278,7 @@ body {
   }
 
   .card-section p {
+    @include user-select(none);
     height: 81px;
     overflow: hidden;
   }
