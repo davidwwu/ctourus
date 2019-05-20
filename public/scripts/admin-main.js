@@ -57,7 +57,9 @@ var initTinymce = function(reinit) {
       contextmenu: true,
       forced_root_block: '',
       plugins: "image tinydrive",
-      tinydrive_token_provider: '/jwt',
+      // tinydrive_token_provider: '/jwt',
+      tinydrive_google_drive_key: document.getElementsByTagName('meta')['google-app-api'].getAttribute('content'),
+      tinydrive_google_drive_client_id: document.getElementsByTagName('meta')['google-drive-client-id'].getAttribute('content'),
       file_picker_types: 'image',
       images_reuse_filename: true,
       toolbar: "image"
