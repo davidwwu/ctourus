@@ -39,9 +39,7 @@ exports.get_edit_static_page = async (req, res) => {
             name: pageData.data.name,
             content: pageData.data.content,
             permalink: pageData.data.permalink,
-            tiny_api: process.env.TINYMCE_API,
-            g_app_api: process.env.GOOGLE_APP_API,
-            g_drive_client_id: process.env.GOOGLE_DRIVE_CLIENT_ID
+            tiny_api: process.env.TINYMCE_API
         })
     } catch(error) {
         console.error(error);
@@ -58,9 +56,7 @@ exports.get_edit_tour = async (req, res) => {
             tour_list: req.params.tourList,
             data: tourData.data,
             menu: menu.data,
-            tiny_api: process.env.TINYMCE_API,
-            g_app_api: process.env.GOOGLE_APP_API,
-            g_drive_client_id: process.env.GOOGLE_DRIVE_CLIENT_ID
+            tiny_api: process.env.TINYMCE_API
         });
     } catch(error) {
         console.error(error);
