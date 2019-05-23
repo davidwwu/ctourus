@@ -19,7 +19,7 @@ block content
           h2.mdc-dialog__title#my-dialog-title
           // will set action by data-* attribute
           .mdc-dialog__content#-modal-content
-            .required-astrisk.note * Required
+            .required-asterisk.note * Required
             .form-group
               .custom-control.custom-checkbox(style="padding-left: 0;")
                 input#modal-is-highlight.custom-control-input(type="checkbox" name="is_highlight")
@@ -27,7 +27,7 @@ block content
             .form-group
               label.col-form-label(for="modal-tour-id") 線路編號:
               | 
-              span.required-astrisk *
+              span.required-asterisk *
               input#modal-tour-id.form-control(type='text' name='tour_id' pattern="[a-zA-Z0-9-_]+" required)
               small.form-text.text-muted 只可包含英文字母大小寫、數字、連結號 (-)、及下劃線 (_)
             .form-group
@@ -41,7 +41,7 @@ block content
             .form-group
               label.col-form-label(for="modal-duration") 線路天數:
               | 
-              span.required-astrisk *
+              span.required-asterisk *
               .input-group
                 input#modal-duration.form-control(type='text' name='duration' required)
                 .input-group-append
@@ -70,9 +70,9 @@ block content
         i.material-icons add
         span.mdc-button__label 添加線路
     .row.mt-3
-      table.maint-list-table.table.table-bordered.table-hover.table-responsive-md
+      table.main-list-table.table.table-bordered.table-hover.table-responsive-md
         thead
-          tr.maint-list-title
+          tr.main-list-title
             th(scope="col")
               .d-flex.justify-content-between Highlight
             th(scope="col")

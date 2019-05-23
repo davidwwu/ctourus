@@ -244,7 +244,7 @@ exports.post_duplicate_tour = async (req, res) => {
     try {
         let temp = await axios.get(`${serverUrl}/api/admin/${req.params.tourId}`);
         
-        // adjust tour plans based on inputed duration
+        // adjust tour plans based on specified duration
         let diff = temp.data.duration;
         if(diff > duration) {
             while(diff > duration) {

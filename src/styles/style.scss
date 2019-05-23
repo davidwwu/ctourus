@@ -13,7 +13,7 @@ $font-color-light: #8b8b8b;
 $theme-color: #B7322A;
 
 $table-border: 1px solid #b1b1b1;
-$seperator-border: 1px solid #EBEBEB;
+$separator-border: 1px solid #EBEBEB;
 
 $box-shadow-lighter: 0px 2px 4px rgba(0, 0, 0, 0.0980392);
 $box-shadow-darker: 0px 2px 4px 0px rgba(0, 0, 0, 0.0980392), 0px 4px 12px 0px rgba(26, 26, 29, 0.0784314);
@@ -51,7 +51,7 @@ body {
   }
 
   .separator {
-    border-bottom: $seperator-border;
+    border-bottom: $separator-border;
 
     &.thick {
       margin: 80px 0;
@@ -312,7 +312,7 @@ a.card:focus {
 }
 
 #trip-details {
-  // TODO: will eventrually replace this with a real modual
+  // TODO: will eventually replace this with a real module
   >img {
     padding: 40px;
   }

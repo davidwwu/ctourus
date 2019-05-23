@@ -166,9 +166,9 @@ app.get("/static-pages/:page" , (req, res) => {
 });
 
 app.get('/tours/:tourList', (req, res) => {
-  // Always request full data from the list catagory
+  // Always request full data from the list category
   // and do filtering here, reason being that we want
-  // to show the full filter for the list catagory,
+  // to show the full filter for the list category,
   // otherwise we could move the filtering logic to
   // the api.
   // In the future, perhaps we could make api's to
