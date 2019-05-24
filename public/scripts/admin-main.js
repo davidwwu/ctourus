@@ -50,6 +50,7 @@ var initTinymce = function(reinit) {
   }
 
   if($('.editable-thumbnails').length > 0) {
+    var today = new Date(Date.now());
     tinymce.init({
       selector: '.editable-thumbnails',
       menubar: false,
@@ -58,6 +59,7 @@ var initTinymce = function(reinit) {
       forced_root_block: '',
       plugins: "image tinydrive",
       tinydrive_token_provider: '/jwt',
+      tinydrive_upload_path: `/${today.getFullYear()}${today.getMonth()+1 >= 10 ? today.getMonth()+1 : '0'+(today.getMonth()+1)}${today.getDate()}`,
       file_picker_types: 'image',
       images_reuse_filename: true,
       toolbar: "image"
