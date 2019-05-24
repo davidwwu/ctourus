@@ -17,6 +17,11 @@ const favicon = require('serve-favicon');
 const sassMiddleware = require('node-sass-middleware');
 const axios = require('axios');
 const multer = require('multer');
+const passport = require('passport');
+const session = require('express-session');
+const flash = require('express-flash-2');
+
+// json web token configuration for tiny drive
 const jwt = require('jsonwebtoken');
 let privateKey;
 if(process.env.NODE_ENV === 'production') {
@@ -88,6 +93,18 @@ app.use(sassMiddleware({
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use('/api', api);
 app.use(express.static('public'));
+app.use(session({
+  secret: 'keyboard cat', 
+  cookie: { maxAge: 86400e3 },
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(authController.authStrategy);
+passport.serializeUser(authController.authSerializer);
+passport.deserializeUser(authController.authDeserializer);
 
 if(process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -211,22 +228,34 @@ app.get('/tours/:tourList/:tourId', (req, res) => {
     });
 });
 
-app.get('/admin', adminController.get_tours_list);
+app.get('/new-user', (req, res) => {
+  res.render('new_user');
+});
+app.post('/new-user', [urlencodedParser], authController.user_create_post);
 
-app.get('/admin/:tourId/edit', adminController.get_edit_tour);
-app.get('/admin/static-pages', adminController.get_static_page_list);
-app.get('/admin/static-pages/:page/edit', adminController.get_edit_static_page);
+app.get('/admin-login', (req, res) => {
+  res.render('admin_login');
+});
+app.post('/admin-login', [urlencodedParser], authController.login);
 
-app.post('/admin/:tourId/save-and-quit', [urlencodedParser], adminController.post_edit_tour_save_and_quit);
-app.post('/admin/:tourId/save', [urlencodedParser], adminController.post_edit_tour_save);
-app.post('/admin/create-tour', [urlencodedParser], adminController.post_create_tour);
-app.post('/admin/:tourId/duplicate', [urlencodedParser], adminController.post_duplicate_tour);
-app.post('/admin/:tourId/delete', [urlencodedParser], adminController.post_delete_tour);
+app.get('/admin-logout', authController.logout);
+
+app.get('/admin', [authController.restrict], adminController.get_tours_list);
+
+app.get('/admin/:tourId/edit', [authController.restrict], adminController.get_edit_tour);
+app.get('/admin/static-pages', [authController.restrict], adminController.get_static_page_list);
+app.get('/admin/static-pages/:page/edit', [authController.restrict], adminController.get_edit_static_page);
+
+app.post('/admin/:tourId/save-and-quit', [authController.restrict, urlencodedParser], adminController.post_edit_tour_save_and_quit);
+app.post('/admin/:tourId/save', [authController.restrict, urlencodedParser], adminController.post_edit_tour_save);
+app.post('/admin/create-tour', [authController.restrict, urlencodedParser], adminController.post_create_tour);
+app.post('/admin/:tourId/duplicate', [authController.restrict, urlencodedParser], adminController.post_duplicate_tour);
+app.post('/admin/:tourId/delete', [authController.restrict, urlencodedParser], adminController.post_delete_tour);
 app.post('/admin/image/upload', upload.single("file"), (req, res) => {
   res.send({ location : `/images/userUpload/${req.file.filename}` });
 });
-app.post('/admin/static-pages/:page/save', [urlencodedParser], adminController.post_edit_static_page_save);
-app.post('/admin/static-pages/:page/save-and-quit', [urlencodedParser], adminController.post_edit_static_page_save_and_quit);
+app.post('/admin/static-pages/:page/save', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save);
+app.post('/admin/static-pages/:page/save-and-quit', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save_and_quit);
 
 app.post('/jwt', function (req, res) {
   const payload = {

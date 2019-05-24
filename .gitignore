@@ -66,3 +66,4 @@ typings/
 # style.css because we transpile scss to css at runtime
 public/styles/style.css
 public/styles/admin-style.css
+public/styles/signin.css

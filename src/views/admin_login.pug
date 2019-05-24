@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title CTOURUS | Admin Login
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800")
+    link(rel='stylesheet', href='/styles/signin.css')
+  body
+    .container.login
+      if flash.error
+        .alert.alert-danger.alert-dismissible.fade.show(role="alert")
+          .alert-message !{flash.error}
+          button.close(type="button" data-dismiss="alert" aria-label="Close")
+            span(aria-hidden='true') &times;
+      
+      form#login-form(name="loginForm" action="" method="POST" enctype='application/x-www-form-urlencoded')
+        p
+          label(for='username')
+            | Username
+            br
+            input#username.input(type='text', name='username', size='20', autocapitalize='off', required, autofocus)
+        p
+          label(for='password')
+            | Password
+            br
+            input#password.input(type='password', name='password', size='20', required)
+        p.submit
+          input#submit.button.button-primary.button-large(type='submit', name='login_submit', value='Log In')
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
