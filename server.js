@@ -13,6 +13,7 @@ if(process.env.NODE_ENV === 'development') {
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const favicon = require('serve-favicon');
 const sassMiddleware = require('node-sass-middleware');
 const axios = require('axios');
@@ -93,6 +94,7 @@ app.use(sassMiddleware({
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use('/api', api);
 app.use(express.static('public'));
+app.use(cookieParser());
 app.use(session({
   secret: 'keyboard cat', 
   cookie: { maxAge: 86400e3 },
@@ -257,13 +259,13 @@ app.post('/admin/image/upload', upload.single("file"), (req, res) => {
 app.post('/admin/static-pages/:page/save', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save);
 app.post('/admin/static-pages/:page/save-and-quit', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save_and_quit);
 
-app.post('/jwt', function (req, res) {
+app.post('/jwt', [authController.restrict], function (req, res) {
   const payload = {
     // Unique user id string
-    sub: '12345',
+    sub: req.cookies.userInfo.id,
 
     // Full name of user
-    name: 'John Doe',
+    name: req.cookies.userInfo.username,
 
     // Optional custom user root path
     // 'https://claims.tiny.cloud/drive/root': '/johndoe',

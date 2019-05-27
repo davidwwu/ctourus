@@ -58,6 +58,7 @@ exports.login = (req, res, next) => {
 
     req.logIn(user, function(err) {
         if (err) { return next(err); }
+        res.cookie('userInfo', { id: user._id, username: user.username }, { maxAge: 86400e3 });
         res.flash('success', 'Logged in.');
         return res.redirect('/admin');
     });
@@ -66,6 +67,7 @@ exports.login = (req, res, next) => {
 
 exports.logout = (req, res, next) => {
   req.logout();
+  res.clearCookie('userInfo');
   res.flash('success', 'Logged out. Please login again.');
   res.redirect('/admin-login');
 }
