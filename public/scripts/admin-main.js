@@ -3,20 +3,21 @@
 var tinymce,
     mySwiper;
 $(function() {
-  // if no swiper-slide class is present inside highlight-container
-  // we wrap each image with a swiper-slide class div
-  if($('.highlight-container .swiper-slide').length === 0) {
-    $('.highlight-container .swiper-container .swiper-wrapper img').wrap('<div class="swiper-slide"></div>');
-  }
+
+  // var slideImages = $('.highlight-container .swiper-container .swiper-wrapper img');
+  // // if no swiper-slide class is present inside highlight-container
+  // // we wrap each image with a swiper-slide class div
+  // if($('.highlight-container .swiper-slide').length === 0) {
+  //   slideImages.wrap('<div class="swiper-slide"></div>');
+  // }
   
-  mySwiper = new Swiper ('.swiper-container', {
-    loop: true,
-    spaceBetween: 25,
-    centeredSlides: true,
-    autoplay: {
-      delay: 5000,
-    },
-  });
+  // mySwiper = new Swiper ('.swiper-container', {
+  //   loop: slideImages.length > 1 ? true : false,
+  //   spaceBetween: 25,
+  //   centeredSlides: true,
+  //   autoplay: slideImages.length > 1 ? { delay: 5000 } : false,
+  // });
+
   $('#duration').val($('.trip-day').length);
   initTinymce();
 });

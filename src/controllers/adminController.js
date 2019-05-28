@@ -208,7 +208,7 @@ exports.post_create_tour = async (req, res) => {
         short_description: '',
         starting_price: parseInt(starting_price),
         full_description: '',
-        tour_plan: '',
+        tour_plan: [],
         pickup_service: '',
         price_breakdown: '',
         notice: '',

@@ -46,7 +46,7 @@ block content
                 i.other-icon.material-icons camera_alt
                 .sight-container
                   span 途徑景點：
-                  .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)!= day.sights
+                  .thumbnails(id=`d${i}_thumbs`)!= day.sights
                   //- .thumbnails
                   //-   each sight in day.sights
                   //-     img(src=`/images/${sight}`)

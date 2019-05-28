@@ -29,11 +29,13 @@ block content
       .highlight-container.grid-x.grid-margin-x
         a.cell.medium-5.swiper-overlay(data-fancybox, data-touch="false", data-keyboard="false", data-src='#modal', href='javascript:;')
           .swiper-container
-            .swiper-wrapper!= data.images
-              //- will need .swiper-slide wrapper for each img which we will do through js
-              //- each image, i in data.images
-              //-   .swiper-slide
-              //-     img(src=`/images/${image}`, alt="photos")
+            //- .swiper-wrapper!= data.images
+            
+            //- will need .swiper-slide wrapper for each img which we will do through js
+            .swiper-wrapper
+              each image, i in data.images
+                .swiper-slide
+                  img(src=`/images/${image}`, alt="photos")
         .trip-highlight-container.cell.medium-7
           h3#name.editable-header= data.name
           div
@@ -85,10 +87,11 @@ block content
                 i.other-icon.material-icons camera_alt
                 .sight-container
                   span 途徑景點：
-                  .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)!= day.sights
-                    //- if day.sights
-                    //-   each sight in day.sights
-                    //-     img(src=`/images/${sight}`)
+                  //- .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)!= day.sights
+                  .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)
+                    if day.sights
+                      each sight in day.sights
+                        img(src=`/images/${sight}`)
               .trip-day-hotel
                 i.other-icon.material-icons hotel
                 .editable-block(id=`d${i}_stay`)!= day.stay
