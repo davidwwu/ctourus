@@ -5,19 +5,23 @@ var mySwiper;
 $(function() {
   $('section#pricing-details table').addClass('scroll');
 
+  var slideImages = $('.highlight-container .swiper-container .swiper-wrapper img');
+
   // if no swiper-slide class is present inside highlight-container
   // we wrap each image with a swiper-slide class div
   if($('.highlight-container .swiper-slide').length === 0) {
-    $('.highlight-container .swiper-container .swiper-wrapper img').wrap('<div class="swiper-slide"></div>');
+    slideImages.each(
+      function(index) {
+        $(this).wrap('<div class="swiper-slide"><a data-fancybox="slide" href="'+ $(this).attr('src') +'"></a></div>');
+      }
+    );
   }
 
   mySwiper = new Swiper ('.swiper-container', {
-    loop: true,
+    loop: slideImages.length > 1 ? true : false,
     spaceBetween: 25,
     centeredSlides: true,
-    autoplay: {
-      delay: 5000,
-    },
+    autoplay: slideImages.length > 1 ? { delay: 5000 } : false,
   });
   
   // build query string based on filter and then redirect page to the url

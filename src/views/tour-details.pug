@@ -4,10 +4,7 @@ block content
   main.grid-container.site-content
     .highlight-container.grid-x.grid-margin-x
       .swiper-container.cell.medium-5
-        .swiper-wrapper
-          each image, i in data.images
-            .swiper-slide
-              img(src=`/images/userUpload/${image}`, alt="photos")
+        .swiper-wrapper!= data.images
       .trip-highlight-container.cell.medium-7
         h3= data.name
         div= `線路編號：${data.tour_id}`
@@ -49,9 +46,10 @@ block content
                 i.other-icon.material-icons camera_alt
                 .sight-container
                   span 途徑景點：
-                  .thumbnails
-                    each sight in day.sights
-                      img(src=`/images/${sight}`)
+                  .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)!= day.sights
+                  //- .thumbnails
+                  //-   each sight in day.sights
+                  //-     img(src=`/images/${sight}`)
             if day.stay && day.stay != ""
               .trip-day-hotel
                 i.other-icon.material-icons hotel
