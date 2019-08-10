@@ -106,6 +106,20 @@ exports.post_edit_static_page_save_and_quit = async (req, res) => {
     }
 };
 
+let extractUrl = (DOMString, wrapperStart, wrapperEnd) => {
+    let index = 0,
+        urls = [];
+
+    while(DOMString.indexOf(wrapperStart, index) > -1) {
+        let beginning = DOMString.indexOf(wrapperStart, index) + wrapperStart.length,
+            end = DOMString.indexOf(wrapperEnd, beginning);
+        urls.push(DOMString.slice(beginning, end));
+        index = end;
+    }
+
+    return urls;
+};
+
 exports.post_edit_tour_save = async (req, res) => {
     // TODO - safe check id
     console.log('posted data: ', req.body);
@@ -113,9 +127,9 @@ exports.post_edit_tour_save = async (req, res) => {
         name: req.body.name,
         tour_id: req.body.tour_id.toUpperCase(),
         tour_type: req.body.tour_type,
-        is_highlight: req.body.is_highlight !== undefined ? req.body.is_highlight : false,
+        is_highlight: req.body.is_highlight !== undefined ? (req.body.is_highlight === 'on' ? true : false) : false,
         schedule_table: req.body.schedule_table,
-        images: req.body.images,
+        images: extractUrl(req.body.images, 'src="', '"'),
         duration: parseInt(req.body.duration),
         short_description: "",
         starting_price: parseInt(req.body.starting_price),
@@ -133,7 +147,7 @@ exports.post_edit_tour_save = async (req, res) => {
         data.tour_plan.push({
             title: req.body[`d${i}_title`],
             description: req.body[`d${i}_description`],
-            sights: req.body[`d${i}_thumbs`],
+            sights: extractUrl(req.body[`d${i}_thumbs`], 'src="', '"'),
             stay: req.body[`d${i}_stay`]
         });
     }
@@ -157,9 +171,9 @@ exports.post_edit_tour_save_and_quit = async (req, res) => {
         name: req.body.name,
         tour_id: req.body.tour_id.toUpperCase(),
         tour_type: req.body.tour_type,
-        is_highlight: req.body.is_highlight !== undefined ? req.body.is_highlight : false,
+        is_highlight: req.body.is_highlight !== undefined ? (req.body.is_highlight === 'on' ? true : false) : false,
         schedule_table: req.body.schedule_table,
-        images: req.body.images,
+        images: extractUrl(req.body.images, 'src="', '"'),
         duration: parseInt(req.body.duration),
         short_description: "",
         starting_price: parseInt(req.body.starting_price),
@@ -177,7 +191,7 @@ exports.post_edit_tour_save_and_quit = async (req, res) => {
         data.tour_plan.push({
             title: req.body[`d${i}_title`],
             description: req.body[`d${i}_description`],
-            sights: req.body[`d${i}_thumbs`],
+            sights: extractUrl(req.body[`d${i}_thumbs`], 'src="', '"'),
             stay: req.body[`d${i}_stay`]
         });
     }
@@ -201,7 +215,7 @@ exports.post_create_tour = async (req, res) => {
         name: name,
         tour_id: tour_id.toUpperCase(),
         tour_type: tour_type,
-        is_highlight: is_highlight,
+        is_highlight: is_highlight !== undefined ? (is_highlight === 'on' ? true : false) : false,
         schedule_table: '',
         images: '',
         duration: parseInt(duration),
@@ -261,7 +275,7 @@ exports.post_duplicate_tour = async (req, res) => {
 
         // post with combined data
         delete temp.data._id;
-        temp.data.is_highlight = is_highlight,
+        temp.data.is_highlight = is_highlight !== undefined ? (is_highlight === 'on' ? true : false) : false,
         temp.data.duration = duration;
         temp.data.name = name;
         temp.data.start_city = start_city;

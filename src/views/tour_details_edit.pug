@@ -6,7 +6,10 @@ block content
       #modal
         h2 Edit slideshow photos
         h6.content-header The first photo will be used as the main photo.
-        #images.editable-thumbnails.content!= data.images
+        //- #images.editable-thumbnails.content!= data.images
+        #images.editable-thumbnails.content
+          each image in data.images
+            img(src=image, alt="photos")
       div(style="margin-bottom: 60px;")
         .grid-x.grid-padding-x
           fieldset.cell.small-2
@@ -33,9 +36,9 @@ block content
             
             //- will need .swiper-slide wrapper for each img which we will do through js
             .swiper-wrapper
-              each image, i in data.images
+              each image in data.images
                 .swiper-slide
-                  img(src=`/images/${image}`, alt="photos")
+                  img(src=image, alt="photos")
         .trip-highlight-container.cell.medium-7
           h3#name.editable-header= data.name
           div
@@ -91,7 +94,7 @@ block content
                   .thumbnails.editable-thumbnails(id=`d${i}_thumbs`)
                     if day.sights
                       each sight in day.sights
-                        img(src=`/images/${sight}`)
+                        img(src=sight)
               .trip-day-hotel
                 i.other-icon.material-icons hotel
                 .editable-block(id=`d${i}_stay`)!= day.stay

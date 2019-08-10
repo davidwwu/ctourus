@@ -9,13 +9,13 @@ $(function() {
 
   // if no swiper-slide class is present inside highlight-container
   // we wrap each image with a swiper-slide class div
-  if($('.highlight-container .swiper-slide').length === 0) {
-    slideImages.each(
-      function(index) {
-        $(this).wrap('<div class="swiper-slide"><a data-fancybox="slide" href="'+ $(this).attr('src') +'"></a></div>');
-      }
-    );
-  }
+  // if($('.highlight-container .swiper-slide').length === 0) {
+  //   slideImages.each(
+  //     function(index) {
+  //       $(this).wrap('<div class="swiper-slide"><a data-fancybox="slide" href="'+ $(this).attr('src') +'"></a></div>');
+  //     }
+  //   );
+  // }
 
   mySwiper = new Swiper ('.swiper-container', {
     loop: slideImages.length > 1 ? true : false,
