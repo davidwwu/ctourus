@@ -270,8 +270,8 @@ app.post('/jwt', [authController.restrict], function (req, res) {
     // Optional custom user root path
     // 'https://claims.tiny.cloud/drive/root': '/johndoe',
 
-    // 10 minutes expiration
-    exp: Math.floor(Date.now() / 1000) + (60 * 10)
+    // 1 day expiration
+    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24)
   };
 
   try {

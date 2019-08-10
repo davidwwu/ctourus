@@ -110,11 +110,16 @@ let extractUrl = (DOMString, wrapperStart, wrapperEnd) => {
     let index = 0,
         urls = [];
 
-    while(DOMString.indexOf(wrapperStart, index) > -1) {
-        let beginning = DOMString.indexOf(wrapperStart, index) + wrapperStart.length,
-            end = DOMString.indexOf(wrapperEnd, beginning);
-        urls.push(DOMString.slice(beginning, end));
-        index = end;
+    try {
+        while(DOMString.indexOf(wrapperStart, index) > -1) {
+            let beginning = DOMString.indexOf(wrapperStart, index) + wrapperStart.length,
+                end = DOMString.indexOf(wrapperEnd, beginning);
+            urls.push(DOMString.slice(beginning, end));
+            index = end;
+        }
+    } catch (e) {
+        console.error(`extraUrl error: ${e}`);
+        console.error(`Params: DOMString: ${DOMString}, wrapperStart: ${wrapperStart}, wrapperEnd: ${wrapperEnd}.`);
     }
 
     return urls;
