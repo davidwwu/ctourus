@@ -269,7 +269,7 @@ exports.post_duplicate_tour = async (req, res) => {
         if(diff > duration) {
             temp.data.tour_plan.length = duration - 1; // -1 since we popped the last day
         } else if (diff < duration) {
-            while(diff < duration - 1) { // -1 since we popped the last day
+            while(diff < duration) {
                 temp.data.tour_plan.push({ title: 'Some title', description: 'Some description', sights: [], stay: 'Some hotel' });
                 ++diff;
             }
