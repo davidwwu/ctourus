@@ -259,6 +259,7 @@ exports.post_create_tour = async (req, res) => {
 exports.post_duplicate_tour = async (req, res) => {
     // get current tour's data
     let { is_highlight, duration, name, start_city, end_city, starting_price, tour_id, tour_type } = req.body;
+    duration = parseInt(duration);
     
     try {
         let temp = await axios.get(`${serverUrl}/api/admin/${req.params.tourId}`);

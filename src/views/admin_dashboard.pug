@@ -43,7 +43,7 @@ block content
               | 
               span.required-asterisk *
               .input-group
-                input#modal-duration.form-control(type='text' name='duration' required)
+                input#modal-duration.form-control(type='number' name='duration' required)
                 .input-group-append
                   span.input-group-text 天
             .form-group
@@ -51,7 +51,7 @@ block content
               .input-group
                 .input-group-prepend
                   span.input-group-text $
-                input#modal-starting-price.form-control(type='text' name='starting_price')
+                input#modal-starting-price.form-control(type='number' name='starting_price')
             .form-group
               label.col-form-label(for="modal-start-city") 出發城市:
               input#modal-start-city.form-control(type='text' name='start_city')
@@ -61,6 +61,7 @@ block content
           footer.mdc-dialog__actions
             button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close')
               span.mdc-button__label Cancel
+            //- TODO: will need to hold the modal if the information is not correct
             button.mdc-button.mdc-dialog__button(type='submit', data-mdc-dialog-action='accept')
               span.mdc-button__label OK
       .mdc-dialog__scrim
