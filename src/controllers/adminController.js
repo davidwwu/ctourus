@@ -267,14 +267,14 @@ exports.post_duplicate_tour = async (req, res) => {
         let diff = temp.data.duration,
             lastDay = temp.data.tour_plan.pop();
         if(diff > duration) {
-            temp.data.length = duration - 1; // -1 since we popped the last day
+            temp.data.tour_plan.length = duration - 1; // -1 since we popped the last day
         } else if (diff < duration) {
             while(diff < duration - 1) { // -1 since we popped the last day
                 temp.data.tour_plan.push({ title: 'Some title', description: 'Some description', sights: [], stay: 'Some hotel' });
                 ++diff;
             }
         }
-        temp.data.push(lastDay);
+        temp.data.tour_plan.push(lastDay);
 
         // post with combined data
         delete temp.data._id;
