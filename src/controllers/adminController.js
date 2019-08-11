@@ -264,19 +264,17 @@ exports.post_duplicate_tour = async (req, res) => {
         let temp = await axios.get(`${serverUrl}/api/admin/${req.params.tourId}`);
         
         // adjust tour plans based on specified duration
-        let diff = temp.data.duration;
+        let diff = temp.data.duration,
+            lastDay = temp.data.tour_plan.pop();
         if(diff > duration) {
-            while(diff > duration) {
-                temp.data.tour_plan.shift();   
-                diff--;
-            }
+            temp.data.length = duration - 1; // -1 since we popped the last day
         } else if (diff < duration) {
-            let firstDay = _.cloneDeep(temp.data.tour_plan[0])
-            while(diff < duration) {
-                temp.data.tour_plan.unshift(_.cloneDeep(firstDay));
-                diff++;
+            while(diff < duration - 1) { // -1 since we popped the last day
+                temp.data.tour_plan.push({ title: 'Some title', description: 'Some description', sights: [], stay: 'Some hotel' });
+                ++diff;
             }
         }
+        temp.data.push(lastDay);
 
         // post with combined data
         delete temp.data._id;
