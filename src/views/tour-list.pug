@@ -50,8 +50,8 @@ block content
         .cell
           a.card(href=`/tours/${tour_list}/${tour.tour_id}`)
             .card-image
-              //- img(src=`/images/${tour.images[0]}`, alt="photos")
-              img(src=`/images/userUpload/thumbnails/${tour.tour_id}-thumb.jpg`, alt="photos")
+              img(src=tour.images[0], alt="photos")
+              //- img(src=`/images/userUpload/thumbnails/${tour.tour_id}-thumb.jpg`, alt="photos")
             .card-section
               p= tour.name
               h4.price-highlight= `$${tour.starting_price}`
