@@ -1,8 +1,20 @@
 import {MDCRipple} from '@material/ripple';
 import {MDCDialog} from '@material/dialog';
 
+// chinese sorting does not work - comment out for now
+// $.extend( $.fn.dataTableExt.oSort, {
+//   "chinese-string-asc" : function (s1, s2) {
+//     return s1.localeCompare(s2);
+//   },
+
+//   "chinese-string-desc" : function (s1, s2) {
+//     return s2.localeCompare(s1);
+//   }
+// } );
 
 $(function() {
+  $('.main-list-table').DataTable();
+
   const buttonRipple = [].map.call(document.querySelectorAll('.mdc-button'), function(el){
     return new MDCRipple(el)
   });
@@ -78,4 +90,11 @@ $(function() {
     
     dialog.open();
   });
+
+  // dataTable checkbox sorting plugin
+  $.fn.dataTable.ext.order['dom-checkbox'] = function  ( settings, col ) {
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+      return $('input', td).prop('checked') ? '1' : '0';
+    } );
+  };
 });

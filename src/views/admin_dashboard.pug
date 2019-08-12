@@ -71,45 +71,20 @@ block content
         i.material-icons add
         span.mdc-button__label 添加線路
     .row.mt-3
-      table.main-list-table.table.table-bordered.table-hover.table-responsive-md
+      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 2, "asc" ], [ 1, "asc" ]]')
         thead
           tr.main-list-title
-            th(scope="col")
-              .d-flex.justify-content-between Highlight
-            th(scope="col")
-              a(href="?sortBy=customer_id").d-flex.justify-content-between 線路編號
-                if sortBy == "customer_id"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              a(href="?sortBy=customer_name").d-flex.justify-content-between 線路分類
-                if sortBy == "customer_name"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              a(href="?sortBy=title").d-flex.justify-content-between 線路標題
-                if sortBy == "title"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              a(href="?sortBy=location").d-flex.justify-content-between 線路天數
-                if sortBy == "location"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              a(href="?sortBy=start_date").d-flex.justify-content-between 旅遊團費
-                if sortBy == "start_date"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              a(href="?sortBy=end_date").d-flex.justify-content-between 出發城市
-                if sortBy == "end_date"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              a(href="?sortBy=end_date").d-flex.justify-content-between 結束城市
-                if sortBy == "end_date"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              .d-flex.justify-content-between 複製
-            th(scope="col")
-              .d-flex.justify-content-between 編輯
-            th(scope="col")
-              .d-flex.justify-content-between 刪除
+            th(scope="col" data-order-data-type='dom-checkbox') Highlight
+            th(scope="col" type='string') 線路編號
+            th(scope="col" type='string') 線路分類
+            th(scope="col" type='string' data-orderable='false') 線路標題
+            th(scope="col" type='num') 線路天數
+            th(scope="col" type='num-fmt') 旅遊團費
+            th(scope="col" type='string') 出發城市
+            th(scope="col" type='string') 結束城市
+            th(scope="col" data-orderable='false') 複製
+            th(scope="col" data-orderable='false') 編輯
+            th(scope="col" data-orderable='false') 刪除
         tbody
           each row in data
             tr

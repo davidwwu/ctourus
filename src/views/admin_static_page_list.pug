@@ -10,22 +10,11 @@ block content
       table.main-list-table.table.table-bordered.table-hover.table-responsive-md
         thead
           tr.main-list-title
-            th(scope="col")
-              .d-flex.justify-content-between 順序
-                if sortBy == "order"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              a(href="?sortBy=customer_id").d-flex.justify-content-between 標題
-                if sortBy == "customer_id"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              a(href="?sortBy=customer_name").d-flex.justify-content-between Permalink
-                if sortBy == "customer_name"
-                  i.fas.fa-caret-down
-            th(scope="col")
-              .d-flex.justify-content-between 編輯
-            th(scope="col")
-              .d-flex.justify-content-between 刪除
+            th(scope="col" type='num') 順序
+            th(scope="col" type='string') 標題
+            th(scope="col" type='string') Permalink
+            th(scope="col" data-orderable='false') 編輯
+            th(scope="col" data-orderable='false') 刪除
         tbody
           each row in data
             tr
