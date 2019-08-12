@@ -62,7 +62,7 @@ block content
             button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close')
               span.mdc-button__label Cancel
             //- TODO: will need to hold the modal if the information is not correct
-            button.mdc-button.mdc-dialog__button(type='submit', data-mdc-dialog-action='accept')
+            button.mdc-button.mdc-dialog__button(type='submit')
               span.mdc-button__label OK
       .mdc-dialog__scrim
 
@@ -101,29 +101,16 @@ block content
               td
                 a(href=`/tours/${row.tour_type}`)= type
               td= row.name
-              td(style="text-align: right;")= `${row.duration}天`
+              td(style="text-align: right;")= `${row.duration}`
               td(style="text-align: right;")= `$${row.starting_price}`
               td= row.start_city
               td= row.end_city
               td(style="text-align: center;")
-                button.copy-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
+                button.tour-copy-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
                   i.material-icons file_copy
               td(style="text-align: center;")
-                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href='/admin/${row.tour_id}/edit';`)
+                button.tour-edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href='/admin/${row.tour_id}/edit';`)
                   i.material-icons edit
               td(style="text-align: center;")
-                button.delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
-                  i.material-icons delete_forever  
-    .row.justify-content-center.mt-5
-      - var n = 0;
-      - var pageNumberInt = parseInt(pageNumber);
-
-      nav.pagination-nav
-        ul.pagination
-          li.page-item(class=(pageNumberInt === 1 ? "disabled" : null))
-            a.page-link(href="?sortBy=" + sortBy + "&pageNumber=" + (pageNumberInt-1) tabindex="-1") Previous
-          while n < totalPages
-            li.page-item(class=(pageNumberInt === ++n ? "active" : null))
-              a.page-link(href="?sortBy=" + sortBy + "&pageNumber=" + n)= n
-          li.page-item(class=(pageNumberInt === totalPages ? "disabled" : null))
-            a.page-link(href="?sortBy=" + sortBy + "&pageNumber=" + (pageNumberInt+1)) Next
+                button.tour-delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
+                  i.material-icons delete_forever

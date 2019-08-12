@@ -2,6 +2,41 @@ extends _admin_layout.pug
 
 block content
   main.p-4.container
+    .mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
+      form#modal-form.mdc-dialog__container(method='POST' action='')
+        .mdc-dialog__surface
+          // Title cannot contain leading whitespace due to mdc-typography-baseline-top() 
+          h2.mdc-dialog__title#my-dialog-title
+          // will set action by data-* attribute
+          .mdc-dialog__content#my-modal-content
+            .required-asterisk.note * Required
+            //- TODO: may need to handle ordering better
+            .form-group
+              label.col-form-label(for="modal-order") 順序:
+              | 
+              span.required-asterisk *
+              input#modal-order.form-control(type='text' name='order' required)
+            .form-group
+              label.col-form-label(for="modal-title") 標題:
+              | 
+              span.required-asterisk *
+              input#modal-title.form-control(type='text' name='name' required)
+            .form-group
+              label.col-form-label(for="modal-permalink") Permalink:
+              | 
+              span.required-asterisk *
+              .input-group
+                .input-group-prepend
+                  span.input-group-text /static-pages/
+                input#modal-permalink.form-control(type='text' name='permalink' pattern="[a-zA-Z0-9-_]+" required)
+              small.form-text.text-muted 只可包含英文字母大小寫、數字、連結號 (-)、及下劃線 (_)
+          footer.mdc-dialog__actions
+            button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close')
+              span.mdc-button__label Cancel
+            //- TODO: will need to hold the modal if the information is not correct
+            button.mdc-button.mdc-dialog__button(type='submit')
+              span.mdc-button__label OK
+      .mdc-dialog__scrim
     .row
       button#new-static-page.mdc-button.mdc-button--raised
         i.material-icons add
@@ -23,8 +58,8 @@ block content
               td
                 a(href=`/static-pages/${row.permalink}`)= `/${row.permalink}`
               td(style="text-align: center;")
-                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href='/admin/static-pages/${row.permalink}/edit';`)
+                button.static-page-quick-edit.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
                   i.material-icons edit
               td(style="text-align: center;")
-                button.delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
+                button.static-page-delete.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
                   i.material-icons delete_forever  
