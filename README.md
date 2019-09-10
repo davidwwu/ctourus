@@ -1,8 +1,6 @@
-# My Simple Site Template
+# New CTOURUS Website
 
-My personal website template. The purpose of this repo is to setup a barebone framework that has all the tools one needs to start building their first pug site yet not overloaded with packages that would confuse a newbie.
-
-- babel 7 is used to transpile ES6, 7, and React into ES5 for better browser compatibilities.
+Redesigned [CTOURUS](https://ctourus.com) website using MongoDB, ExpressJS, and NodeJS.
 
 ## Install
 
