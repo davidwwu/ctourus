@@ -1,17 +1,32 @@
 header
-  .site-header.grid-container.grid-y
-    nav.top-bar.scrollhide-nav.cell
-      .top-bar-left.menu
+  .site-header.scroll-hide-nav
+    nav.top-bar.title-menu
+      .menu
         a.logo(href="/")
           img(src="/images/CtourusLogo.png", alt="Ctourus Logo")
-          span 盛世假期
+          span CTOURUS 盛世假期
         
-      ul.top-bar-right.menu
+      ul.menu
         each static in static_pages
           li
             a(href=`/static-pages/${static.permalink}`)= static.name
-    nav.top-bar.tour-menu.cell
-      ul.menu
+    nav.top-bar.tour-menu
+      ul.menu.dropdown(data-dropdown-menu)
+        li
+          a(href='/') 首頁
         each tour in tour_menu
           li
-            a(href=`/tours/${tour.permalink}` class={'is-active': tour_list && tour_list == tour.permalink})= tour.name
+            a(href=`/tours/${tour.permalink}` class={'is-active': tour_list && tour_list === tour.permalink})= tour.name
+            ul.list-filter.card.menu.sub-menu-container
+              li 出發城市：
+                each city in tour.start_cities
+                  a(href=`/tours/${tour.permalink}?start_city=${city}`)= city
+              li 持續時間：
+                each dur in tour.durations
+                  a(href=`/tours/${tour.permalink}?duration=${dur}`)= `${dur}天`
+              li 價格範圍：
+                a(href=`/tours/${tour.permalink}?starting_price%5B%5D=lte-199`) $200以下
+                a(href=`/tours/${tour.permalink}?starting_price%5B%5D=gte-200&starting_price%5B%5D=lte-499`) $200-$499
+                a(href=`/tours/${tour.permalink}?starting_price%5B%5D=gte-500&starting_price%5B%5D=lte-999`) $500-$999
+                a(href=`/tours/${tour.permalink}?starting_price%5B%5D=gte-1000&starting_price%5B%5D=lte-1999`) $1000-$1999
+                a(href=`/tours/${tour.permalink}?starting_price%5B%5D=gte-2000` disabled) $2000以上

@@ -44,7 +44,7 @@ block content
             .trip-day-description
               i.other-icon.material-icons location_on
               div!= day.description
-            if day.sights && day.sights.length != 0
+            if day.sights && day.sights.length !== 0
               .trip-day-photos
                 i.other-icon.material-icons camera_alt
                 .sight-container
@@ -53,7 +53,7 @@ block content
                   .thumbnails
                     each sight in day.sights
                       img(src=sight)
-            if day.stay && day.stay != ""
+            if day.stay && day.stay !== ""
               .trip-day-hotel
                 i.other-icon.material-icons hotel
                 div!= day.stay

@@ -44,15 +44,15 @@ let filterObjByQuery = (obj, query) => {
   let flag = true;
   for(let [key, value] of Object.entries(query)) {
     // special case for price filter
-    if(key == 'starting_price') {
+    if(key === 'starting_price') {
       value.forEach((q) => {
         let qArr = q.split('-');
         let opr = qArr[0],
             num = qArr[1];
         
-        if(opr == 'gte' && obj[key] < num)
+        if(opr === 'gte' && obj[key] < num)
           flag = false;
-        else if(opr == 'lte' && obj[key] > num)
+        else if(opr === 'lte' && obj[key] > num)
           flag = false;
       });
     } else {
@@ -143,6 +143,11 @@ app.use(
     axios.get(`${serverUrl}/api/tours/tour-menu`)
       .then(({ data }) => {
         res.locals.tour_menu = data;
+        res.locals.tour_menu.forEach(function(menuItem) {
+          menuItem.durations = removeObjArrDuplicate(menuItem.sub_menus, 'duration');
+          menuItem.start_cities = removeObjArrDuplicate(menuItem.sub_menus, 'start_city');
+          menuItem.end_cities = removeObjArrDuplicate(menuItem.sub_menus, 'end_city');
+        })
 
         next();
       });
@@ -190,14 +195,14 @@ app.get('/tours/:tourList', (req, res) => {
   // to show the full filter for the list category,
   // otherwise we could move the filtering logic to
   // the api.
-  // In the future, perhaps we could make api's to
+  // In the future, perhaps we could make apis to
   // extract filter options from the db or even create
   // a new collection/document to hold all filters,
   // but that's for another time.
   axios.get(`${serverUrl}/api/tours/${req.params.tourList}`)
     .then(({ data }) => {
       let filteredData = data;
-      if(Object.keys(req.query).length != 0) {
+      if(Object.keys(req.query).length !== 0) {
         filteredData = data.filter(trip => filterObjByQuery(trip, req.query));
       }
       
@@ -206,8 +211,6 @@ app.get('/tours/:tourList', (req, res) => {
         tour_list: req.params.tourList,
         filter: req.query,
         query_str: querystring.stringify(req.query),
-        start_cities: removeObjArrDuplicate(data, 'start_city'),
-        durations: removeObjArrDuplicate(data, 'duration'),
         data: filteredData
       });
     })

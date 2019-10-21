@@ -48,7 +48,30 @@ router.get('/static-pages/:page', (req, res) => {
 
 router.get('/tours/tour-menu', function (req, res) {
   mdb.collection('tour_menu')
-    .find({})
+    .aggregate([
+      {
+        $lookup:
+          {
+            from: 'tours',
+            let: { menu_permalink: '$permalink' },
+            pipeline: [
+              {
+                $match:
+                  {
+                    $expr: { '$eq': ['$tour_type', '$$menu_permalink'] }
+                  }
+              },
+              {
+                $project: { duration: 1, start_city: 1, end_city: 1 }
+              },
+              {
+                $sort: { duration: 1 }
+              }
+            ],
+            as: 'sub_menus'
+          }
+      }
+    ])
     .sort({
       order: 1
     })
@@ -59,7 +82,8 @@ router.get('/tours/tour-menu', function (req, res) {
 
 router.get('/tours', function (req, res) {
   mdb.collection('tours')
-    .find({}, (err, data) => {
+    .find({})
+    .toArray((err, data) => {
       res.send(data);
     });
 });
@@ -173,7 +197,7 @@ router.get('/tours/:tourList', function (req, res) {
 });
 
 router.get('/tours/:tourList/:tourId', function (req, res) {
-  if(req.params.tourList != 'all') {
+  if(req.params.tourList !== 'all') {
     mdb.collection('tours')
       .findOne({
         $and: [
