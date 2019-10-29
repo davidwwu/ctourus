@@ -155,11 +155,24 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  axios.get(`${serverUrl}/api/tours/highlight-tours`)
+  axios.get(`${serverUrl}/api/tours/front-page`)
     .then(({ data }) => {
       res.render('index', {
         page_type: 'home',
         tour_slides: data.tour_slides,
+        highlight_tours: data.tours
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.get("/highlight-tours", (req, res) => {
+  axios.get(`${serverUrl}/api/tours/highlight-tours`)
+    .then(({ data }) => {
+      res.render('index', {
+        page_type: 'home',
         highlight_tours: data.tours
       });
     })

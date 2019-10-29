@@ -2,6 +2,16 @@ extends _admin_layout.pug
 
 block content
   main.p-4.container-fluid
+    style.
+      #result {
+          border: 1px solid #888;
+          background: #f7f7f7;
+          padding: 1em;
+          margin-bottom: 1em;
+      }
+    
+    #result
+    
     //- if flash.error
     //-   .alert.alert-danger.alert-dismissible.fade.show(role="alert")
     //-     .alert-message !{flash.error}
@@ -71,9 +81,10 @@ block content
         i.material-icons add
         span.mdc-button__label 添加線路
     .row.mt-3
-      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 2, "asc" ], [ 1, "asc" ]]' data-page-length='15')
+      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 3, "asc" ], [ 2, "asc" ]]' data-page-length='10')
         thead
           tr.main-list-title
+            th(scope="col" data-orderable='false') 
             th(scope="col" data-order-data-type='dom-checkbox') Highlight
             th(scope="col" type='string') 線路編號
             th(scope="col" type='string') 線路分類
@@ -94,6 +105,7 @@ block content
                   if(row.tour_type === m.permalink) type = m.name
                   return
                 })
+              td :::
               td(style="text-align: center;")
                 input.position-static.form-check-input(type="checkbox" checked=(row.is_highlight) readonly)
               td

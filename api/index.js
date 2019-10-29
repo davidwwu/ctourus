@@ -149,6 +149,23 @@ router.get('/tours/highlight-tours', async function (req, res) {
   });
 });
 
+router.get('/tours/front-page', async (req, res) => {
+  try {
+    highlightSlides = await mdb.collection('highlight_slides')
+      .find({})
+      .sort({
+        order: 1
+      })
+      .toArray();
+  } catch(err) {
+    console.error(err);
+  }
+
+  res.send({
+    tour_slides: highlightSlides 
+  });
+});
+
 router.get('/tours/:tourList', function (req, res) {
   if(Object.keys(req.query).length === 0) {
     mdb.collection('tours')

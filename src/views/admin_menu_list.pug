@@ -2,16 +2,6 @@ extends _admin_layout.pug
 
 block content
   main.p-4.container
-    style.
-      #result {
-          border: 1px solid #888;
-          background: #f7f7f7;
-          padding: 1em;
-          margin-bottom: 1em;
-      }
-  
-    #result
-
     .mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
       form#modal-form.mdc-dialog__container(method='POST' action='')
         .mdc-dialog__surface
@@ -52,10 +42,9 @@ block content
         i.material-icons add
         span.mdc-button__label 添加靜態頁面
     .row.mt-3
-      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='10')
+      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-page-length='15')
         thead
           tr.main-list-title
-            th(scope="col" data-orderable='false')
             th(scope="col" type='num') 順序
             th(scope="col" type='string') 標題
             th(scope="col" type='string') Permalink
@@ -64,7 +53,6 @@ block content
         tbody
           each row in data
             tr
-              td.reorder :::
               td= row.order+1
               td= row.name
               td

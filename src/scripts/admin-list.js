@@ -13,7 +13,33 @@ import {MDCDialog} from '@material/dialog';
 // } );
 
 $(function() {
-  $('.main-list-table').DataTable();
+  let table = $('.main-list-table').DataTable({
+    rowReorder: {
+      dataSrc: 1
+    },
+    deferRender: true,
+    scrollY: 400,
+    scrollCollapse: true,
+    paging: false
+  });
+  table.on( 'row-reorder', function ( e, diff, edit ) {
+    var result = 'Reorder started on row: '+edit.triggerRow.data()[1]+'<br>';
+
+    for ( var i=0, ien=diff.length ; i<ien ; i++ ) {
+        var rowData = table.row( diff[i].node ).data();
+
+        result += rowData[1]+' updated to be in position '+
+            diff[i].newData+' (was '+diff[i].oldData+')<br>';
+    }
+
+    $('#result').html( 'Event result:<br>'+result );
+  } );
+  // dataTable checkbox sorting plugin
+  $.fn.dataTable.ext.order['dom-checkbox'] = function  ( settings, col ) {
+    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
+      return $('input', td).prop('checked') ? '1' : '0';
+    } );
+  };
 
   const buttonRipple = [].map.call(document.querySelectorAll('.mdc-button'), function(el){
     return new MDCRipple(el)
@@ -130,11 +156,4 @@ $(function() {
     
     dialog.open();
   });
-
-  // dataTable checkbox sorting plugin
-  $.fn.dataTable.ext.order['dom-checkbox'] = function  ( settings, col ) {
-    return this.api().column( col, {order:'index'} ).nodes().map( function ( td, i ) {
-      return $('input', td).prop('checked') ? '1' : '0';
-    } );
-  };
 });
