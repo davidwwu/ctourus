@@ -11,6 +11,7 @@ $error: #f65327;
 $font-color: #484848;
 $font-color-light: #8b8b8b;
 $theme-color: #B7322A;
+$site-background-color: #eeeeee;
 
 $table-border: 1px solid #b1b1b1;
 $separator-border: 1px solid #EBEBEB;
@@ -36,7 +37,7 @@ $box-shadow-darkest: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
 body {
   font-family: 'Roboto', 'Microsoft YaHei UI Light', 'Hiragino Sans GB', 'Hei Ti', sans-serif;
   font-size: 18px;
-  background-color: $white;
+  background-color: $site-background-color;
   color: $font-color;
   letter-spacing: 1px;
   word-spacing: 1px;
@@ -102,6 +103,7 @@ nav *{
 .site-header {
   margin: auto;
   padding: 0;
+  background-color: $white;
 }
 
 .top-bar {
@@ -423,10 +425,13 @@ a.card:focus {
 }
 
 .available-dates {
-  margin-bottom: 80px;
+  width: 100%
+  // margin-bottom: 40px;
 }
 
 #trip-details {
+  margin-top: 25px;
+
   // TODO: will eventually replace this with a real module
   >img {
     padding: 40px;

@@ -43,6 +43,7 @@ $(function() {
   
   $("ul li .is-active").parent().addClass("hovered");
 
+  // front-page menu/list
   var hotProTimer;
   var _hotProIndex = 0;
   $('.hotPro .tab li').click(function(){
@@ -67,22 +68,5 @@ $(function() {
       }, 4000)
   }
   hotPro();
-
-
-  $('.siteTab .tab li').click(function(){
-      var _index = $(this).index();
-      $(this).addClass('active').siblings().removeClass('active');
-      $(this).parents('.tabWrap').find('.tabCon').eq(_index).removeClass('hidden').siblings('.tabCon').addClass('hidden')
-
-      $(window).trigger('scroll')
-  })
-
-  $('.siteTab .tabs li').click(function(){
-      var _index = $(this).index();
-      $(this).addClass('active').siblings().removeClass('active');
-      $(this).parents('.tabsWrap').find('.tabsCon').eq(_index).removeClass('hidden').siblings('.tabsCon').addClass('hidden')
-
-      $(window).trigger('scroll')
-  })
 });
 
