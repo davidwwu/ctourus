@@ -159,8 +159,7 @@ app.get("/", (req, res) => {
     .then(({ data }) => {
       res.render('index', {
         page_type: 'home',
-        tour_slides: data.tour_slides,
-        highlight_tours: data.tours
+        tour_slides: data.tour_slides
       });
     })
     .catch((error) => {
@@ -171,9 +170,17 @@ app.get("/", (req, res) => {
 app.get("/highlight-tours", (req, res) => {
   axios.get(`${serverUrl}/api/tours/highlight-tours`)
     .then(({ data }) => {
-      res.render('index', {
-        page_type: 'home',
-        highlight_tours: data.tours
+      let filteredData = data.tours;
+      if(Object.keys(req.query).length !== 0) {
+        filteredData = data.filter(trip => filterObjByQuery(trip, req.query));
+      }
+      
+      res.render('tour-list', {
+        page_type: 'highlight-tours',
+        tour_list: '',
+        filter: req.query,
+        query_str: querystring.stringify(req.query),
+        data: filteredData
       });
     })
     .catch((error) => {

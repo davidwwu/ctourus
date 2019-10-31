@@ -14,6 +14,8 @@ header
       ul.menu.dropdown(data-dropdown-menu)
         li
           a(href='/') 首頁
+        li
+          a(href='/highlight-tours') 熱門推薦
         each tour in tour_menu
           li
             a(href=`/tours/${tour.permalink}` class={'is-active': tour_list && tour_list === tour.permalink})= tour.name

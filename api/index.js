@@ -124,7 +124,13 @@ router.get('/tours/highlight-tours', async function (req, res) {
         starting_price: true,
         tour_id: true,
         tour_type: true,
-        duration: true
+        duration: true,
+        start_city: true
+      })
+      .sort({
+        tour_id: 1,
+        start_city: 1,
+        duration: 1
       })
       .toArray();
 
