@@ -387,6 +387,8 @@ nav *{
     height: 164px;
 
     img {
+      min-width: 100%;
+      min-height: 100%;  
       position: relative;
       top: 50%;
       transform: perspective(1px) translateY(-50%);

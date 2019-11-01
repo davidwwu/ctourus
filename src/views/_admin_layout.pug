@@ -18,10 +18,12 @@ html(lang="zh-Hant" data-tour-list=tour_list ? tour_list : null)
         span.navbar-toggler-icon
       #adminNav.collapse.navbar-collapse
         ul.navbar-nav.d-flex
-          li.nav-item(class="active")
+          li.nav-item(class=(page_type === 'tours' ? "active" : ""))
             a.nav-link(href="/admin") 線路列表
-          li.nav-item
+          li.nav-item(class=(page_type === 'static-pages' ? "active" : ""))
             a.nav-link(href="/admin/static-pages") 靜態頁面列表
+          li.nav-item(class=(page_type === 'main-menus' ? "active" : ""))
+            a.nav-link(href="/admin/main-menus") 主選單列表
           li.nav-item
             a.nav-link(href="/") 回到主頁
         ul.navbar-nav.ml-sm-auto.d-flex

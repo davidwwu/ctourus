@@ -270,6 +270,7 @@ app.get('/admin', [authController.restrict], adminController.get_tours_list);
 app.get('/admin/:tourId/edit', [authController.restrict], adminController.get_edit_tour);
 app.get('/admin/static-pages', [authController.restrict], adminController.get_static_page_list);
 app.get('/admin/static-pages/:page/edit', [authController.restrict], adminController.get_edit_static_page);
+app.get('/admin/main-menus', [authController.restrict], adminController.get_main_menu_list);
 
 app.post('/admin/:tourId/save-and-quit', [authController.restrict, urlencodedParser], adminController.post_edit_tour_save_and_quit);
 app.post('/admin/:tourId/save', [authController.restrict, urlencodedParser], adminController.post_edit_tour_save);

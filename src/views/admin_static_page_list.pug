@@ -59,18 +59,22 @@ block content
             th(scope="col" type='num') 順序
             th(scope="col" type='string') 標題
             th(scope="col" type='string') Permalink
-            th(scope="col" data-orderable='false') 編輯
+            th(scope="col" data-orderable='false') 快速編輯
+            th(scope="col" data-orderable='false') 編輯頁面
             th(scope="col" data-orderable='false') 刪除
         tbody
           each row in data
             tr
               td.reorder :::
-              td= row.order+1
+              td= row.order
               td= row.name
               td
                 a(href=`/static-pages/${row.permalink}`)= `/${row.permalink}`
               td(style="text-align: center;")
                 button.static-page-quick-edit.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                  i.material-icons edit
+              td(style="text-align: center;")
+                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href='/admin/static-pages/${row.permalink}/edit';`)
                   i.material-icons edit
               td(style="text-align: center;")
                 button.static-page-delete.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))

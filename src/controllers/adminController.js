@@ -9,8 +9,8 @@ exports.get_tours_list = async (req, res) => {
         let listData = await axios.get(`${serverUrl}/api/tours/admin-dash`);
         let menu = await axios.get(`${serverUrl}/api/tours/tour-menu`);
         
-        res.render('admin_dashboard', {
-            page_type: 'tour',
+        res.render('admin_tour_list', {
+            page_type: 'tours',
             data: listData.data,
             menu: menu.data
         })
@@ -24,6 +24,7 @@ exports.get_static_page_list = async (req, res) => {
         let pageData = await axios.get(`${serverUrl}/api/static-pages/page-menu`);
 
         res.render('admin_static_page_list', {
+            page_type: 'static-pages',
             data: pageData.data
         })
     } catch(error) {
@@ -40,6 +41,19 @@ exports.get_edit_static_page = async (req, res) => {
             content: pageData.data.content,
             permalink: pageData.data.permalink,
             tiny_api: process.env.TINYMCE_API
+        })
+    } catch(error) {
+        console.error(error);
+    }
+};
+
+exports.get_main_menu_list = async (req, res) => {
+    try {
+        let pageData = await axios.get(`${serverUrl}/api/tours/tour-menu`);
+
+        res.render('admin_menu_list', {
+            page_type: 'main-menus',
+            data: pageData.data
         })
     } catch(error) {
         console.error(error);
