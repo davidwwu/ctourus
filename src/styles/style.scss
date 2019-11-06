@@ -111,7 +111,6 @@ nav *{
   padding: 10px 20px;
   background-color: $white;
   font-size: 16px;
-  font-weight: 600;
   
   .logo span {
     font-weight: 300;
@@ -120,6 +119,7 @@ nav *{
 
   &.title-menu {
     width: 1200px;
+    font-weight: 600;
     margin: 0 auto;
 
     ul.menu {
@@ -163,7 +163,6 @@ nav *{
     background-color: $theme-color;
     color: $white;
     height: 40px;
-    padding-top: 14px;
 
     >.menu {
       margin: 0 auto;
@@ -182,7 +181,6 @@ nav *{
       background-color: white;
       color: #484848;
       padding: 1rem;
-      font-weight: 400;
 
       >li {
         display: flex;

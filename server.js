@@ -175,7 +175,7 @@ app.get("/highlight-tours", (req, res) => {
         filteredData = data.filter(trip => filterObjByQuery(trip, req.query));
       }
       
-      res.render('tour-list', {
+      res.render('tour_list', {
         page_type: 'highlight-tours',
         tour_list: '',
         filter: req.query,
@@ -226,7 +226,7 @@ app.get('/tours/:tourList', (req, res) => {
         filteredData = data.filter(trip => filterObjByQuery(trip, req.query));
       }
       
-      res.render('tour-list', {
+      res.render('tour_list', {
         page_type: 'tour',
         tour_list: req.params.tourList,
         filter: req.query,
@@ -242,7 +242,7 @@ app.get('/tours/:tourList', (req, res) => {
 app.get('/tours/:tourList/:tourId', (req, res) => {
   axios.get(`${serverUrl}/api/tours/${req.params.tourList}/${req.params.tourId}`)
     .then(({ data }) => {
-      res.render('tour-details', {
+      res.render('tour_details', {
         page_type: 'tour',
         tour_list: req.params.tourList,
         data

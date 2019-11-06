@@ -18,7 +18,7 @@ router.get('/:tourList/:tourId?', function (req, res) {
   } else {
     axios.get(`/api/tours/${req.params.tourList}/${req.params.tourId}`)
       .then(({ data }) => {
-        res.render('tour-details', {
+        res.render('tour_details', {
           data
         });
       })

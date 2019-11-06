@@ -5,7 +5,34 @@ var mySwiper;
 $(function() {
   $('section#pricing-details table').addClass('scroll');
 
-  var slideImages = $('.highlight-container .swiper-container .swiper-wrapper img');
+  var slideImages = $('.swiper-container .swiper-wrapper img');
+  mySwiper = new Swiper ('.swiper-container', {
+    on: {
+      init: function() {
+        $('.swiperControl a').eq(0).addClass('active');
+      }
+    },
+    loop: slideImages.length > 1 ? true : false,
+    // spaceBetween: 25,
+    centeredSlides: true,
+    autoplay: slideImages.length > 1 ? { delay: 2000 } : false,
+  });
+
+  mySwiper.on('slideChangeTransitionStart', function() {
+    $('.swiperControl a').removeClass('active');
+    $('.swiperControl a').eq(mySwiper.activeIndex).addClass('active');
+  });
+
+  $('.swiper-container').mouseenter(function(){
+    mySwiper.autoplay.stop();
+  }).mouseleave(function(){
+    mySwiper.autoplay.start();
+  });
+
+  $('.swiperControl a').hover(function(){
+    var _index = $(this).data('index');
+    mySwiper.slideTo(_index);
+  });
 
   // if no swiper-slide class is present inside highlight-container
   // we wrap each image with a swiper-slide class div
@@ -16,13 +43,6 @@ $(function() {
   //     }
   //   );
   // }
-
-  mySwiper = new Swiper ('.swiper-container', {
-    loop: slideImages.length > 1 ? true : false,
-    spaceBetween: 25,
-    centeredSlides: true,
-    autoplay: slideImages.length > 1 ? { delay: 5000 } : false,
-  });
   
   // build query string based on filter and then redirect page to the url
   $('.filter input').on('click', function() {
