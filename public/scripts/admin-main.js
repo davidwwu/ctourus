@@ -3,10 +3,9 @@
 var tinymce,
     mySwiper;
 $(function() {
-
   var slideImages = $('.highlight-container .swiper-container .swiper-wrapper img');
-  // // if no swiper-slide class is present inside highlight-container
-  // // we wrap each image with a swiper-slide class div
+  // if no swiper-slide class is present inside highlight-container
+  // we wrap each image with a swiper-slide class div
   if($('.highlight-container .swiper-slide').length === 0) {
     slideImages.wrap('<div class="swiper-slide"></div>');
   }
@@ -19,6 +18,12 @@ $(function() {
   });
 
   $('#duration').val($('.trip-day').length);
+  
+  document.getElementById('mainForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    console.log(document.getElementsByTagName('input'));
+  });
+
   initTinymce();
 });
 
@@ -32,6 +37,7 @@ var initTinymce = function(reinit) {
       inline: true,
       browser_spellcheck: true,
       contextmenu: true,
+      entity_encoding : "raw",
       plugins: "powerpaste",
       toolbar: 'undo redo | formatselect fontsizeselect | bold italic underline',
     });
@@ -44,6 +50,7 @@ var initTinymce = function(reinit) {
       inline: true,
       browser_spellcheck: true,
       contextmenu: true,
+      entity_encoding : "raw",
       plugins: "table powerpaste lists advlist insertdatetime code",
       table_appearance_options: false,
       toolbar: "undo redo | formatselect fontsizeselect code | cut copy paste pastetext removeformat | bold italic underline strikethrough | alignleft aligncenter alignright | forecolor backcolor | bullist numlist | outdent indent | table"
@@ -57,6 +64,7 @@ var initTinymce = function(reinit) {
       menubar: false,
       inline: true,
       contextmenu: true,
+      entity_encoding : "raw",
       forced_root_block: '',
       plugins: "image tinydrive",
       tinydrive_token_provider: '/jwt',

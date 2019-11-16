@@ -15,7 +15,9 @@ block content
     if page_type !== 'highlight-tours'
       .list-filter.card
         .card-section
-          .filter-section 出發城市：
+          .filter-section
+            span.filter-title 出發城市
+            | ：
             span.filter
               input#start-city-all(type="radio" name="start_city" value="all" checked=(filter.start_city ? false : true))
               label(for="start-city-all") 全部
@@ -23,7 +25,9 @@ block content
               span.filter
                 input(id=`start-city-${city}` type="radio" name="start_city" value=city checked=(filter.start_city && filter.start_city === city ? true : false))
                 label(for=`start-city-${city}`)= city
-          .filter-section 持續時間：
+          .filter-section
+            span.filter-title 持續時間
+            | ：
             span.filter
               input#duration-all(type="radio" name="duration" value="all" checked=(filter.duration ? false : true))
               label(for="duration-all") 全部
@@ -31,7 +35,9 @@ block content
               span.filter
                 input(id=dur type="radio" name="duration" value=dur checked=(filter.duration && parseInt(filter.duration) === dur ? true : false))
                 label(for=dur)= `${dur}天`
-          .filter-section 價格範圍：
+          .filter-section
+            span.filter-title 價格範圍
+            | ：
             span.filter
               input#price-all(type="radio" name="starting_price" value="all" checked=(filter.starting_price ? false : true))
               label(for="price-all") 全部
