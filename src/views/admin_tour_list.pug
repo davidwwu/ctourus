@@ -9,6 +9,15 @@ block content
           padding: 1em;
           margin-bottom: 1em;
       }
+      table.dataTable tr.nowrap th {
+        white-space: nowrap;
+      }
+      td.align-center {
+        text-align: center;
+      }
+      td.align-right {
+        text-align: right;
+      }
     
     #result
     
@@ -44,7 +53,7 @@ block content
               label.col-form-label(for="modal-tour-type") 線路分類:
               select#modal-tour-type.custom-select.form-control(name="tour_type")
                 each t in menu
-                  option(value=(t.permalink))= t.name
+                  option(value=(t.permalink))= t.menu_name
             .form-group
               label.col-form-label(for="modal-title") 線路標題:
               input#modal-title.form-control(type='text' name='name')
@@ -76,53 +85,26 @@ block content
               span.mdc-button__label OK
       .mdc-dialog__scrim
 
-    .row
-      button#new-tour.mdc-button.mdc-button--raised
-        i.material-icons add
-        span.mdc-button__label 添加線路
-    .row.mt-3
-      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 3, "asc" ], [ 2, "asc" ]]' data-page-length='10')
-        thead
-          tr.main-list-title
-            th(scope="col" data-orderable='false') 
-            th(scope="col" data-order-data-type='dom-checkbox') Highlight
-            th(scope="col" type='string') 線路編號
-            th(scope="col" type='string') 線路分類
-            th(scope="col" type='string' data-orderable='false') 線路標題
-            th(scope="col" type='num') 線路天數
-            th(scope="col" type='num-fmt') 旅遊團費
-            th(scope="col" type='string') 出發城市
-            th(scope="col" type='string') 結束城市
-            th(scope="col" data-orderable='false') 複製
-            th(scope="col" data-orderable='false') 編輯
-            th(scope="col" data-orderable='false') 刪除
-        tbody
-          each row in data
-            tr
-              -
-                let type
-                menu.forEach(m => {
-                  if(row.tour_type === m.permalink) type = m.name
-                  return
-                })
-              td :::
-              td(style="text-align: center;")
-                input.position-static.form-check-input(type="checkbox" checked=(row.is_highlight) readonly)
-              td
-                a(href=`/tours/${row.tour_type}/${row.tour_id}`)= row.tour_id
-              td
-                a(href=`/tours/${row.tour_type}`)= type
-              td= row.name
-              td(style="text-align: right;")= `${row.duration}`
-              td(style="text-align: right;")= `$${row.starting_price}`
-              td= row.start_city
-              td= row.end_city
-              td(style="text-align: center;")
-                button.tour-copy-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
-                  i.material-icons file_copy
-              td(style="text-align: center;")
-                button.tour-edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href='/admin/${row.tour_id}/edit';`)
-                  i.material-icons edit
-              td(style="text-align: center;")
-                button.tour-delete-btn.mdc-button.mdc-button--dense.no-min-width(data-tour=(JSON.stringify(row)) data-menu=(JSON.stringify(menu)))
-                  i.material-icons delete_forever
+    each menuItem in menu
+      .row(style="justify-content: space-between;")
+        .section-title
+          h2= menuItem.menu_name
+        button.new-tour.mdc-button.mdc-button--raised(data-permalink=menuItem.permalink)
+          i.material-icons add
+          span.mdc-button__label 添加線路
+      .row.mb-5
+        table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-permalink=`${menuItem.permalink}` data-order='[[ 3, "asc" ], [ 2, "asc" ]]' data-page-length='10')
+          thead
+            tr.main-list-title.nowrap
+              th(scope="col" data-orderable='false') 
+              th(scope="col" data-order-data-type='dom-checkbox') Highlight
+              th(scope="col" type='string') 線路編號
+              th(scope="col" type='string') 線路分類
+              th(scope="col" type='string' data-orderable='false') 線路標題
+              th(scope="col" type='num') 線路天數
+              th(scope="col" type='num-fmt') 旅遊團費
+              th(scope="col" type='string') 出發城市
+              th(scope="col" type='string') 結束城市
+              th(scope="col" data-orderable='false') 複製
+              th(scope="col" data-orderable='false') 編輯
+              th(scope="col" data-orderable='false') 刪除

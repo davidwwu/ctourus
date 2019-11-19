@@ -18,7 +18,7 @@ header
           a(href='/highlight-tours') 熱門推薦
         each tour in tour_menu
           li
-            a(href=`/tours/${tour.permalink}` class={'is-active': tour_list && tour_list === tour.permalink})= tour.name
+            a(href=`/tours/${tour.permalink}` class={'is-active': tour_list && tour_list === tour.permalink})= tour.menu_name
             ul.list-filter.card.menu.sub-menu-container
               li
                 span.filter-title 出發城市

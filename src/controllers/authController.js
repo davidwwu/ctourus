@@ -14,11 +14,11 @@ exports.authStrategy = new LocalStrategy(
   (username, password, done) => {
     mdb.collection('users')
       .findOne({ username }, (err, user) => {
-        if(err) return done(err);
-        if(!user) {
+        if (err) return done(err);
+        if (!user) {
           return done(null, false, { type: 'error', message: 'Incorrect username or password. Please try again.' });
         }
-        bcrypt.compare(password, user.password, function (err, result) {
+        bcrypt.compare(password, user.password, (err, result) => {
           if (result === true) {
             return done(null, user);
           } else {
@@ -26,7 +26,7 @@ exports.authStrategy = new LocalStrategy(
           }
         });
       });
-  }
+  },
 );
 
 exports.authSerializer = (user, done) => {
@@ -42,35 +42,35 @@ exports.authDeserializer = (id, done) => {
 
 exports.restrict = (req, res, next) => {
   if (req.isUnauthenticated()) {
-      res.flash('error', 'Access denied, please log in.');
-      return res.redirect('/admin-login');
+    res.flash('error', 'Access denied, please log in.');
+    return res.redirect('/admin-login');
   }
   return next();
-}
+};
 
 exports.login = (req, res, next) => {
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local', (err, user, info) => {
     if (err) { return next(err); }
     if (!user) { 
-        res.flash(info.type, info.message);
-        return res.redirect('/admin-login'); 
+      res.flash(info.type, info.message);
+      return res.redirect('/admin-login'); 
     }
 
-    req.logIn(user, function(err) {
-        if (err) { return next(err); }
-        res.cookie('userInfo', { id: user._id, username: user.username }, { maxAge: 86400e3 });
-        res.flash('success', 'Logged in.');
-        return res.redirect('/admin');
+    req.logIn(user, (err) => {
+      if (err) { return next(err); }
+      res.cookie('userInfo', { id: user._id, username: user.username }, { maxAge: 86400e3 });
+      res.flash('success', 'Logged in.');
+      return res.redirect('/admin');
     });
   })(req, res, next);
-}
+};
 
 exports.logout = (req, res, next) => {
   req.logout();
   res.clearCookie('userInfo');
   res.flash('success', 'Logged out. Please login again.');
   res.redirect('/admin-login');
-}
+};
 
 exports.user_create_post = (req, res, next) => {
   // TODO - should check if user is existed first,
@@ -78,21 +78,21 @@ exports.user_create_post = (req, res, next) => {
 
   // hash user's password before saving it
   bcrypt.hash(req.body.password, 10, (err, hash) => {
-    if(err) {
+    if (err) {
       return next(err);
     }
 
     mdb.collection('users')
       .insertOne({
         username: req.body.username,
-        password: hash
+        password: hash,
       }, (err, result) => {
         if (err) { return next(err); }
 
-        req.login(user, function(err) {
+        req.login(user, (err) => {
           if (err) { return next(err); }
           return res.redirect('/admin');
         });
       });
   });
-}
+};

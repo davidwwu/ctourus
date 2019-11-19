@@ -1,11 +1,12 @@
-var express = require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
 
 // output dummy data for now
-var data = require('../src/data/dummy-data.json');
+// var data = require('../src/data/dummy-data.json');
 
 // mongo here
 const connectMongo_async = require('../src/controllers/dbController');
+
 let mdb;
 let ObjectId;
 connectMongo_async().then((data) => {
@@ -13,23 +14,23 @@ connectMongo_async().then((data) => {
   ObjectId = data.ObjectId;
 });
 
-var router = express.Router();
+const router = express.Router();
 
 // create application/json parser
-var jsonParser = bodyParser.json();
+const jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get('/static-pages/page-menu', (req, res) => {
   mdb.collection('static_pages')
     .find({})
-    .project({ 
+    .project({
       name: true,
       order: true,
-      permalink: true
+      permalink: true,
     })
     .sort({
-      order: 1
+      order: 1,
     })
     .toArray((err, data) => {
       res.send(data);
@@ -39,14 +40,14 @@ router.get('/static-pages/page-menu', (req, res) => {
 router.get('/static-pages/:page', (req, res) => {
   mdb.collection('static_pages')
     .findOne({
-      permalink: req.params.page
+      permalink: req.params.page,
     },
     (err, data) => {
       res.send(data);
     });
 });
 
-router.get('/tours/tour-menu', function (req, res) {
+router.get('/tours/tour-menu', (req, res) => {
   mdb.collection('tour_menu')
     .aggregate([
       {
@@ -58,29 +59,29 @@ router.get('/tours/tour-menu', function (req, res) {
               {
                 $match:
                   {
-                    $expr: { '$eq': ['$tour_type', '$$menu_permalink'] }
-                  }
+                    $expr: { $eq: ['$tour_type', '$$menu_permalink'] },
+                  },
               },
               {
-                $project: { duration: 1, start_city: 1, end_city: 1 }
+                $project: { duration: 1, start_city: 1, end_city: 1 },
               },
               {
-                $sort: { duration: 1 }
-              }
+                $sort: { duration: 1 },
+              },
             ],
-            as: 'sub_menus'
-          }
-      }
+            as: 'sub_menus',
+          },
+      },
     ])
     .sort({
-      order: 1
+      order: 1,
     })
     .toArray((err, data) => {
       res.send(data);
     });
 });
 
-router.get('/tours', function (req, res) {
+router.get('/tours', (req, res) => {
   mdb.collection('tours')
     .find({})
     .toArray((err, data) => {
@@ -88,70 +89,181 @@ router.get('/tours', function (req, res) {
     });
 });
 
-router.get('/tours/admin-dash', function (req, res) {
+const getHighlightSlides = async () => {
+  try {
+    return await mdb.collection('orders')
+      .findOne({ id: 'highlight_slides' });
+  } catch (err) {
+    console.error(err);
+    return {
+      status: 'error',
+      message: err,
+    };
+  }
+};
+
+const getHighlightImages = async () => {
+  try {
+    return await mdb.collection('orders')
+      .findOne({ id: 'highlight_images' });
+  } catch (err) {
+    console.error(err);
+    return {
+      status: 'error',
+      message: err,
+    };
+  }
+};
+
+const getHighlightTourMenu = async () => {
+  try {
+    return await mdb.collection('orders')
+      .findOne({ id: 'highlight_tour_menu' });
+  } catch (err) {
+    console.error(err);
+    return {
+      status: 'error',
+      message: err,
+    };
+  }
+};
+
+router.get('/front-page', async (req, res) => {
+  let highlightSlides;
+  let highlightImages;
+  let highlightTourMenu;
+
+  try {
+    highlightSlides = await getHighlightSlides();
+    highlightImages = await getHighlightImages();
+    highlightTourMenu = await getHighlightTourMenu();
+  } catch (err) {
+    console.error(err);
+    res.send(err);
+  }
+
+  res.send({
+    highlightSlides,
+    highlightImages,
+    highlightTourMenu,
+  });
+});
+
+router.get('/tours/admin-dash', (req, res) => {
   mdb.collection('tours')
-    .find({})
-    .project({ 
-      is_highlight: true,
-      name: true,
-      starting_price: true,
-      tour_id: true,
-      tour_type: true,
-      duration: true,
-      start_city: true,
-      end_city: true
-    })
-    .sort({
-      tour_type: 1,
-      tour_id: 1
-    })
+    .aggregate([
+      {
+        $lookup:
+          {
+            from: 'tour_menu',
+            localField: 'tour_type',
+            foreignField: 'permalink',
+            as: 'tours',
+          },
+      },
+      {
+        $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ '$tours', 0 ] }, '$$ROOT' ] } },
+      },
+      { $project: { _id: 1, name: 1, menu_name: 1, tour_id: 1, tour_type: 1, is_highlight: 1, starting_price: 1, duration: 1, start_date: 1, end_date: 1, start_city: 1, end_city: 1, order: 1 } },
+    ])
+    // .project({
+    //   is_highlight: true,
+    //   name: true,
+    //   starting_price: true,
+    //   tour_id: true,
+    //   tour_type: true,
+    //   duration: true,
+    //   start_city: true,
+    //   end_city: true,
+    // })
+    // .sort({
+    //   order: 1,
+    // })
     .toArray((err, data) => {
       res.send(data);
     });
 });
 
-router.get('/tours/highlight-tours', async function (req, res) {
-  let highlightTours,
-      highlightSlides;
+router.get('/tours/admin-dash/:tourType', (req, res) => {
+  mdb.collection('tours')
+    .aggregate([
+      {
+        $match: { tour_type: req.params.tourType },
+      },
+      {
+        $lookup:
+          {
+            from: 'tour_menu',
+            localField: 'tour_type',
+            foreignField: 'permalink',
+            as: 'tours',
+          },
+      },
+      {
+        $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ '$tours', 0 ] }, '$$ROOT' ] } },
+      },
+      { $project: { _id: 1, name: 1, menu_name: 1, tour_id: 1, tour_type: 1, is_highlight: 1, starting_price: 1, duration: 1, start_date: 1, end_date: 1, start_city: 1, end_city: 1, order: 1 } },
+    ])
+    // .project({
+    //   is_highlight: true,
+    //   name: true,
+    //   starting_price: true,
+    //   tour_id: true,
+    //   tour_type: true,
+    //   duration: true,
+    //   start_city: true,
+    //   end_city: true,
+    // })
+    // .sort({
+    //   order: 1,
+    // })
+    .toArray((err, data) => {
+      res.send(data);
+    });
+});
+
+router.get('/tours/highlight-tours', async (req, res) => {
+  let highlightTours;
+  let highlightSlides;
+
   try {
     highlightTours = await mdb.collection('tours')
       .find({
-        'is_highlight': true
+        is_highlight: true,
       })
-      .project({ 
+      .project({
         name: true,
         images: true,
         starting_price: true,
         tour_id: true,
         tour_type: true,
         duration: true,
-        start_city: true
+        start_city: true,
       })
       .sort({
         tour_id: 1,
         start_city: 1,
-        duration: 1
+        duration: 1,
       })
       .toArray();
-
-  } catch(err) {
+  } catch (err) {
     console.error(err);
   }
-  
+
   try {
     highlightSlides = await mdb.collection('highlight_slides')
       .find({})
       .sort({
-        order: 1
+        order: 1,
       })
       .toArray();
-  } catch(err) {
+  } catch (err) {
     console.error(err);
   }
 
-  res.send({ 
+  res.send({
     tours: highlightTours,
-    tour_slides: highlightSlides 
+    tour_slides: highlightSlides,
   });
 });
 
@@ -160,58 +272,58 @@ router.get('/tours/front-page', async (req, res) => {
     highlightSlides = await mdb.collection('highlight_slides')
       .find({})
       .sort({
-        order: 1
+        order: 1,
       })
       .toArray();
-  } catch(err) {
+  } catch (err) {
     console.error(err);
   }
 
   res.send({
-    tour_slides: highlightSlides 
+    tour_slides: highlightSlides,
   });
 });
 
-router.get('/tours/:tourList', function (req, res) {
-  if(Object.keys(req.query).length === 0) {
+router.get('/tours/:tourList', (req, res) => {
+  if (Object.keys(req.query).length === 0) {
     mdb.collection('tours')
-      .find({tour_type: req.params.tourList})
-      .project({ 
+      .find({ tour_type: req.params.tourList })
+      .project({
         name: true,
         images: true,
         starting_price: true,
         tour_id: true,
         tour_type: true,
         duration: true,
-        start_city: true
+        start_city: true,
       })
       .sort({
         tour_id: 1,
         start_city: 1,
-        duration: 1
+        duration: 1,
       })
       .toArray((err, data) => {
         res.send(data);
       });
   } else {
     // Build AND query condition
-    let andCondition = [];
-    for (let [key, value] of Object.entries(req.query)) {
-      andCondition.push({[key]: value});
+    const andCondition = [];
+    for (const [key, value] of Object.entries(req.query)) {
+      andCondition.push({ [key]: value });
     }
 
     mdb.collection('tours')
       .find({
-        $and: andCondition
+        $and: andCondition,
       })
-      .project({ 
+      .project({
         name: true,
         images: true,
         starting_price: true,
         tour_id: true,
         tour_type: true,
         duration: true,
-        start_city: true
+        start_city: true,
       })
       .toArray((err, data) => {
         res.send(data);
@@ -219,14 +331,14 @@ router.get('/tours/:tourList', function (req, res) {
   }
 });
 
-router.get('/tours/:tourList/:tourId', function (req, res) {
-  if(req.params.tourList !== 'all') {
+router.get('/tours/:tourList/:tourId', (req, res) => {
+  if (req.params.tourList !== 'all') {
     mdb.collection('tours')
       .findOne({
         $and: [
           { tour_type: req.params.tourList },
-          { tour_id: req.params.tourId }
-        ]
+          { tour_id: req.params.tourId },
+        ],
       },
       (err, data) => {
         res.send(data);
@@ -234,7 +346,7 @@ router.get('/tours/:tourList/:tourId', function (req, res) {
   } else {
     mdb.collection('tours')
       .findOne({
-        tour_id: req.params.tourId
+        tour_id: req.params.tourId,
       },
       (err, data) => {
         res.send(data);
@@ -245,7 +357,7 @@ router.get('/tours/:tourList/:tourId', function (req, res) {
 router.get('/admin/:tourId', jsonParser, (req, res) => {
   mdb.collection('tours')
     .findOne({
-      'tour_id': req.params.tourId
+      tour_id: req.params.tourId,
     },
     (err, data) => {
       res.send(data);
@@ -258,29 +370,29 @@ router.post('/admin/:tourId/create', jsonParser, (req, res) => {
       { ...req.body },
       (err, msg) => {
         res.send(msg);
-      }
+      },
     );
 });
 
 router.post('/admin/:tourId/edit', jsonParser, (req, res) => {
   mdb.collection('tours')
     .updateOne(
-      { 'tour_id': req.body.tour_id },
+      { tour_id: req.body.tour_id },
       { $set: req.body },
       { upsert: true },
       (err, msg) => {
         res.send(msg);
-      }
+      },
     );
 });
 
 router.post('/admin/:tourId/delete', jsonParser, (req, res) => {
   mdb.collection('tours')
     .deleteOne(
-      { 'tour_id': req.body.tour_id },
+      { tour_id: req.body.tour_id },
       (err, msg) => {
         res.send(msg);
-      }
+      },
     );
 });
 
@@ -290,29 +402,29 @@ router.post('/admin/add-menu', jsonParser, (req, res) => {
       { $set: req.body },
       (err, msg) => {
         res.send(msg);
-      }
+      },
     );
 });
 
 router.post('/admin/static-pages/:page/edit', jsonParser, (req, res) => {
   mdb.collection('static_pages')
     .updateOne(
-      { 'permalink': req.body.permalink },
+      { permalink: req.body.permalink },
       { $set: req.body },
       { upsert: true },
       (err, msg) => {
         res.send(msg);
-      }
+      },
     );
 });
 
 router.post('/admin/static-pages/:permalink/delete', jsonParser, (req, res) => {
   mdb.collection('static_pages')
     .deleteOne(
-      { 'permalink': req.body.permalink },
+      { permalink: req.body.permalink },
       (err, msg) => {
         res.send(msg);
-      }
+      },
     );
 });
 

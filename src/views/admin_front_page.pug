@@ -37,12 +37,14 @@ block content
             button.mdc-button.mdc-dialog__button(type='submit')
               span.mdc-button__label OK
       .mdc-dialog__scrim
+
+    // Highlight Slider List
     .row(style="justify-content: space-between;")
       .section-title
         h2 滾動大圖
       button#new-static-page.mdc-button.mdc-button--raised
         i.material-icons add
-        span.mdc-button__label 添加主選單
+        span.mdc-button__label 添加
     .row
       table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
         thead
@@ -50,7 +52,71 @@ block content
             th(scope="col" data-orderable='false')
             th(scope="col" type='num') 順序
             th(scope="col" type='string') 標題
-            th(scope="col" type='string') Permalink
+            th(scope="col" type='string') URL
+            th(scope="col" data-orderable='false') 快速編輯
+            th(scope="col" data-orderable='false') 刪除
+        tbody
+          each row in data
+            tr
+              td.reorder :::
+              td= row.order
+              td= row.name
+              td
+                a(href=`/tours/${row.permalink}`)= `/${row.permalink}`
+              td(style="text-align: center;")
+                button.static-page-quick-edit.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                  i.material-icons edit
+              td(style="text-align: center;")
+                button.static-page-delete.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                  i.material-icons delete_forever
+    
+    // Highlight Image List
+    .row(style="justify-content: space-between;")
+      .section-title
+        h2 滾動大圖
+      button#new-static-page.mdc-button.mdc-button--raised
+        i.material-icons add
+        span.mdc-button__label 添加
+    .row
+      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
+        thead
+          tr.main-list-title
+            th(scope="col" data-orderable='false')
+            th(scope="col" type='num') 順序
+            th(scope="col" type='string') 標題
+            th(scope="col" type='string') URL
+            th(scope="col" data-orderable='false') 快速編輯
+            th(scope="col" data-orderable='false') 刪除
+        tbody
+          each row in data
+            tr
+              td.reorder :::
+              td= row.order
+              td= row.name
+              td
+                a(href=`/tours/${row.permalink}`)= `/${row.permalink}`
+              td(style="text-align: center;")
+                button.static-page-quick-edit.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                  i.material-icons edit
+              td(style="text-align: center;")
+                button.static-page-delete.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                  i.material-icons delete_forever
+
+    // Highlight Tour Menu
+    .row(style="justify-content: space-between;")
+      .section-title
+        h2 滾動大圖
+      button#new-static-page.mdc-button.mdc-button--raised
+        i.material-icons add
+        span.mdc-button__label 添加
+    .row
+      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
+        thead
+          tr.main-list-title
+            th(scope="col" data-orderable='false')
+            th(scope="col" type='num') 順序
+            th(scope="col" type='string') 標題
+            th(scope="col" type='string') URL
             th(scope="col" data-orderable='false') 快速編輯
             th(scope="col" data-orderable='false') 刪除
         tbody
