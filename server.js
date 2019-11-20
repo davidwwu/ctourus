@@ -263,7 +263,7 @@ app.post('/admin-login', [urlencodedParser], authController.login);
 
 app.get('/admin-logout', authController.logout);
 
-app.get('/admin', [authController.restrict], adminController.get_tours_list);
+app.get('/admin/tours', [authController.restrict], adminController.get_tours_list);
 
 app.get('/admin/:tourId/edit', [authController.restrict], adminController.get_edit_tour);
 app.get('/admin/static-pages', [authController.restrict], adminController.get_static_page_list);

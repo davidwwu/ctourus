@@ -93,14 +93,14 @@ block content
           i.material-icons add
           span.mdc-button__label 添加線路
       .row.mb-5
-        table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-permalink=`${menuItem.permalink}` data-order='[[ 3, "asc" ], [ 2, "asc" ]]' data-page-length='10')
+        table.tour-list-table.table.table-bordered.table-hover.table-responsive-md(data-permalink=`${menuItem.permalink}` data-order='[[ 2, "asc" ]]' data-page-length='10')
           thead
             tr.main-list-title.nowrap
               th(scope="col" data-orderable='false') 
               th(scope="col" data-order-data-type='dom-checkbox') Highlight
               th(scope="col" type='string') 線路編號
               th(scope="col" type='string') 線路分類
-              th(scope="col" type='string' data-orderable='false') 線路標題
+              th(scope="col" type='string') 線路標題
               th(scope="col" type='num') 線路天數
               th(scope="col" type='num-fmt') 旅遊團費
               th(scope="col" type='string') 出發城市
