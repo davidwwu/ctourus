@@ -20,7 +20,7 @@ block content
               label.col-form-label(for="modal-title") 標題:
               | 
               span.required-asterisk *
-              input#modal-title.form-control(type='text' name='menu_name' required)
+              input#modal-title.form-control(type='text' name='name' required)
             .form-group
               label.col-form-label(for="modal-permalink") Permalink:
               | 
@@ -56,7 +56,7 @@ block content
             tr
               td.reorder :::
               td= row.order
-              td= row.menu_name
+              td= row.name
               td
                 a(href=`/tours/${row.permalink}`)= `/${row.permalink}`
               td(style="text-align: center;")

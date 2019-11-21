@@ -53,7 +53,7 @@ block content
               label.col-form-label(for="modal-tour-type") 線路分類:
               select#modal-tour-type.custom-select.form-control(name="tour_type")
                 each t in menu
-                  option(value=(t.permalink))= t.menu_name
+                  option(value=(t.permalink))= t.name
             .form-group
               label.col-form-label(for="modal-title") 線路標題:
               input#modal-title.form-control(type='text' name='name')
@@ -88,7 +88,7 @@ block content
     each menuItem in menu
       .row(style="justify-content: space-between;")
         .section-title
-          h2= menuItem.menu_name
+          h2= menuItem.name
         button.new-tour.mdc-button.mdc-button--raised(data-permalink=menuItem.permalink)
           i.material-icons add
           span.mdc-button__label 添加線路

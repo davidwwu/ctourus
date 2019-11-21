@@ -158,13 +158,27 @@ router.get('/tours/admin-dash', (req, res) => {
             from: 'tour_menu',
             localField: 'tour_type',
             foreignField: 'permalink',
-            as: 'tours',
+            as: 'menus',
           },
       },
-      {
-        $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ '$tours', 0 ] }, '$$ROOT' ] } },
+      { 
+        $project:
+          {
+            _id: 1,
+            name: 1,
+            menu_name: { $arrayElemAt: [ "$menus.name", 0 ] },
+            tour_id: 1,
+            tour_type: 1,
+            is_highlight: 1,
+            starting_price: 1,
+            duration: 1,
+            start_date: 1,
+            end_date: 1,
+            start_city: 1,
+            end_city: 1,
+            order: 1
+          }
       },
-      { $project: { _id: 1, name: 1, menu_name: 1, tour_id: 1, tour_type: 1, is_highlight: 1, starting_price: 1, duration: 1, start_date: 1, end_date: 1, start_city: 1, end_city: 1, order: 1 } },
     ])
     // .project({
     //   is_highlight: true,
@@ -196,13 +210,27 @@ router.get('/tours/admin-dash/:tourType', (req, res) => {
             from: 'tour_menu',
             localField: 'tour_type',
             foreignField: 'permalink',
-            as: 'tours',
+            as: 'menus',
           },
       },
-      {
-        $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ '$tours', 0 ] }, '$$ROOT' ] } },
+      { 
+        $project:
+          {
+            _id: 1,
+            name: 1,
+            menu_name: { $arrayElemAt: [ "$menus.name", 0 ] },
+            tour_id: 1,
+            tour_type: 1,
+            is_highlight: 1,
+            starting_price: 1,
+            duration: 1,
+            start_date: 1,
+            end_date: 1,
+            start_city: 1,
+            end_city: 1,
+            order: 1
+          }
       },
-      { $project: { _id: 1, name: 1, menu_name: 1, tour_id: 1, tour_type: 1, is_highlight: 1, starting_price: 1, duration: 1, start_date: 1, end_date: 1, start_city: 1, end_city: 1, order: 1 } },
     ])
     // .project({
     //   is_highlight: true,
