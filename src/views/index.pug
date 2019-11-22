@@ -8,13 +8,185 @@ block content
           .swiper-slide
             a(href="#")
               img(src=`/images/${slide.image}`, alt="photos")
-    //- .grid-x.grid-padding-x.medium-up-3.large-up-4
-    //-   each tour in highlight_tours
-    //-     .cell
-    //-       a.card(href=`/tours/${tour.tour_type}/${tour.tour_id}`)
-    //-         .card-image
-    //-           img(src=tour.images[0], alt="photos")
-    //-           //- img(src=`/images/userUpload/thumbnails/${tour.tour_id}-thumb.jpg`, alt="")
-    //-         .card-section
-    //-           p= tour.name
-    //-           h4.price-highlight= `$${tour.starting_price}`
+    .grid-x.grid-padding-x.medium-up-3.large-up-4
+      .cell
+        a.card(href=`http://ctourus.com/wp-content/uploads/2017/12/ccxj08-300x200.jpg`)
+          .card-image
+            img(src=`http://ctourus.com/wp-content/uploads/2017/12/ccxj08-300x200.jpg`, alt="photos")
+      .cell
+        a.card(href=`http://ctourus.com/wp-content/uploads/2018/11/CCSL10-1-300x200.jpg`)
+          .card-image
+            img(src=`http://ctourus.com/wp-content/uploads/2018/11/CCSL10-1-300x200.jpg`, alt="photos")
+      .cell
+        a.card(href=`http://ctourus.com/wp-content/uploads/2017/12/ccdb08-changbaishan-Small-300x200.jpg`)
+          .card-image
+            img(src=`http://ctourus.com/wp-content/uploads/2017/12/ccdb08-changbaishan-Small-300x200.jpg`, alt="photos")
+      .cell
+        a.card(href=`http://ctourus.com/wp-content/uploads/2018/11/CCSD07-1-300x200.jpg`)
+          .card-image
+            img(src=`http://ctourus.com/wp-content/uploads/2018/11/CCSD07-1-300x200.jpg`, alt="photos")
+
+    style.
+      li{list-style:none}
+      .hidden {
+          display: none!important;
+          visibility: hidden;
+      }
+      .hotPro{ margin-top: 35px; }
+      .tabWrap .tab{ position: relative; height: 48px; text-align: center;}
+      .tabWrap .tab .more{ position: absolute; top: 0; right: 0; line-height: 48px; color: #0488d2}
+      .tabWrap .tab li{ display: inline-block; vertical-align: top; margin: 0 15px;}
+      .tabWrap .tab.hot li{ margin: 0 45px;}
+      .tabWrap .tab li a{ padding: 0 5px; line-height: 42px; font-size: 24px; color: #666}
+      .tabWrap .tab li.active,
+      .tabWrap .tab li:hover
+      { border-bottom: 5px solid #fe6929;}
+      .tabWrap .tab li.active a,
+      .tabWrap .tab li:hover a
+      { color: #fe6929; text-decoration: none;}
+
+      .tabWrap .tabCon{ margin-top: 25px;}
+      .hotPro .tabCon ul{ height: 320px; margin: 0 -6px;}
+      .hotPro .tabCon ul li{ position: relative; float: left; width: 25%;}
+      .hotPro .tabCon ul li .tag{ z-index: 1; position: absolute; right: 32px; top: -14px; width: 48px; height: 48px; line-height: 48px;}
+      .hotPro .tabCon ul li a{ display: block; overflow: hidden; margin: 0 6px; padding: 8px; background: #fff;}
+      .hotPro .tabCon ul li a .pic{ display: block; overflow: hidden; }
+      .hotPro .tabCon ul li a .tit{ margin: 10px 0 5px; line-height: 24px;}
+      .hotPro .tabCon ul li a:hover .tit{ color: #000;}
+      .hotPro .tabCon ul li a .price{ font-size: 24px; color: #fe6929;}
+
+      .hotPro .tabCon ul li a:hover{ text-decoration: none;}
+      .hotPro .tabCon ul li a img{ transition: all 0.3s;}
+      .hotPro .tabCon ul li a .pic:hover img{ transform: scale(1.2); }
+
+    .hotPro.tabWrap
+      .tab.hot
+        ul
+          li.active(data-index='0')
+            a(href='javascript:;') 盛世特惠
+          li(data-index='1')
+            a(href='javascript:;') 團購秒殺
+          li(data-index='2')
+            a(href='javascript:;') 本週主打
+          li(data-index='3')
+            a(href='javascript:;') 暢遊全景
+      .tabCon
+        .grid-x.grid-padding-x.medium-up-3.large-up-4
+          .cell
+            a.card(href=`/tours/no-shopping/CCSC07`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/1e39a7c5-b707-49fe-b996-57652ff9958a', alt="photos")
+              .card-section
+                p 天空之境茶卡鹽湖、新絲綢之路7日遊 Caka Salt Lake、The Silk Road 7 days no shopping tour
+                h4.price-highlight $799
+          .cell
+            a.card(href=`/tours/no-shopping/CCSC09`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/7eba3e90-9b47-4789-b368-2802e27b466a', alt="photos")
+              .card-section
+                p 新絲綢經典之旅9日遊 The Silk Road 9 days no shopping tour
+                h4.price-highlight $699
+          .cell
+            a.card(href=`/tours/no-shopping/CCSD06`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/98293a4d-518b-4f43-b8d1-44f407f66ac5', alt="photos")
+              .card-section
+                p 魅力青島 好客山東純玩6日遊 Shandong Qingdao Jinan 6 days no shopping tour
+                h4.price-highlight $99
+          .cell
+            a.card(href=`/tours/no-shopping/CCSL10`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/7007a75f-ebe5-46a9-834a-8d651c7dbf3f', alt="photos")
+              .card-section
+                p 新絲綢之路、青藏火車西藏拉薩10日遊 The Silk Road & Tibet Lhasa 10 days
+                h4.price-highlight $1199
+      .tabCon.hidden
+        .grid-x.grid-padding-x.medium-up-3.large-up-4
+          .cell
+            a.card(href=`/tours/no-shopping/CCSX06`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/b3f0d45a-eed4-44a9-9ff7-2dfb449b08f6', alt="photos")
+              .card-section
+                p 山西五臺山、平遙古城6日遊 Shanxi 6 days no shopping tour
+                h4.price-highlight $199
+          .cell
+            a.card(href=`/tours/no-shopping/CCSX10`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/113caf1f-bb63-48f0-9281-7807e919706f', alt="photos")
+              .card-section
+                p 山西壺口、黃帝陵西安10日遊 Shanxi&Xian 10 days no shopping tour
+                h4.price-highlight $499
+          .cell
+            a.card(href=`/tours/no-shopping/CCXJ08`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/7ba03f88-78a4-49a2-ab9b-124eecd4656a', alt="photos")
+              .card-section
+                p 北疆喀納斯湖、魔鬼城8日遊 Xinjiang 8 days no shopping tour
+                h4.price-highlight $549
+          .cell
+            a.card(href=`/tours/no-shopping/CCTM07`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/e85769fb-89b8-4408-8f6e-7fb9333a2c95', alt="photos")
+              .card-section
+                p 台灣西線豪華美食7日遊 TaiWan 7 days no shopping tour
+                h4.price-highlight $399
+      .tabCon.hidden
+        .grid-x.grid-padding-x.medium-up-3.large-up-4
+          .cell
+            a.card(href=`/tours/china-tours/CTGL06`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/ebc65984-7b31-43ca-b3ff-177dedce1cb9', alt="photos")
+              .card-section
+                p 龍脊梯田 灕江水墨桂林6日游
+                h4.price-highlight $99
+          .cell
+            a.card(href=`/tours/china-tours/CTGY11`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/5991b65c-1d0a-4d42-9adf-3456c9b417e5', alt="photos")
+              .card-section
+                p 珠江美食、港珠澳大橋、越南下龍灣雙動高鐵 11天
+                h4.price-highlight $99
+          .cell
+            a.card(href=`/tours/china-tours/CTHG07`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/e85769fb-89b8-4408-8f6e-7fb9333a2c95', alt="photos")
+              .card-section
+                p 粵港澳大灣區、港珠澳大橋、廣東美食 7日遊
+                h4.price-highlight $299
+          .cell
+            a.card(href=`/tours/china-tours/CTJZ08`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/0827f616-4586-46eb-b685-7d4e9a698842', alt="photos")
+              .card-section
+                p 成都紅原大草原、黃龍8日遊
+                h4.price-highlight $99
+      .tabCon.hidden
+        .grid-x.grid-padding-x.medium-up-3.large-up-4
+          .cell
+            a.card(href=`/tours/china-tours/CTSY08`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/2ea53ba5-ab33-4e77-a1bf-1ce91fd7abdd', alt="photos")
+              .card-section
+                p 盛宴中國（陽澄湖大閘蟹）賞烏鎮水鄉、觀明星演唱會豪華8天
+                h4.price-highlight $129
+          .cell
+            a.card(href=`/tours/china-tours/CTWC06`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/a9b58160-c753-4105-901c-8f0c80d68a4e', alt="photos")
+              .card-section
+                p 武漢長江三峽6日游
+                h4.price-highlight $399
+          .cell
+            a.card(href=`/tours/china-tours/CTXA04`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/cc2a3e84-fc5e-4d77-a2ff-2c38bd1632fb', alt="photos")
+              .card-section
+                p 古都西安兵馬俑、華山4日遊
+                h4.price-highlight $99
+          .cell
+            a.card(href=`/tours/china-tours/CTXA05`)
+              .card-image
+                img(src='https://drive.tiny.cloud/1/zaovgycfx7px1o9t9v7osmle7luhf6nv1xg8occrvpa0sjpu/cc2a3e84-fc5e-4d77-a2ff-2c38bd1632fb', alt="photos")
+              .card-section
+                p 古都西安兵馬俑、華山5日遊
+                h4.price-highlight $199

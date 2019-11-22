@@ -11,6 +11,7 @@ $error: #f65327;
 $font-color: #484848;
 $font-color-light: #8b8b8b;
 $theme-color: #B7322A;
+$site-background-color: #eeeeee;
 
 $table-border: 1px solid #b1b1b1;
 $separator-border: 1px solid #EBEBEB;
@@ -36,10 +37,24 @@ $box-shadow-darkest: 0 2px 5px 0 rgba(0, 0, 0, 0.5);
 body {
   font-family: 'Roboto', 'Microsoft YaHei UI Light', 'Hiragino Sans GB', 'Hei Ti', sans-serif;
   font-size: 18px;
-  background-color: $white;
+  background-color: $site-background-color;
   color: $font-color;
   letter-spacing: 1px;
   word-spacing: 1px;
+
+  .callout {
+    box-shadow: $box-shadow-lighter;
+    border-radius: 3px;
+    font-size: 16px;
+    z-index: 1050;
+    position: fixed;
+    top: 40px;
+    right: 10px;
+  
+    .callout-message {
+      margin-right: 40px;
+    }
+  }
 
   a:active,
   a.active {
@@ -102,6 +117,7 @@ nav *{
 .site-header {
   margin: auto;
   padding: 0;
+  background-color: $white;
 }
 
 .top-bar {
@@ -109,7 +125,6 @@ nav *{
   padding: 10px 20px;
   background-color: $white;
   font-size: 16px;
-  font-weight: 600;
   
   .logo span {
     font-weight: 300;
@@ -118,6 +133,7 @@ nav *{
 
   &.title-menu {
     width: 1200px;
+    font-weight: 600;
     margin: 0 auto;
 
     ul.menu {
@@ -161,7 +177,6 @@ nav *{
     background-color: $theme-color;
     color: $white;
     height: 40px;
-    padding-top: 14px;
 
     >.menu {
       margin: 0 auto;
@@ -180,7 +195,6 @@ nav *{
       background-color: white;
       color: #484848;
       padding: 1rem;
-      font-weight: 400;
 
       >li {
         display: flex;
@@ -327,7 +341,19 @@ nav *{
   &-section {
     padding: 2px 5px;
     margin: 3px 5px;
+    
+    .filter-title {
+      font-size: 0.93em;
+      line-height: 1;
+      padding: 5px 8px;
+      margin: 0px 5px;
+      border-radius: 3px;
+      background-color: #deac08;
+      color: $white;
+      box-shadow: $box-shadow-darker;
+    }
   }
+
 
   input {
     display: none;
@@ -385,6 +411,8 @@ nav *{
     height: 164px;
 
     img {
+      min-width: 100%;
+      min-height: 100%;  
       position: relative;
       top: 50%;
       transform: perspective(1px) translateY(-50%);
@@ -423,10 +451,13 @@ a.card:focus {
 }
 
 .available-dates {
-  margin-bottom: 80px;
+  width: 100%
+  // margin-bottom: 40px;
 }
 
 #trip-details {
+  margin-top: 25px;
+
   // TODO: will eventually replace this with a real module
   >img {
     padding: 40px;

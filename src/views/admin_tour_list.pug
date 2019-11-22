@@ -1,0 +1,113 @@
+extends _admin_layout.pug
+
+block content
+  if flash.error
+      .alert.alert-danger.alert-dismissible.fade.show(role="alert")
+        .alert-message !{flash.error}
+        button.close(type="button" data-dismiss="alert" aria-label="Close")
+          span(aria-hidden='true') &times;
+  if flash.success
+    .alert.alert-success.alert-dismissible.fade.show(role="alert")
+      .alert-message !{flash.success}
+      button.close(type="button" data-dismiss="alert" aria-label="Close")
+        span(aria-hidden='true') &times;
+  main.p-4.container-fluid
+    style.
+      #result {
+          border: 1px solid #888;
+          background: #f7f7f7;
+          padding: 1em;
+          margin-bottom: 1em;
+      }
+      table.dataTable tr.nowrap th {
+        white-space: nowrap;
+      }
+      td.align-center {
+        text-align: center;
+      }
+      td.align-right {
+        text-align: right;
+      }
+    
+    //- #result
+    
+    .mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
+      form#modal-form.mdc-dialog__container(method='POST' action='')
+        .mdc-dialog__surface
+          // Title cannot contain leading whitespace due to mdc-typography-baseline-top() 
+          h2.mdc-dialog__title#my-dialog-title
+          // will set action by data-* attribute
+          .mdc-dialog__content#-modal-content
+            .required-asterisk.note * Required
+            .form-group
+              .custom-control.custom-checkbox(style="padding-left: 0;")
+                input#modal-is-highlight.custom-control-input(type="checkbox" name="is_highlight")
+                label.custom-control-label(for="modal-is-highlight") Highlight
+            .form-group
+              label.col-form-label(for="modal-tour-id") 線路編號:
+              | 
+              span.required-asterisk *
+              input#modal-tour-id.form-control(type='text' name='tour_id' pattern="[a-zA-Z0-9-_]+" required)
+              small.form-text.text-muted 只可包含英文字母大小寫、數字、連結號 (-)、及下劃線 (_)
+            .form-group
+              label.col-form-label(for="modal-tour-type") 線路分類:
+              select#modal-tour-type.custom-select.form-control(name="tour_type")
+                each t in menu
+                  option(value=(t.permalink))= t.name
+            .form-group
+              label.col-form-label(for="modal-title") 線路標題:
+              input#modal-title.form-control(type='text' name='name')
+            .form-group
+              label.col-form-label(for="modal-duration") 線路天數:
+              | 
+              span.required-asterisk *
+              .input-group
+                input#modal-duration.form-control(type='number' name='duration' required)
+                .input-group-append
+                  span.input-group-text 天
+            .form-group
+              label.col-form-label(for="modal-starting-price") 旅遊團費:
+              .input-group
+                .input-group-prepend
+                  span.input-group-text $
+                input#modal-starting-price.form-control(type='number' name='starting_price')
+            .form-group
+              label.col-form-label(for="modal-start-city") 出發城市:
+              input#modal-start-city.form-control(type='text' name='start_city')
+            .form-group
+              label.col-form-label(for="modal-end-city") 結束城市:
+              input#modal-end-city.form-control(type='text' name='end_city')
+          footer.mdc-dialog__actions
+            button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close')
+              span.mdc-button__label Cancel
+            //- TODO: will need to hold the modal if the information is not correct
+            button.mdc-button.mdc-dialog__button(type='submit')
+              span.mdc-button__label OK
+      .mdc-dialog__scrim
+
+    each menuItem, index in menu
+      .row(style="justify-content: space-between;")
+        .section-title
+          h2= menuItem.name
+        button.new-tour.mdc-button.mdc-button--raised(data-permalink=menuItem.permalink)
+          i.material-icons add
+          span.mdc-button__label 添加線路
+      .row
+        table.tour-list-table.table.table-bordered.table-hover.table-responsive-md(data-permalink=`${menuItem.permalink}` data-order='[[ 2, "asc" ]]' data-page-length='10')
+          thead
+            tr.main-list-title.nowrap
+              th(scope="col" data-orderable='false') 
+              th(scope="col" data-order-data-type='dom-checkbox') Highlight
+              th(scope="col" type='string') 線路編號
+              th(scope="col" type='string') 線路分類
+              th(scope="col" type='string') 線路標題
+              th(scope="col" type='num') 線路天數
+              th(scope="col" type='num-fmt') 旅遊團費
+              th(scope="col" type='string') 出發城市
+              th(scope="col" type='string') 結束城市
+              th(scope="col" data-orderable='false') 複製
+              th(scope="col" data-orderable='false') 編輯
+              th(scope="col" data-orderable='false') 刪除
+
+      if index < menu.length - 1
+        .separator.thick

@@ -1,5 +1,5 @@
 doctype html
-html(lang="zh-Hant" data-tour-list=tour_list ? tour_list : null)
+html(lang="zh-Hant" data-page=page_type)
 
   head
     meta(charset="utf-8")
@@ -9,6 +9,8 @@ html(lang="zh-Hant" data-tour-list=tour_list ? tour_list : null)
     link(rel="stylesheet" type='text/css' href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800")
     link(rel="stylesheet" type='text/css' href="https://fonts.googleapis.com/icon?family=Material+Icons")
     link(rel='stylesheet' type='text/css' href='https://cdn.datatables.net/v/bs4/dt-1.10.18/rr-1.2.4/datatables.min.css')
+    link(rel='stylesheet' type='text/css' href='https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css')
+    script(type='text/javascript' src='https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js')
     link(rel="stylesheet" type='text/css' href="/styles/admin-style.css")
     
   body
@@ -18,10 +20,14 @@ html(lang="zh-Hant" data-tour-list=tour_list ? tour_list : null)
         span.navbar-toggler-icon
       #adminNav.collapse.navbar-collapse
         ul.navbar-nav.d-flex
-          li.nav-item(class="active")
-            a.nav-link(href="/admin") 線路列表
-          li.nav-item
+          li.nav-item(class=(page_type === 'front-page' ? "active" : ""))
+            a.nav-link(href="/admin") 首頁列表
+          li.nav-item(class=(page_type === 'tours' ? "active" : ""))
+            a.nav-link(href="/admin/tours") 線路列表
+          li.nav-item(class=(page_type === 'static-pages' ? "active" : ""))
             a.nav-link(href="/admin/static-pages") 靜態頁面列表
+          li.nav-item(class=(page_type === 'main-menus' ? "active" : ""))
+            a.nav-link(href="/admin/main-menus") 主選單列表
           li.nav-item
             a.nav-link(href="/") 回到主頁
         ul.navbar-nav.ml-sm-auto.d-flex
@@ -34,4 +40,4 @@ html(lang="zh-Hant" data-tour-list=tour_list ? tour_list : null)
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
     script(type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
     script(type='text/javascript' src='https://cdn.datatables.net/v/bs4/dt-1.10.18/rr-1.2.4/datatables.min.js')
-    script(type='text/javascript' src="/scripts/admin-list-bundle.js")
+    script(type='text/javascript' src="/scripts/admin-list.js")

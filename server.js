@@ -7,7 +7,8 @@ const querystring = require('querystring');
 
 // npm
 require('dotenv').config();
-if(process.env.NODE_ENV === 'development') {
+
+if (process.env.NODE_ENV === 'development') {
   var morgan = require('morgan');
 }
 
@@ -24,8 +25,9 @@ const flash = require('express-flash-2');
 
 // json web token configuration for tiny drive
 const jwt = require('jsonwebtoken');
+
 let privateKey;
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   privateKey = JSON.parse(process.env.RSA_PRIVATE);
 } else {
   privateKey = process.env.RSA_PRIVATE;
@@ -40,34 +42,30 @@ const authController = require('./src/controllers/authController');
 
 // Filter an obj based on provided query.
 // Returns true if all queries are met, else return false
-let filterObjByQuery = (obj, query) => {
+const filterObjByQuery = (obj, query) => {
   let flag = true;
-  for(let [key, value] of Object.entries(query)) {
+  for (const [key, value] of Object.entries(query)) {
     // special case for price filter
-    if(key === 'starting_price') {
+    if (key === 'starting_price') {
       value.forEach((q) => {
-        let qArr = q.split('-');
-        let opr = qArr[0],
-            num = qArr[1];
-        
-        if(opr === 'gte' && obj[key] < num)
-          flag = false;
-        else if(opr === 'lte' && obj[key] > num)
-          flag = false;
+        const qArr = q.split('-');
+        const opr = qArr[0];
+        const num = qArr[1];
+
+        if (opr === 'gte' && obj[key] < num) flag = false;
+        else if (opr === 'lte' && obj[key] > num) flag = false;
       });
-    } else {
-      if(obj[key] != value) flag = false;
-    }
+    } else if (obj[key] != value) flag = false;
   }
 
   return flag;
-}
+};
 
-let removeObjArrDuplicate = (objArr, targetKey) => {
-  let uniqueArr = Array.from(new Set(objArr.map(obj => obj[targetKey])));
-  
+const removeObjArrDuplicate = (objArr, targetKey) => {
+  const uniqueArr = Array.from(new Set(objArr.map((obj) => obj[targetKey])));
+
   return uniqueArr;
-}
+};
 
 // ----------------------------------------------------------------------------
 // application
@@ -80,26 +78,26 @@ app.enable('case sensitive routing');
 app.disable('x-powered-by');
 
 // create application/json parser
-var jsonParser = bodyParser.json();
+let jsonParser = bodyParser.json();
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.use(sassMiddleware({
   src: path.join(__dirname, 'src/styles'),
   includePaths: ['./node_modules/'],
   dest: path.join(__dirname, 'public/styles'),
   outputStyle: 'compressed',
-  prefix: '/styles'
+  prefix: '/styles',
 }));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use('/api', api);
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(session({
-  secret: 'keyboard cat', 
+  secret: 'keyboard cat',
   cookie: { maxAge: 86400e3 },
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
 }));
 app.use(flash());
 app.use(passport.initialize());
@@ -108,21 +106,21 @@ passport.use(authController.authStrategy);
 passport.serializeUser(authController.authSerializer);
 passport.deserializeUser(authController.authDeserializer);
 
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
   destination: './public/images/userUpload/',
-  filename: function (req, file, cb) {
+  filename(req, file, cb) {
     console.log(req);
     console.log(file);
-    let filename = file.originalname;
+    const filename = file.originalname;
     cb(null, filename);
-  }
+  },
 });
- 
-var upload = multer({ storage: storage })
+
+let upload = multer({ storage });
 
 // load default data
 app.use(
@@ -143,24 +141,23 @@ app.use(
     axios.get(`${serverUrl}/api/tours/tour-menu`)
       .then(({ data }) => {
         res.locals.tour_menu = data;
-        res.locals.tour_menu.forEach(function(menuItem) {
+        res.locals.tour_menu.forEach((menuItem) => {
           menuItem.durations = removeObjArrDuplicate(menuItem.sub_menus, 'duration');
           menuItem.start_cities = removeObjArrDuplicate(menuItem.sub_menus, 'start_city');
           menuItem.end_cities = removeObjArrDuplicate(menuItem.sub_menus, 'end_city');
-        })
+        });
 
         next();
       });
-  }
+  },
 );
 
-app.get("/", (req, res) => {
-  axios.get(`${serverUrl}/api/tours/highlight-tours`)
+app.get('/', (req, res) => {
+  axios.get(`${serverUrl}/api/tours/front-page`)
     .then(({ data }) => {
       res.render('index', {
         page_type: 'home',
         tour_slides: data.tour_slides,
-        highlight_tours: data.tours
       });
     })
     .catch((error) => {
@@ -168,19 +165,40 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get("/static-pages/:page" , (req, res) => {
+app.get('/highlight-tours', (req, res) => {
+  axios.get(`${serverUrl}/api/tours/highlight-tours`)
+    .then(({ data }) => {
+      let filteredData = data.tours;
+      if (Object.keys(req.query).length !== 0) {
+        filteredData = data.filter((trip) => filterObjByQuery(trip, req.query));
+      }
+
+      res.render('tour_list', {
+        page_type: 'highlight-tours',
+        tour_list: '',
+        filter: req.query,
+        query_str: querystring.stringify(req.query),
+        data: filteredData,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.get('/static-pages/:page', (req, res) => {
   axios.get(`${serverUrl}/api/static-pages/${req.params.page}`)
     .then(({ data }) => {
       // TODO - better 404 handling
-      if(!data) {
+      if (!data) {
         res.render('static_page', {
           content: 'Sorry, no page found',
-          name: 'Oops...'
+          name: 'Oops...',
         });
       } else {
         res.render('static_page', {
           content: data.content,
-          name: data.name
+          name: data.name,
         });
       }
     })
@@ -202,16 +220,16 @@ app.get('/tours/:tourList', (req, res) => {
   axios.get(`${serverUrl}/api/tours/${req.params.tourList}`)
     .then(({ data }) => {
       let filteredData = data;
-      if(Object.keys(req.query).length !== 0) {
-        filteredData = data.filter(trip => filterObjByQuery(trip, req.query));
+      if (Object.keys(req.query).length !== 0) {
+        filteredData = data.filter((trip) => filterObjByQuery(trip, req.query));
       }
-      
-      res.render('tour-list', {
+
+      res.render('tour_list', {
         page_type: 'tour',
         tour_list: req.params.tourList,
         filter: req.query,
         query_str: querystring.stringify(req.query),
-        data: filteredData
+        data: filteredData,
       });
     })
     .catch((error) => {
@@ -222,10 +240,10 @@ app.get('/tours/:tourList', (req, res) => {
 app.get('/tours/:tourList/:tourId', (req, res) => {
   axios.get(`${serverUrl}/api/tours/${req.params.tourList}/${req.params.tourId}`)
     .then(({ data }) => {
-      res.render('tour-details', {
+      res.render('tour_details', {
         page_type: 'tour',
         tour_list: req.params.tourList,
-        data
+        data,
       });
     })
     .catch((error) => {
@@ -242,27 +260,32 @@ app.get('/admin-login', (req, res) => {
   res.render('admin_login');
 });
 app.post('/admin-login', [urlencodedParser], authController.login);
-
 app.get('/admin-logout', authController.logout);
 
-app.get('/admin', [authController.restrict], adminController.get_tours_list);
-
+app.get('/admin', [authController.restrict], (req, res) => {
+  res.render('admin_front_page', {
+    page_type: 'front-page'
+  });
+})
+app.get('/admin/tours', [authController.restrict], adminController.get_tours_list);
 app.get('/admin/:tourId/edit', [authController.restrict], adminController.get_edit_tour);
 app.get('/admin/static-pages', [authController.restrict], adminController.get_static_page_list);
 app.get('/admin/static-pages/:page/edit', [authController.restrict], adminController.get_edit_static_page);
+app.get('/admin/main-menus', [authController.restrict], adminController.get_main_menu_list);
 
 app.post('/admin/:tourId/save-and-quit', [authController.restrict, urlencodedParser], adminController.post_edit_tour_save_and_quit);
 app.post('/admin/:tourId/save', [authController.restrict, urlencodedParser], adminController.post_edit_tour_save);
 app.post('/admin/create-tour', [authController.restrict, urlencodedParser], adminController.post_create_tour);
 app.post('/admin/:tourId/duplicate', [authController.restrict, urlencodedParser], adminController.post_duplicate_tour);
 app.post('/admin/:tourId/delete', [authController.restrict, urlencodedParser], adminController.post_delete_tour);
-app.post('/admin/image/upload', upload.single("file"), (req, res) => {
-  res.send({ location : `/images/userUpload/${req.file.filename}` });
+app.post('/admin/image/upload', upload.single('file'), (req, res) => {
+  res.send({ location: `/images/userUpload/${req.file.filename}` });
 });
+app.post('/admin/slider', [authController.restrict, urlencodedParser], adminController.post_update_slider);
 app.post('/admin/static-pages/:page/save', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save);
 app.post('/admin/static-pages/:page/save-and-quit', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save_and_quit);
 
-app.post('/jwt', [authController.restrict], function (req, res) {
+app.post('/jwt', [authController.restrict], (req, res) => {
   const payload = {
     // Unique user id string
     sub: req.cookies.userInfo.id,
@@ -292,8 +315,8 @@ app.post('/jwt', [authController.restrict], function (req, res) {
 
 // TODO: fix 404 catching
 app.use('*', (req, res) => {
-  res.set('Content-Type', 'text/plain')
-  res.status(404).send('404 - Not Found\n')    
+  res.set('Content-Type', 'text/plain');
+  res.status(404).send('404 - Not Found\n');
 });
 
 // ----------------------------------------------------------------------------
@@ -306,9 +329,8 @@ const serverUrl = `http://${process.env.HOST || '0.0.0.0'}:${port}`;
 
 server.on('request', app);
 server.listen(port, () => {
-  console.log('Your app is listening on port ' + port)
+  console.log(`Your app is listening on port ${  port}`);
 });
 
 
 // ----------------------------------------------------------------------------
-

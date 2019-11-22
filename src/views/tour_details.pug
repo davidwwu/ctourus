@@ -2,26 +2,26 @@ extends _layout.pug
 
 block content
   main.grid-container.site-content
-    .highlight-container.grid-x.grid-margin-x
-      .swiper-container.cell.medium-5
-        .swiper-wrapper
-          each image in data.images
-            .swiper-slide
-              img(src=image, alt="")
-      .trip-highlight-container.cell.medium-7
-        h3= data.name
-        div= `線路編號：${data.tour_id}`
-        div= `行程天數：${data.duration}天`
-        div= `旅遊團費：$${data.starting_price}`
+    .card(style="padding: 20px;")
+      .highlight-container.grid-x.grid-margin-x
+        .swiper-container.cell.medium-5
+          .swiper-wrapper
+            each image in data.images
+              .swiper-slide
+                img(src=image, alt="")
+        .trip-highlight-container.cell.medium-7
+          h3= data.name
+          div= `線路編號：${data.tour_id}`
+          div= `行程天數：${data.duration}天`
+          div= `旅遊團費：$${data.starting_price}`
 
-        .separator.thin
+          .separator.thin
 
-        .highlight!= data.full_description
-
-    .separator.thick
- 
-    .available-dates
-      != data.schedule_table
+          .highlight!= data.full_description
+  
+        if data.schedule_table && data.schedule_table !== ''
+          .available-dates
+            != data.schedule_table
     .top-bar.detail-menu(data-smooth-scroll data-animation-duration="800" data-animation-easing="swing" data-offset="60" data-magellan)
       ul.top-bar-left.menu
         li
@@ -32,8 +32,11 @@ block content
           a(href="#pricing-details") 費用明細
         li
           a(href="#notice") 訂購須知
-    section#trip-details(data-magellan-target="trip-details")
+    section#trip-details.card(data-magellan-target="trip-details" style="padding: 20px;")
       //- img(src="/images/tour-plan.png")
+      .section-title
+        i.material-icons directions_bus
+        span 行程介紹
       each day, i in data.tour_plan
         .trip-day
           .trip-day-title
@@ -59,25 +62,20 @@ block content
                 div!= day.stay
           if(i < data.tour_plan.length - 1)
             .separator.thin
-      .separator.thick
     
-    section#travel-info(data-magellan-target="travel-info")
+    section#travel-info.card(data-magellan-target="travel-info" style="padding: 20px;")
       .section-title
         i.material-icons directions_bus
         span 交通信息
       div!= data.pickup_service
-
-    .separator.thick
     
-    section#pricing-details(data-magellan-target="pricing-details")
+    section#pricing-details.card(data-magellan-target="pricing-details" style="padding: 20px;")
       .section-title
         i.material-icons attach_money
         span 費用明細
       div!= data.price_breakdown
 
-    .separator.thick
-
-    section#notice(data-magellan-target="pricing-details")
+    section#notice.card(data-magellan-target="pricing-details" style="padding: 20px;")
       .section-title
         i.material-icons priority_high
         span 訂購須知

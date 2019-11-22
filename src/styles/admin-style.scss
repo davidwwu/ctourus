@@ -31,6 +31,17 @@ body {
   letter-spacing: 1px;
   word-spacing: 1px;
 
+  .alert {
+    z-index: 1050;
+    position: fixed;
+    top: 40px;
+    right: 10px;
+  
+    .alert-message {
+      margin-right: 40px;
+    }
+  }
+
   input[type="checkbox"] {
     margin-left: 0;
 
@@ -46,15 +57,29 @@ body {
   .dataTables_wrapper {
     width: 100%;
   }
+
+  .separator {
+    border-bottom: $separator-border;
+
+    &.thick {
+      margin: 80px 0;
+    }
+
+    &.thin {
+      margin: 40px 0;
+    }
+  }
 }
 
-#new-tour,
-#new-static-page {
-  color: white;
-}
+
 
 .mdc-button {
   outline: none !important;
+  
+  &.new-tour, 
+  &.create-new {
+    color: white;
+  }
 
   &.no-min-width {
     min-width: 0;

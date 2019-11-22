@@ -1,27 +1,7 @@
 extends _admin_layout.pug
 
 block content
-  if flash.error
-    .alert.alert-danger.alert-dismissible.fade.show(role="alert")
-      .alert-message !{flash.error}
-      button.close(type="button" data-dismiss="alert" aria-label="Close")
-        span(aria-hidden='true') &times;
-  if flash.success
-    .alert.alert-success.alert-dismissible.fade.show(role="alert")
-      .alert-message !{flash.success}
-      button.close(type="button" data-dismiss="alert" aria-label="Close")
-        span(aria-hidden='true') &times;
   main.p-4.container
-    //- style.
-    //-   #result {
-    //-       border: 1px solid #888;
-    //-       background: #f7f7f7;
-    //-       padding: 1em;
-    //-       margin-bottom: 1em;
-    //-   }
-  
-    //- #result
-
     .mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
       form#modal-form.mdc-dialog__container(method='POST' action='')
         .mdc-dialog__surface
@@ -47,7 +27,7 @@ block content
               span.required-asterisk *
               .input-group
                 .input-group-prepend
-                  span.input-group-text /static-pages/
+                  span.input-group-text /tours/
                 input#modal-permalink.form-control(type='text' name='permalink' pattern="[a-zA-Z0-9-_]+" required)
               small.form-text.text-muted 只可包含英文字母大小寫、數字、連結號 (-)、及下劃線 (_)
           footer.mdc-dialog__actions
@@ -58,19 +38,18 @@ block content
               span.mdc-button__label OK
       .mdc-dialog__scrim
     .row
-      button#new-static-page.create-new.mdc-button.mdc-button--raised
+      button#new-menu.create-new.mdc-button.mdc-button--raised
         i.material-icons add
-        span.mdc-button__label 添加靜態頁面
+        span.mdc-button__label 添加主選單
     .row.mt-3
-      table.static-page-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='10')
+      table.menu-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
         thead
           tr.main-list-title
             th(scope="col" data-orderable='false')
             th(scope="col" type='num') 順序
             th(scope="col" type='string') 標題
             th(scope="col" type='string') Permalink
-            th(scope="col" data-orderable='false') 快速編輯
-            th(scope="col" data-orderable='false') 編輯頁面
+            th(scope="col" data-orderable='false') 編輯
             th(scope="col" data-orderable='false') 刪除
         tbody
           each row in data
@@ -79,13 +58,10 @@ block content
               td= row.order
               td= row.name
               td
-                a(href=`/static-pages/${row.permalink}`)= `/${row.permalink}`
+                a(href=`/tours/${row.permalink}`)= `/${row.permalink}`
               td(style="text-align: center;")
-                button.static-page-quick-edit.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                button.main-menu-edit.mdc-button.mdc-button--dense.no-min-width(data-menu=(JSON.stringify(row)))
                   i.material-icons edit
               td(style="text-align: center;")
-                button.edit-btn.mdc-button.mdc-button--dense.no-min-width(onclick=`window.location.href='/admin/static-pages/${row.permalink}/edit';`)
-                  i.material-icons edit
-              td(style="text-align: center;")
-                button.static-page-delete.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                button.main-menu-delete.mdc-button.mdc-button--dense.no-min-width(data-menu=(JSON.stringify(row)))
                   i.material-icons delete_forever

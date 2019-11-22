@@ -1,0 +1,69 @@
+extends _layout.pug
+
+block content
+  main.site-content.grid-container
+    -
+      let listTitle = '', menuIndex = null;
+      for(let i = 0; i < tour_menu.length; i++) {
+        if(tour_menu[i].permalink === tour_list) {
+          listTitle = tour_menu[i].name;
+          menuIndex = i;
+          break;
+        }
+      }
+    h2#list_title= page_type === 'highlight-tours' ? '熱門推薦' : listTitle
+    if page_type !== 'highlight-tours'
+      .list-filter.card
+        .card-section
+          .filter-section
+            span.filter-title 出發城市
+            | ：
+            span.filter
+              input#start-city-all(type="radio" name="start_city" value="all" checked=(filter.start_city ? false : true))
+              label(for="start-city-all") 全部
+            each city in tour_menu[menuIndex].start_cities
+              span.filter
+                input(id=`start-city-${city}` type="radio" name="start_city" value=city checked=(filter.start_city && filter.start_city === city ? true : false))
+                label(for=`start-city-${city}`)= city
+          .filter-section
+            span.filter-title 持續時間
+            | ：
+            span.filter
+              input#duration-all(type="radio" name="duration" value="all" checked=(filter.duration ? false : true))
+              label(for="duration-all") 全部
+            each dur in tour_menu[menuIndex].durations
+              span.filter
+                input(id=dur type="radio" name="duration" value=dur checked=(filter.duration && parseInt(filter.duration) === dur ? true : false))
+                label(for=dur)= `${dur}天`
+          .filter-section
+            span.filter-title 價格範圍
+            | ：
+            span.filter
+              input#price-all(type="radio" name="starting_price" value="all" checked=(filter.starting_price ? false : true))
+              label(for="price-all") 全部
+            span.filter
+              input#price-lte199(type="radio" name="starting_price" value="lte-199" checked=(filter.starting_price && filter.starting_price.join() === "lte-199" ? true : false))
+              label(for="price-lte199") $200以下
+            span.filter
+              input#price-gte200-lte499(type="radio" name="starting_price" value="gte-200,lte-499" checked=(filter.starting_price && filter.starting_price.join() === "gte-200,lte-499" ? true : false))
+              label(for="price-gte200-lte499") $200-$499
+            span.filter
+              input#price-gte500-lte999(type="radio" name="starting_price" value="gte-500,lte-999" checked=(filter.starting_price && filter.starting_price.join() === "gte-500,lte-999" ? true : false))
+              label(for="price-gte500-lte999") $500-$999
+            span.filter
+              input#price-gte1000-lte1999(type="radio" name="starting_price" value="gte-1000,lte-1999" checked=(filter.starting_price && filter.starting_price.join() === "gte-1000,lte-1999" ? true : false))
+              label(for="price-gte1000-lte1999") $1000-$1999
+            span.filter
+              input#price-gte2000(type="radio" name="starting_price" value="gte-2000" disabled)
+              label(for="price-gte2000" checked=(filter.starting_price && filter.starting_price.join() === "gte-2000" ? true : false)) $2000以上
+
+    .grid-x.grid-padding-x.medium-up-3.large-up-4
+      each tour in data
+        .cell
+          a.card(href=`/tours/${tour.tour_type}/${tour.tour_id}`)
+            .card-image
+              img(src=tour.images[0], alt="photos")
+              //- img(src=`/images/userUpload/thumbnails/${tour.tour_id}-thumb.jpg`, alt="photos")
+            .card-section
+              p= tour.name
+              h4.price-highlight= `$${tour.starting_price}`
