@@ -422,6 +422,33 @@ $(function () {
 
   // menu list admin page
   if($('html').data('page') === 'main-menus') {
+    $('.main-menu-edit').on('click', function (e) {
+      let { _id, order, name, permalink } = $(this).data('menu');
+  
+      $('#my-dialog-title').text('編輯選單');
+      $('#modal-form').attr('action', `/admin/main-menu/${permalink}/quick-edit`);
+      $('#modal-order').val(order);
+      $('#modal-title').val(name);
+      $('#modal-permalink').val(permalink);
+  
+      $('#modal-order, #modal-title, #modal-permalink').prop('readonly', false);
+  
+      dialogArr[0].open();
+    });
+  
+    $('.main-menu-delete').on('click', function (e) {
+      let { _id, order, name, permalink } = $(this).data('menu');
+  
+      $('#my-dialog-title').text('刪除選單');
+      $('#modal-form').attr('action', `/admin/main-menu/${permalink}/delete`);
+      $('#modal-order').val(order);
+      $('#modal-title').val(name);
+      $('#modal-permalink').val(permalink);
+  
+      $('#modal-order, #modal-title, #modal-permalink').prop('readonly', true);
+  
+      dialogArr[0].open();
+    });
   }
 
 });

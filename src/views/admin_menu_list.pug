@@ -38,7 +38,7 @@ block content
               span.mdc-button__label OK
       .mdc-dialog__scrim
     .row
-      button#new-static-page.mdc-button.mdc-button--raised
+      button#new-menu.create-new.mdc-button.mdc-button--raised
         i.material-icons add
         span.mdc-button__label 添加主選單
     .row.mt-3
@@ -49,7 +49,7 @@ block content
             th(scope="col" type='num') 順序
             th(scope="col" type='string') 標題
             th(scope="col" type='string') Permalink
-            th(scope="col" data-orderable='false') 快速編輯
+            th(scope="col" data-orderable='false') 編輯
             th(scope="col" data-orderable='false') 刪除
         tbody
           each row in data
@@ -60,8 +60,8 @@ block content
               td
                 a(href=`/tours/${row.permalink}`)= `/${row.permalink}`
               td(style="text-align: center;")
-                button.static-page-quick-edit.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                button.main-menu-edit.mdc-button.mdc-button--dense.no-min-width(data-menu=(JSON.stringify(row)))
                   i.material-icons edit
               td(style="text-align: center;")
-                button.static-page-delete.mdc-button.mdc-button--dense.no-min-width(data-static-page=(JSON.stringify(row)))
+                button.main-menu-delete.mdc-button.mdc-button--dense.no-min-width(data-menu=(JSON.stringify(row)))
                   i.material-icons delete_forever
