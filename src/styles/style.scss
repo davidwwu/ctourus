@@ -42,6 +42,20 @@ body {
   letter-spacing: 1px;
   word-spacing: 1px;
 
+  .callout {
+    box-shadow: $box-shadow-lighter;
+    border-radius: 3px;
+    font-size: 16px;
+    z-index: 1050;
+    position: fixed;
+    top: 40px;
+    right: 10px;
+  
+    .callout-message {
+      margin-right: 40px;
+    }
+  }
+
   a:active,
   a.active {
     color: $theme-color;

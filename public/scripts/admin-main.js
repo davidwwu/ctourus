@@ -19,10 +19,10 @@ $(function() {
 
   $('#duration').val($('.trip-day').length);
   
-  document.getElementById('mainForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    console.log(document.getElementsByTagName('input'));
-  });
+  // document.getElementById('mainForm').addEventListener('submit', function(e) {
+  //   e.preventDefault();
+  //   console.log(document.getElementsByTagName('input'));
+  // });
 
   initTinymce();
 });

@@ -125,7 +125,7 @@ $(function () {
           $('#modal-tour-type option').attr('disabled', false);
           $('#modal-tour-type').val(tour_type);
       
-          dialog.open();
+          dialogArr[0].open();
         }
       });
     
@@ -176,23 +176,56 @@ $(function () {
             className: 'align-center',
           },
           { data: 'name' },
+          { data: 'image' },
           { data: 'link'},
           {
             data: null,
-            defaultContent: '<button class="tour-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
+            defaultContent: '<button class="slider-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
           },
           {
             data: null,
-            defaultContent: '<button class="tour-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
+            defaultContent: '<button class="slider-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
           },
         ],
         rowReorder: {
-          dataSrc: 1,
+          dataSrc: 'order',
         },
         scrollY: 400,
         scrollCollapse: true,
         paging: false,
       });
+
+    $('#new-highlight-slider').on('click', (e) => {
+      $('#image-modal-title').text('新滾動大圖');
+      $('#image-modal-form').attr('action', '/admin/slider');
+      $('#image-modal-order').val('');
+      $('#image-modal-title').val('');
+      $('#image-modal-image').val('');
+      $('#image-modal-url').val('');
+  
+      $('#image-modal-order, #image-modal-title, #image-modal-permalink').prop('readonly', false);
+  
+      dialogArr[0].open();
+    });
+
+    $('#slider-list-table tbody').on('click', 'button.slider-edit-btn', function () {
+      if(sliderListTable.row($(this).parents('tr')).data()) {
+        let { _id, order, title, image, link } = sliderListTable.row($(this).parents('tr')).data();
+    
+        // TODO - make sure to safe check id
+        $('#image-modal-title').text('編輯滾動大圖');
+        $('#image-modal-form').attr('action', '/admin/slider');
+        $('#image-modal-id').val(_id);
+        $('#image-modal-order').val(order);
+        $('#image-modal-title').val(title);
+        $('#image-modal-image').val(image);
+        $('#image-modal-url').val(link);
+    
+        $('#modal-is-highlight, #modal-tour-id, #modal-title, #modal-duration, #modal-starting-price, #modal-start-city, #modal-end-city').prop('readonly', false);
+    
+        dialogArr[0].open();
+      }
+    });
 
     let imageListTable = $('#image-list-table')
       .on('init.dt', function () {
@@ -214,23 +247,60 @@ $(function () {
             className: 'align-center',
           },
           { data: 'name' },
+          { data: 'image' },
           { data: 'link'},
           {
             data: null,
-            defaultContent: '<button class="tour-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
+            defaultContent: '<button class="image-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
           },
           {
             data: null,
-            defaultContent: '<button class="tour-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
+            defaultContent: '<button class="image-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
           },
         ],
         rowReorder: {
-          dataSrc: 1,
+          dataSrc: 'order',
         },
         scrollY: 400,
         scrollCollapse: true,
         paging: false,
       });
+    
+    $('#new-highlight-image').on('click', (e) => {
+      $('#image-modal-title').text('新主打線路圖片');
+      $('#image-modal-form').attr('action', '/admin/create-static-page');
+      $('#image-modal-order').val('');
+      $('#image-modal-title').val('');
+      $('#image-modal-permalink').val('');
+  
+      $('#image-modal-order, #image-modal-title, #image-modal-permalink').prop('readonly', false);
+  
+      dialogArr[0].open();
+    });
+
+    $('#image-list-table tbody').on('click', 'button.image-edit-btn', function () {
+      if(imageListTable.row($(this).parents('tr')).data()) {
+        let { _id, is_highlight, tour_id, tour_type, name, duration, starting_price, start_city, end_city } = imageListTable.row($(this).parents('tr')).data();
+    
+        // TODO - make sure to safe check id
+        $('#my-dialog-title').text('複製線路');
+        $('#modal-form').attr('action', `/admin/${tour_id}/duplicate`);
+        $('#modal-is-highlight').prop('checked', is_highlight);
+        $('#modal-tour-id').val(`${tour_id}-COPY`);
+        $('#modal-tour-type').val(tour_type);
+        $('#modal-title').val(name);
+        $('#modal-duration').val(duration);
+        $('#modal-starting-price').val(starting_price);
+        $('#modal-start-city').val(start_city);
+        $('#modal-end-city').val(end_city);
+    
+        $('#modal-is-highlight, #modal-tour-id, #modal-title, #modal-duration, #modal-starting-price, #modal-start-city, #modal-end-city').prop('readonly', false);
+        $('#modal-tour-type option').attr('disabled', false);
+        $('#modal-tour-type').val(tour_type);
+    
+        dialogArr[0].open();
+      }
+    });
 
     let menuListTable = $('#menu-list-table')
       .on('init.dt', function () {
@@ -255,43 +325,21 @@ $(function () {
           { data: 'link'},
           {
             data: null,
-            defaultContent: '<button class="tour-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
+            defaultContent: '<button class="menu-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
           },
           {
             data: null,
-            defaultContent: '<button class="tour-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
+            defaultContent: '<button class="menu-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
           },
         ],
         rowReorder: {
-          dataSrc: 1,
+          dataSrc: 'order',
         },
         scrollY: 400,
         scrollCollapse: true,
         paging: false,
       });
 
-    $('#new-highlight-slider').on('click', (e) => {
-      $('#slider-modal-title').text('新滾動大圖');
-      $('#slider-modal-form').attr('action', '/admin/create-static-page');
-      $('#slider-modal-order').val('');
-      $('#slider-modal-title').val('');
-      $('#slider-modal-permalink').val('');
-  
-      $('#slider-modal-order, #slider-modal-title, #slider-modal-permalink').prop('readonly', false);
-  
-      dialogArr[0].open();
-    });
-    $('#new-highlight-image').on('click', (e) => {
-      $('#image-modal-title').text('新主打線路圖片');
-      $('#image-modal-form').attr('action', '/admin/create-static-page');
-      $('#image-modal-order').val('');
-      $('#image-modal-title').val('');
-      $('#image-modal-permalink').val('');
-  
-      $('#image-modal-order, #image-modal-title, #image-modal-permalink').prop('readonly', false);
-  
-      dialogArr[1].open();
-    });
     $('#new-highlight-menu').on('click', (e) => {
       $('#menu-modal-title').text('新主打線路選單');
       $('#menu-modal-form').attr('action', '/admin/create-static-page');
@@ -301,7 +349,31 @@ $(function () {
   
       $('#menu-modal-order, #menu-modal-title, #menu-modal-permalink').prop('readonly', false);
   
-      dialogArr[2].open();
+      dialogArr[1].open();
+    });
+
+    $('#menu-list-table tbody').on('click', 'button.menu-edit-btn', function () {
+      if(menuListTable.row($(this).parents('tr')).data()) {
+        let { _id, is_highlight, tour_id, tour_type, name, duration, starting_price, start_city, end_city } = menuListTable.row($(this).parents('tr')).data();
+    
+        // TODO - make sure to safe check id
+        $('#my-dialog-title').text('複製線路');
+        $('#modal-form').attr('action', `/admin/${tour_id}/duplicate`);
+        $('#modal-is-highlight').prop('checked', is_highlight);
+        $('#modal-tour-id').val(`${tour_id}-COPY`);
+        $('#modal-tour-type').val(tour_type);
+        $('#modal-title').val(name);
+        $('#modal-duration').val(duration);
+        $('#modal-starting-price').val(starting_price);
+        $('#modal-start-city').val(start_city);
+        $('#modal-end-city').val(end_city);
+    
+        $('#modal-is-highlight, #modal-tour-id, #modal-title, #modal-duration, #modal-starting-price, #modal-start-city, #modal-end-city').prop('readonly', false);
+        $('#modal-tour-type option').attr('disabled', false);
+        $('#modal-tour-type').val(tour_type);
+    
+        dialogArr[1].open();
+      }
     });
   }
 

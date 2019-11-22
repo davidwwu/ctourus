@@ -140,7 +140,7 @@ router.get('/front-page', async (req, res) => {
   let highlightTourMenu = [];
 
   try {
-    highlightSlides = await mdb.collection('highlight_slides').find({}).toArray();
+    highlightSlides = await mdb.collection('highlight_slides').find({}).project({_id:1,order:1,title:'$name',image:1,link:1}).toArray();
     highlightImages = await mdb.collection('highlight_images').find({}).toArray();
     highlightTourMenu = await mdb.collection('highlight_tour_menu').find({}).toArray();
   } catch (err) {
@@ -153,6 +153,20 @@ router.get('/front-page', async (req, res) => {
     highlightImages,
     highlightTourMenu,
   });
+});
+
+router.post('/admin/front-page/slider/update', jsonParser, (req, res) => {
+  req.body._id = new ObjectId(req.body._id);
+  req.body.order = parseInt(req.body.order);
+  mdb.collection('highlight_slides')
+    .updateOne(
+      { _id: req.body._id },
+      { $set: req.body },
+      { upsert: true },
+      (err, msg) => {
+        res.send(msg);
+      },
+    );
 });
 
 router.get('/tours/admin-dash', (req, res) => {

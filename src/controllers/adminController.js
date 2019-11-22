@@ -91,10 +91,12 @@ exports.post_edit_static_page_save = async (req, res) => {
   try {
     const post = await axios.post(`${serverUrl}/api/admin/static-pages/${req.params.page}/edit`, data);
     console.log('response:', post);
+    res.flash('success', 'Page saved successfully.');
     res.redirect(`/admin/static-pages/${req.params.page}/edit`);
   } catch (error) {
     // TODO - flash error
     console.error(error);
+    res.flash('error', error);
     res.redirect(`/admin/static-pages/${req.params.page}/edit`);
   }
 };
@@ -112,10 +114,12 @@ exports.post_edit_static_page_save_and_quit = async (req, res) => {
   try {
     const post = await axios.post(`${serverUrl}/api/admin/static-pages/${req.params.page}/edit`, data);
     console.log('response:', post);
+    res.flash('success', 'Page saved successfully.');
     res.redirect('/admin/static-pages');
   } catch (error) {
     // TODO - flash error
     console.error(error);
+    res.flash('error', error);
     res.redirect(`/admin/static-pages/${req.params.page}/edit`);
   }
 };
@@ -175,10 +179,12 @@ exports.post_edit_tour_save = async (req, res) => {
   try {
     const post = await axios.post(`${serverUrl}/api/admin/${req.params.tourId}/edit`, data);
     console.log('response:', post);
+    res.flash('success', 'Tour saved successfully.');
     res.redirect(`/admin/${req.params.tourId}/edit`);
   } catch (error) {
     // TODO - flash error
     console.error(error);
+    res.flash('error', error);
     res.redirect(`/admin/${req.params.tourId}/edit`);
   }
 };
@@ -219,10 +225,11 @@ exports.post_edit_tour_save_and_quit = async (req, res) => {
   try {
     const post = await axios.post(`${serverUrl}/api/admin/${req.params.tourId}/edit`, data);
     console.log('response:', post);
-    res.redirect('/admin');
+    res.flash('success', 'Tour saved successfully.');
+    res.redirect('/admin/tours');
   } catch (error) {
-    // TODO - flash error
     console.error(error);
+    res.flash('error', error);
     res.redirect(`/admin/${req.params.tourId}/edit`);
   }
 };
@@ -263,10 +270,13 @@ exports.post_create_tour = async (req, res) => {
   try {
     const post = await axios.post(`${serverUrl}/api/admin/${data.tour_id}/edit`, data);
     console.log('response:', post);
+    res.flash('success', 'Tour created successfully.');
     res.redirect(`/admin/${data.tour_id}/edit`);
   } catch (error) {
     // TODO - flash error
+    res.flash('error', error);
     console.error(error);
+    res.redirect('/admin/tours');
   }
 };
 
@@ -312,15 +322,30 @@ exports.post_duplicate_tour = async (req, res) => {
     const { data } = await axios.get(`${serverUrl}/api/tours/${tour_type}/${tour_id}`);
 
     // go to the new tour in edit mode
+    res.flash('success', 'Tour created successfully.');
     res.redirect(`/admin/${data.tour_id}/edit`);
   } catch (error) {
     console.error(error);
-    res.redirect('/admin');
+    res.flash('error', error);
+    res.redirect('/admin/tours');
   }
 };
 
 exports.post_delete_tour = (req, res) => {
   axios.post(`${serverUrl}/api/admin/${req.params.tourId}/delete`, req.body)
+    .then(({ data }) => {
+      res.flash('success', 'Tour has been deleted.');
+      res.redirect('/admin/tours');
+    })
+    .catch((error) => {
+      console.error(error);
+      res.flash('error', error);
+      res.redirect('/admin/tours');
+    });
+};
+
+exports.post_update_slider = (req, res) => {
+  axios.post(`${serverUrl}/api/admin/front-page/slider/update`, req.body)
     .then(({ data }) => {
       res.redirect('/admin');
     })

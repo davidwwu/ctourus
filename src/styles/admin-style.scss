@@ -31,6 +31,17 @@ body {
   letter-spacing: 1px;
   word-spacing: 1px;
 
+  .alert {
+    z-index: 1050;
+    position: fixed;
+    top: 40px;
+    right: 10px;
+  
+    .alert-message {
+      margin-right: 40px;
+    }
+  }
+
   input[type="checkbox"] {
     margin-left: 0;
 

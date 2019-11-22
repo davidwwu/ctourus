@@ -1,6 +1,16 @@
 extends _edit_layout.pug
 
 block content
+  if flash.error
+    .callout.alert(data-closable)
+      .callout-message !{flash.error}
+      button.close-button(aria-label='Dismiss alert' type='button' data-close)
+        span(aria-hidden='true') &times;
+  if flash.success
+    .callout.success(data-closable)
+      .callout-message !{flash.success}
+      button.close-button(aria-label='Dismiss alert' type='button' data-close)
+        span(aria-hidden='true') &times;
   form(method='POST' action='' enctype='application/x-www-form-urlencoded')
     main.site-content.grid-container
       h2#name.editable-header!= name

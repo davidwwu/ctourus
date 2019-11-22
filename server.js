@@ -281,6 +281,7 @@ app.post('/admin/:tourId/delete', [authController.restrict, urlencodedParser], a
 app.post('/admin/image/upload', upload.single('file'), (req, res) => {
   res.send({ location: `/images/userUpload/${req.file.filename}` });
 });
+app.post('/admin/slider', [authController.restrict, urlencodedParser], adminController.post_update_slider);
 app.post('/admin/static-pages/:page/save', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save);
 app.post('/admin/static-pages/:page/save-and-quit', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save_and_quit);
 
