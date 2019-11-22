@@ -89,54 +89,60 @@ router.get('/tours', (req, res) => {
     });
 });
 
-const getHighlightSlides = async () => {
-  try {
-    return await mdb.collection('orders')
-      .findOne({ id: 'highlight_slides' });
-  } catch (err) {
-    console.error(err);
-    return {
-      status: 'error',
-      message: err,
-    };
-  }
-};
+router.get('/front-page/highlight_slides', async (req, res) => {
+  let highlightSlides = [];
 
-const getHighlightImages = async () => {
   try {
-    return await mdb.collection('orders')
-      .findOne({ id: 'highlight_images' });
+    highlightSlides = await mdb.collection('highlight_slides').find({}).toArray();
   } catch (err) {
     console.error(err);
-    return {
-      status: 'error',
-      message: err,
-    };
+    res.send(err);
   }
-};
 
-const getHighlightTourMenu = async () => {
+  res.send({
+    highlightSlides,
+  });
+});
+
+router.get('/front-page/highlight_images', async (req, res) => {
+  let highlightImages = [];
+
   try {
-    return await mdb.collection('orders')
-      .findOne({ id: 'highlight_tour_menu' });
+    highlightImages = await mdb.collection('highlight_images').find({}).toArray();
   } catch (err) {
     console.error(err);
-    return {
-      status: 'error',
-      message: err,
-    };
+    res.send(err);
   }
-};
+
+  res.send({
+    highlightImages,
+  });
+});
+
+router.get('/front-page/highlight_tour_menus', async (req, res) => {
+  let highlightTourMenu = [];
+
+  try {
+    highlightTourMenu = await mdb.collection('highlight_tour_menu').find({}).toArray();
+  } catch (err) {
+    console.error(err);
+    res.send(err);
+  }
+
+  res.send({
+    highlightTourMenu,
+  });
+});
 
 router.get('/front-page', async (req, res) => {
-  let highlightSlides;
-  let highlightImages;
-  let highlightTourMenu;
+  let highlightSlides = [];
+  let highlightImages = [];
+  let highlightTourMenu = [];
 
   try {
-    highlightSlides = await getHighlightSlides();
-    highlightImages = await getHighlightImages();
-    highlightTourMenu = await getHighlightTourMenu();
+    highlightSlides = await mdb.collection('highlight_slides').find({}).toArray();
+    highlightImages = await mdb.collection('highlight_images').find({}).toArray();
+    highlightTourMenu = await mdb.collection('highlight_tour_menu').find({}).toArray();
   } catch (err) {
     console.error(err);
     res.send(err);

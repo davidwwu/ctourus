@@ -9,10 +9,10 @@ $.fn.dataTable.ext.order['dom-checkbox'] = function (settings, col) {
 
 // Apply ripple effect to MDC buttons
 const buttonRipple = [].map.call(document.querySelectorAll('.mdc-button'), (el) => new MDCRipple(el));
-const dialog = new MDCDialog(document.querySelector('.mdc-dialog'));
-dialog.listen('MDCDialog:opened', () => {
-  console.log('opened');
-});
+const dialogArr = [].map.call(document.querySelectorAll('.mdc-dialog'), (el) => new MDCDialog(el));
+// dialog.listen('MDCDialog:opened', () => {
+//   console.log('opened');
+// });
 
 $(function () {
   // tour list admin page
@@ -102,7 +102,7 @@ $(function () {
         $('#modal-tour-type option').attr('disabled', false);
         $('#modal-tour-type').val(permalink);
     
-        dialog.open();
+        dialogArr[0].open();
       });
     
       $('.tour-list-table tbody').on('click', 'button.tour-copy-btn', function () {
@@ -148,7 +148,7 @@ $(function () {
           $('#modal-tour-type option:not(:selected)').attr('disabled', true);
           $('#modal-tour-type').val(tour_type);
       
-          dialog.open();
+          dialogArr[0].open();
         }
       });
     });
@@ -156,6 +156,153 @@ $(function () {
 
   // front page list admin page
   if($('html').data('page') === 'front-page') {
+    let sliderListTable = $('#slider-list-table')
+      .on('init.dt', function () {
+        [].map.call($(this).find('.mdc-button'), (el) => new MDCRipple(el));
+      })
+      .DataTable({
+        ajax: {
+          url: '/api/front-page/highlight_slides',
+          dataSrc: 'highlightSlides',
+        },
+        columns: [
+          {
+            data: null,
+            defaultContent: ':::',
+            className: 'reorder'
+          },
+          {
+            data: 'order',
+            className: 'align-center',
+          },
+          { data: 'name' },
+          { data: 'link'},
+          {
+            data: null,
+            defaultContent: '<button class="tour-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
+          },
+          {
+            data: null,
+            defaultContent: '<button class="tour-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
+          },
+        ],
+        rowReorder: {
+          dataSrc: 1,
+        },
+        scrollY: 400,
+        scrollCollapse: true,
+        paging: false,
+      });
+
+    let imageListTable = $('#image-list-table')
+      .on('init.dt', function () {
+        [].map.call($(this).find('.mdc-button'), (el) => new MDCRipple(el));
+      })
+      .DataTable({
+        ajax: {
+          url: '/api/front-page/highlight_images',
+          dataSrc: 'highlightImages',
+        },
+        columns: [
+          {
+            data: null,
+            defaultContent: ':::',
+            className: 'reorder'
+          },
+          {
+            data: 'order',
+            className: 'align-center',
+          },
+          { data: 'name' },
+          { data: 'link'},
+          {
+            data: null,
+            defaultContent: '<button class="tour-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
+          },
+          {
+            data: null,
+            defaultContent: '<button class="tour-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
+          },
+        ],
+        rowReorder: {
+          dataSrc: 1,
+        },
+        scrollY: 400,
+        scrollCollapse: true,
+        paging: false,
+      });
+
+    let menuListTable = $('#menu-list-table')
+      .on('init.dt', function () {
+        [].map.call($(this).find('.mdc-button'), (el) => new MDCRipple(el));
+      })
+      .DataTable({
+        ajax: {
+          url: '/api/front-page/highlight_tour_menus',
+          dataSrc: 'highlightTourMenu',
+        },
+        columns: [
+          {
+            data: null,
+            defaultContent: ':::',
+            className: 'reorder'
+          },
+          {
+            data: 'order',
+            className: 'align-center',
+          },
+          { data: 'name' },
+          { data: 'link'},
+          {
+            data: null,
+            defaultContent: '<button class="tour-edit-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">edit</i></button>',
+          },
+          {
+            data: null,
+            defaultContent: '<button class="tour-delete-btn mdc-button mdc-button--dense no-min-width"><i class="material-icons">delete_forever</i></button>',
+          },
+        ],
+        rowReorder: {
+          dataSrc: 1,
+        },
+        scrollY: 400,
+        scrollCollapse: true,
+        paging: false,
+      });
+
+    $('#new-highlight-slider').on('click', (e) => {
+      $('#slider-modal-title').text('新滾動大圖');
+      $('#slider-modal-form').attr('action', '/admin/create-static-page');
+      $('#slider-modal-order').val('');
+      $('#slider-modal-title').val('');
+      $('#slider-modal-permalink').val('');
+  
+      $('#slider-modal-order, #slider-modal-title, #slider-modal-permalink').prop('readonly', false);
+  
+      dialogArr[0].open();
+    });
+    $('#new-highlight-image').on('click', (e) => {
+      $('#image-modal-title').text('新主打線路圖片');
+      $('#image-modal-form').attr('action', '/admin/create-static-page');
+      $('#image-modal-order').val('');
+      $('#image-modal-title').val('');
+      $('#image-modal-permalink').val('');
+  
+      $('#image-modal-order, #image-modal-title, #image-modal-permalink').prop('readonly', false);
+  
+      dialogArr[1].open();
+    });
+    $('#new-highlight-menu').on('click', (e) => {
+      $('#menu-modal-title').text('新主打線路選單');
+      $('#menu-modal-form').attr('action', '/admin/create-static-page');
+      $('#menu-modal-order').val('');
+      $('#menu-modal-title').val('');
+      $('#menu-modal-permalink').val('');
+  
+      $('#menu-modal-order, #menu-modal-title, #menu-modal-permalink').prop('readonly', false);
+  
+      dialogArr[2].open();
+    });
   }
 
   // static page list admin page
@@ -169,7 +316,7 @@ $(function () {
   
       $('#modal-order, #modal-title, #modal-permalink').prop('readonly', false);
   
-      dialog.open();
+      dialogArr[0].open();
     });
   
     $('.static-page-quick-edit').on('click', function (e) {
@@ -183,7 +330,7 @@ $(function () {
   
       $('#modal-order, #modal-title, #modal-permalink').prop('readonly', false);
   
-      dialog.open();
+      dialogArr[0].open();
     });
   
     $('.static-page-delete').on('click', function (e) {
@@ -197,7 +344,7 @@ $(function () {
   
       $('#modal-order, #modal-title, #modal-permalink').prop('readonly', true);
   
-      dialog.open();
+      dialogArr[0].open();
     });
   }
 

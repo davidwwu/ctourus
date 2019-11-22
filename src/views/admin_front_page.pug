@@ -3,33 +3,33 @@ extends _admin_layout.pug
 block content
   main.p-4.container
     // New/edit slider 
-    .mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
-      form#slider-modal.mdc-dialog__container(method='POST' action='')
+    #slider-modal.mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
+      form#slider-modal-form.mdc-dialog__container(method='POST' action='')
         .mdc-dialog__surface
           // Title cannot contain leading whitespace due to mdc-typography-baseline-top() 
-          h2.mdc-dialog__title#my-dialog-title
+          h2.mdc-dialog__title#slider-modal-title
           // will set action by data-* attribute
-          .mdc-dialog__content#my-modal-content
+          .mdc-dialog__content#slider-modal-content
             .required-asterisk.note * Required
             //- TODO: may need to handle ordering better
             .form-group
-              label.col-form-label(for="modal-order") 順序:
+              label.col-form-label(for="slider-modal-order") 順序:
               | 
               span.required-asterisk *
-              input#modal-order.form-control(type='text' name='order' required)
+              input#slider-modal-order.form-control(type='text' name='order' required)
             .form-group
-              label.col-form-label(for="modal-title") 標題:
+              label.col-form-label(for="slider-modal-title") 標題:
               | 
               span.required-asterisk *
-              input#modal-title.form-control(type='text' name='name' required)
+              input#slider-modal-title.form-control(type='text' name='name' required)
             .form-group
-              label.col-form-label(for="modal-permalink") Permalink:
+              label.col-form-label(for="slider-modal-permalink") Permalink:
               | 
               span.required-asterisk *
               .input-group
                 .input-group-prepend
                   span.input-group-text /tours/
-                input#modal-permalink.form-control(type='text' name='permalink' pattern="[a-zA-Z0-9-_]+" required)
+                input#slider-modal-permalink.form-control(type='text' name='permalink' pattern="[a-zA-Z0-9-_]+" required)
               small.form-text.text-muted 只可包含英文字母大小寫、數字、連結號 (-)、及下劃線 (_)
           footer.mdc-dialog__actions
             button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close')
@@ -40,33 +40,33 @@ block content
       .mdc-dialog__scrim
     
     // New/edit highlight images
-    .mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
-      form#image-modal.mdc-dialog__container(method='POST' action='')
+    #image-modal.mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
+      form#image-modal-form.mdc-dialog__container(method='POST' action='')
         .mdc-dialog__surface
           // Title cannot contain leading whitespace due to mdc-typography-baseline-top() 
-          h2.mdc-dialog__title#my-dialog-title
+          h2.mdc-dialog__title#image-modal-title
           // will set action by data-* attribute
-          .mdc-dialog__content#my-modal-content
+          .mdc-dialog__content#image-modal-content
             .required-asterisk.note * Required
             //- TODO: may need to handle ordering better
             .form-group
-              label.col-form-label(for="modal-order") 順序:
+              label.col-form-label(for=image-"modal-order") 順序:
               | 
               span.required-asterisk *
-              input#modal-order.form-control(type='text' name='order' required)
+              input#image-modal-order.form-control(type='text' name='order' required)
             .form-group
-              label.col-form-label(for="modal-title") 標題:
+              label.col-form-label(for="image-modal-title") 標題:
               | 
               span.required-asterisk *
-              input#modal-title.form-control(type='text' name='name' required)
+              input#image-modal-title.form-control(type='text' name='name' required)
             .form-group
-              label.col-form-label(for="modal-permalink") Permalink:
+              label.col-form-label(for="image-modal-permalink") Permalink:
               | 
               span.required-asterisk *
               .input-group
                 .input-group-prepend
                   span.input-group-text /tours/
-                input#modal-permalink.form-control(type='text' name='permalink' pattern="[a-zA-Z0-9-_]+" required)
+                input#image-modal-permalink.form-control(type='text' name='permalink' pattern="[a-zA-Z0-9-_]+" required)
               small.form-text.text-muted 只可包含英文字母大小寫、數字、連結號 (-)、及下劃線 (_)
           footer.mdc-dialog__actions
             button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close')
@@ -77,33 +77,33 @@ block content
       .mdc-dialog__scrim
 
     // New/edit highlight tour menu
-    .mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
-      form#menu-modal.mdc-dialog__container(method='POST' action='')
+    #menu-modal.mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')
+      form#menu-modal-form.mdc-dialog__container(method='POST' action='')
         .mdc-dialog__surface
           // Title cannot contain leading whitespace due to mdc-typography-baseline-top() 
-          h2.mdc-dialog__title#my-dialog-title
+          h2.mdc-dialog__title#menu-modal-title
           // will set action by data-* attribute
-          .mdc-dialog__content#my-modal-content
+          .mdc-dialog__content#menu-modal-content
             .required-asterisk.note * Required
             //- TODO: may need to handle ordering better
             .form-group
-              label.col-form-label(for="modal-order") 順序:
+              label.col-form-label(for="menu-modal-order") 順序:
               | 
               span.required-asterisk *
-              input#modal-order.form-control(type='text' name='order' required)
+              input#menu-modal-order.form-control(type='text' name='order' required)
             .form-group
-              label.col-form-label(for="modal-title") 標題:
+              label.col-form-label(for="menu-modal-title") 標題:
               | 
               span.required-asterisk *
-              input#modal-title.form-control(type='text' name='name' required)
+              input#menu-modal-title.form-control(type='text' name='name' required)
             .form-group
-              label.col-form-label(for="modal-permalink") Permalink:
+              label.col-form-label(for="menu-modal-permalink") Permalink:
               | 
               span.required-asterisk *
               .input-group
                 .input-group-prepend
                   span.input-group-text /tours/
-                input#modal-permalink.form-control(type='text' name='permalink' pattern="[a-zA-Z0-9-_]+" required)
+                input#menu-modal-permalink.form-control(type='text' name='permalink' pattern="[a-zA-Z0-9-_]+" required)
               small.form-text.text-muted 只可包含英文字母大小寫、數字、連結號 (-)、及下劃線 (_)
           footer.mdc-dialog__actions
             button.mdc-button.mdc-dialog__button(type='button', data-mdc-dialog-action='close')
@@ -117,11 +117,11 @@ block content
     .row(style="justify-content: space-between;")
       .section-title
         h2 滾動大圖
-      button#new-static-page.mdc-button.mdc-button--raised
+      button#new-highlight-slider.create-new.mdc-button.mdc-button--raised
         i.material-icons add
         span.mdc-button__label 添加
     .row
-      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
+      table#slider-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
         thead
           tr.main-list-title
             th(scope="col" data-orderable='false')
@@ -131,15 +131,17 @@ block content
             th(scope="col" data-orderable='false') 編輯
             th(scope="col" data-orderable='false') 刪除
     
+    .separator.thick
+
     // Highlight Image List
     .row(style="justify-content: space-between;")
       .section-title
-        h2 Highlight Images
-      button#new-static-page.mdc-button.mdc-button--raised
+        h2 主打線路圖片
+      button#new-highlight-image.create-new.mdc-button.mdc-button--raised
         i.material-icons add
         span.mdc-button__label 添加
     .row
-      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
+      table#image-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
         thead
           tr.main-list-title
             th(scope="col" data-orderable='false')
@@ -149,15 +151,17 @@ block content
             th(scope="col" data-orderable='false') 編輯
             th(scope="col" data-orderable='false') 刪除
 
+    .separator.thick
+
     // Highlight Tour Menu
     .row(style="justify-content: space-between;")
       .section-title
         h2 主打線路選單
-      button#new-static-page.mdc-button.mdc-button--raised
+      button#new-highlight-menu.create-new.mdc-button.mdc-button--raised
         i.material-icons add
         span.mdc-button__label 添加
     .row
-      table.main-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
+      table#menu-list-table.table.table-bordered.table-hover.table-responsive-md(data-order='[[ 1, "asc" ]]' data-page-length='15')
         thead
           tr.main-list-title
             th(scope="col" data-orderable='false')

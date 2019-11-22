@@ -46,6 +46,18 @@ body {
   .dataTables_wrapper {
     width: 100%;
   }
+
+  .separator {
+    border-bottom: $separator-border;
+
+    &.thick {
+      margin: 80px 0;
+    }
+
+    &.thin {
+      margin: 40px 0;
+    }
+  }
 }
 
 
@@ -53,8 +65,8 @@ body {
 .mdc-button {
   outline: none !important;
   
-  &.new-tour,
-  &#new-static-page {
+  &.new-tour, 
+  &.create-new {
     color: white;
   }
 

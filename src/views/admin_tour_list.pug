@@ -85,14 +85,14 @@ block content
               span.mdc-button__label OK
       .mdc-dialog__scrim
 
-    each menuItem in menu
+    each menuItem, index in menu
       .row(style="justify-content: space-between;")
         .section-title
           h2= menuItem.name
         button.new-tour.mdc-button.mdc-button--raised(data-permalink=menuItem.permalink)
           i.material-icons add
           span.mdc-button__label 添加線路
-      .row.mb-5
+      .row
         table.tour-list-table.table.table-bordered.table-hover.table-responsive-md(data-permalink=`${menuItem.permalink}` data-order='[[ 2, "asc" ]]' data-page-length='10')
           thead
             tr.main-list-title.nowrap
@@ -108,3 +108,6 @@ block content
               th(scope="col" data-orderable='false') 複製
               th(scope="col" data-orderable='false') 編輯
               th(scope="col" data-orderable='false') 刪除
+
+      if index < menu.length - 1
+        .separator.thick
