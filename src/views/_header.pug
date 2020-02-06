@@ -12,12 +12,12 @@ header
             a(href=`/static-pages/${static.permalink}`)= static.name
     nav.top-bar.tour-menu
       ul.menu.dropdown(data-dropdown-menu)
-        li
+        li.top-bar-menu-item
           a(href='/') 首頁
-        li
+        li.top-bar-menu-item
           a(href='/highlight-tours') 熱門推薦
         each tour in tour_menu
-          li
+          li.top-bar-menu-item
             a(href=`/tours/${tour.permalink}` class={'is-active': tour_list && tour_list === tour.permalink})= tour.name
             ul.list-filter.card.menu.sub-menu-container
               li

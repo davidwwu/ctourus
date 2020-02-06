@@ -7,13 +7,19 @@ block content
         .swiper-container.cell.medium-5
           .swiper-wrapper
             each image in data.images
-              .swiper-slide
+              .swiper-slide(data-fancybox="slides" data-src=image)
                 img(src=image, alt="")
         .trip-highlight-container.cell.medium-7
           h3= data.name
-          div= `線路編號：${data.tour_id}`
-          div= `行程天數：${data.duration}天`
-          div= `旅遊團費：$${data.starting_price}`
+          div(style="margin-bottom: 10px;")
+            span.accent-title 線路編號
+            = `：${data.tour_id}`
+          div(style="margin-bottom: 10px;")
+            span.accent-title 行程天數
+            = `：${data.duration}天`
+          div(style="margin-bottom: 10px;")
+            span.accent-title 旅遊團費
+            = `：$${data.starting_price}`
 
           .separator.thin
 
@@ -43,23 +49,30 @@ block content
             .date-title-icon
               = 'D' + (i+1)
             h4!= day.title
-          .trip-content-container
-            .trip-day-description
+          //- .trip-content-container
+          .trip-day-description
+            .trip-day-sub-title-chip
               i.other-icon.material-icons location_on
-              div!= day.description
-            if day.sights && day.sights.length !== 0
-              .trip-day-photos
+              | 行程
+            div!= day.description
+          if day.sights && day.sights.length !== 0
+            .trip-day-photos
+              .trip-day-sub-title-chip
                 i.other-icon.material-icons camera_alt
-                .sight-container
-                  span 途徑景點：
-                  //- .thumbnails(id=`d${i}_thumbs`)!= day.sights
-                  .thumbnails
-                    each sight in day.sights
+                | 景點
+              .sight-container
+                //- span 途徑景點：
+                //- .thumbnails(id=`d${i}_thumbs`)!= day.sights
+                .thumbnails
+                  each sight in day.sights
+                    a(href=sight, data-fancybox=`d${i+1}-sights`)
                       img(src=sight)
-            if day.stay && day.stay !== ""
-              .trip-day-hotel
+          if day.stay && day.stay !== ""
+            .trip-day-hotel
+              .trip-day-sub-title-chip
                 i.other-icon.material-icons hotel
-                div!= day.stay
+                | 酒店
+              div!= day.stay
           if(i < data.tour_plan.length - 1)
             .separator.thin
     

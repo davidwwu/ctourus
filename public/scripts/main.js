@@ -12,10 +12,11 @@ $(function() {
 				$('.swiperControl a').eq(0).addClass('active');
 			}
 		},
-		loop: slideImages.length > 1 ? true : false,
-		// spaceBetween: 25,
+		// loop: slideImages.length > 1 ? true : false,
+		spaceBetween: 25,
+		// slidesPerView: 'auto',
 		centeredSlides: true,
-		autoplay: slideImages.length > 1 ? { delay: 2000 } : false,
+		autoplay: slideImages.length > 1 ? { delay: 5000 } : false,
 	});
 
 	mySwiper.on('slideChangeTransitionStart', function() {

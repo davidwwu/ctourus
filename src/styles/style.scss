@@ -10,7 +10,8 @@ $error: #f65327;
 
 $font-color: #484848;
 $font-color-light: #8b8b8b;
-$theme-color: #B7322A;
+$theme-color: #B92B2B;
+$accent-color: #FF9200;
 $site-background-color: #eeeeee;
 
 $table-border: 1px solid #b1b1b1;
@@ -69,11 +70,11 @@ body {
     border-bottom: $separator-border;
 
     &.thick {
-      margin: 80px 0;
+      margin: 20px 0;
     }
 
     &.thin {
-      margin: 40px 0;
+      margin: 10px 0;
     }
   }
 
@@ -124,7 +125,7 @@ nav *{
 
 .top-bar {
   width: 100%;
-  padding: 10px 20px;
+  padding: 0 20px;
   background-color: $white;
   font-size: 16px;
   
@@ -134,7 +135,7 @@ nav *{
   }
 
   &.title-menu {
-    width: 1200px;
+    max-width: 1200px;
     font-weight: 600;
     margin: 0 auto;
 
@@ -178,16 +179,24 @@ nav *{
   &.tour-menu {
     background-color: $theme-color;
     color: $white;
-    height: 40px;
+    // height: 40px;
 
     >.menu {
       margin: 0 auto;
       background-color: transparent;
       color: inherit;
+      align-self: center;
+
+      .top-bar-menu-item {
+        display: flex;
+        align-items: center;
+      }
 
       > li > a {
+        max-width: 7em;
         color: $white;
       }
+      
       > li > a:after {
         border-color: $white transparent transparent;
       }
@@ -325,11 +334,13 @@ nav *{
 }
 
 .swiper-container {
-  max-width: 1080px;
+  // max-width: 1080px;
   margin-bottom: 45px;
 }
 
 .swiper-slide {
+  // width: 50%
+
   img {
     width: 100%;
   }
@@ -339,21 +350,23 @@ nav *{
   font-size: 0.9em;
 }
 
+.accent-title,
+.filter-title {
+  font-size: 0.93em;
+  line-height: 1;
+  padding: 5px 8px;
+  margin: 0px 5px;
+  border-radius: 3px;
+  background-color: $accent-color;
+  color: $white;
+  box-shadow: $box-shadow-darker;
+}
+
 .filter {
   &-section {
     padding: 2px 5px;
     margin: 3px 5px;
     
-    .filter-title {
-      font-size: 0.93em;
-      line-height: 1;
-      padding: 5px 8px;
-      margin: 0px 5px;
-      border-radius: 3px;
-      background-color: #deac08;
-      color: $white;
-      box-shadow: $box-shadow-darker;
-    }
   }
 
 
@@ -465,6 +478,17 @@ a.card:focus {
     padding: 40px;
   }
 
+  .trip-day-sub-title-chip {
+    width: 5em;
+    height: 32px;
+    border: 2px solid #484848;
+    border-radius: 25px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+
   .trip-day {
     .trip-content-container {
       padding: 0 15px;
@@ -477,7 +501,7 @@ a.card:focus {
       img {
         width: auto;
         height: 80px;
-        margin: 15px 25px 15px 0;
+        margin: 0 25px 0 0;
       }
     }
 
@@ -485,7 +509,7 @@ a.card:focus {
     .trip-day-description,
     .trip-day-photos,
     .trip-day-hotel {
-      padding: 20px;
+      padding: 20px 0;
       display: flex;
     }
 
@@ -514,7 +538,7 @@ a.card:focus {
       background-color: $font-color;
       color: $white;
       border-radius: 20px;
-      margin-right: 20px;
+      margin-right: 5px;
 
       &.material-icons {
         font-size: 20px;

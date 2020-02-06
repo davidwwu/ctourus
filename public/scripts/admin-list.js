@@ -38,8 +38,11 @@ $(function () {
               render: (is_highlight) => `<input class="position-static form-check-input" type="checkbox" ${is_highlight ? 'checked' : ''} readonly/>`,
               className: 'align-center',
             },
-            { data: 'tour_id' },
-            { data: 'menu_name'},
+            {
+              data: 'tour_id',
+              render: (tour_id) => `<a href="/tours/${$(this).data('permalink')}/${tour_id}">${tour_id}</a>`,
+            },
+            { data: 'menu_name' },
             { data: 'name' },
             {
               data: 'duration',
