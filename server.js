@@ -284,6 +284,9 @@ app.post('/admin/image/upload', upload.single('file'), (req, res) => {
 app.post('/admin/slider', [authController.restrict, urlencodedParser], adminController.post_update_slider);
 app.post('/admin/static-pages/:page/save', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save);
 app.post('/admin/static-pages/:page/save-and-quit', [authController.restrict, urlencodedParser], adminController.post_edit_static_page_save_and_quit);
+app.post('/admin/main-menus/add', [authController.restrict, urlencodedParser], adminController.post_add_main_menu);
+app.post('/admin/main-menus/:permalink/edit', [authController.restrict, urlencodedParser], adminController.post_edit_main_menu);
+app.post('/admin/main-menus/:permalink/delete', [authController.restrict, urlencodedParser], adminController.post_delete_main_menu);
 
 app.post('/jwt', [authController.restrict], (req, res) => {
   const payload = {

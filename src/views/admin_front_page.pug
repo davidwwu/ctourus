@@ -1,16 +1,6 @@
 extends _admin_layout.pug
 
 block content
-  if flash.error
-    .alert.alert-danger.alert-dismissible.fade.show(role="alert")
-      .alert-message !{flash.error}
-      button.close(type="button" data-dismiss="alert" aria-label="Close")
-        span(aria-hidden='true') &times;
-  if flash.success
-    .alert.alert-success.alert-dismissible.fade.show(role="alert")
-      .alert-message !{flash.success}
-      button.close(type="button" data-dismiss="alert" aria-label="Close")
-        span(aria-hidden='true') &times;
   .p-4.container
     // New/edit slider 
     //- #slider-modal.mdc-dialog(role='alertdialog' aria-modal='true' aria-labelledby='my-dialog-title')

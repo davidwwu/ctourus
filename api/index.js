@@ -444,10 +444,31 @@ router.post('/admin/:tourId/delete', jsonParser, (req, res) => {
     );
 });
 
-router.post('/admin/add-menu', jsonParser, (req, res) => {
+router.post('/admin/main-menus/add', jsonParser, (req, res) => {
   mdb.collection('tour_menu')
     .insertOne(
+      { ...req.body },
+      (err, msg) => {
+        res.send(msg);
+      },
+    );
+});
+
+router.post('/admin/main-menus/:permalink/edit', jsonParser, (req, res) => {
+  mdb.collection('tour_menu')
+    .updateOne(
+      { permalink: req.body.permalink },
       { $set: req.body },
+      (err, msg) => {
+        res.send(msg);
+      },
+    );
+});
+
+router.post('/admin/main-menus/:permalink/delete', jsonParser, (req, res) => {
+  mdb.collection('tour_menu')
+    .deleteOne(
+      { permalink: req.body.permalink },
       (err, msg) => {
         res.send(msg);
       },

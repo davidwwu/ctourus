@@ -354,3 +354,42 @@ exports.post_update_slider = (req, res) => {
       res.redirect('/admin');
     });
 };
+
+exports.post_add_main_menu = (req, res) => {
+  axios.post(`${serverUrl}/api/admin/main-menus/add`, req.body)
+    .then(({ data }) => {
+      res.flash('success', 'Menu has been added.');
+      res.redirect('/admin/main-menus');
+    })
+    .catch((error) => {
+      console.error(error);
+      res.flash('error', error);
+      res.redirect('/admin/main-menus');
+    });
+};
+
+exports.post_edit_main_menu = (req, res) => {
+  axios.post(`${serverUrl}/api/admin/main-menus/${req.params.permalink}/edit`, req.body)
+    .then(({ data }) => {
+      res.flash('success', 'Menu info has been saved.');
+      res.redirect('/admin/main-menus');
+    })
+    .catch((error) => {
+      console.error(error);
+      res.flash('error', error);
+      res.redirect('/admin/main-menus');
+    });
+};
+
+exports.post_delete_main_menu = (req, res) => {
+  axios.post(`${serverUrl}/api/admin/main-menus/${req.params.permalink}/delete`, req.body)
+    .then(({ data }) => {
+      res.flash('success', 'Menu has been deleted.');
+      res.redirect('/admin/main-menus');
+    })
+    .catch((error) => {
+      console.error(error);
+      res.flash('error', error);
+      res.redirect('/admin/main-menus');
+    });
+};
