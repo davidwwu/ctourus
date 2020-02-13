@@ -7,6 +7,7 @@
     "start": "node server.js",
     "dev-start": "nodemon --inspect server.js",
     "bundle": "npx webpack",
+    "buble": "buble -i public/scripts/admin-main.js -o public/scripts/admin-main-bubled.js && buble -i public/scripts/main.js -o public/scripts/main-bubled.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -40,6 +41,10 @@
     "serve-favicon": "2.5.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "buble": "^0.19.8",
     "eslint": "6.6.0",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
